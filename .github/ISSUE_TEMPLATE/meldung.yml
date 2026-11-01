@@ -1,0 +1,50 @@
+name: Problem im Stadtteil melden
+description: Ein Problem in Buchholz-Kleefeld an den Präventionsrat melden. Die Meldung erscheint erst nach Prüfung auf der Karte.
+title: "[Meldung] "
+labels: ["meldung"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Bitte keine Namen, Kennzeichen oder Fotos von Personen.** Diese Meldung ist öffentlich.
+        Defekte Straßenlampen, Schlaglöcher oder wilden Müll bitte direkt der Stadt melden (Links in der Karte unter „Problem melden“). In Notfällen: 110.
+  - type: dropdown
+    id: thema
+    attributes:
+      label: Thema
+      options:
+        - Beleuchtung / dunkle Wege
+        - Müll / Verschmutzung
+        - Verkehr / Schulweg
+        - Treffpunkt / Aufenthalt / Grünfläche
+        - Zusammenleben / Konflikte
+        - Barrierefreiheit
+        - Sonstiges
+    validations:
+      required: true
+  - type: input
+    id: ort
+    attributes:
+      label: Ort
+      description: Straße, Platz oder Grünfläche
+    validations:
+      required: true
+  - type: input
+    id: koordinaten
+    attributes:
+      label: Koordinaten
+      description: Wird automatisch ausgefüllt, wenn Sie den Ort in der Karte wählen.
+  - type: textarea
+    id: beschreibung
+    attributes:
+      label: Was ist das Problem?
+      description: Wann tritt es auf? Wen betrifft es? Haben Sie eine Idee zur Lösung?
+    validations:
+      required: true
+  - type: checkboxes
+    id: datenschutz
+    attributes:
+      label: Datenschutz
+      options:
+        - label: Meine Meldung enthält keine personenbezogenen Daten anderer Menschen.
+          required: true

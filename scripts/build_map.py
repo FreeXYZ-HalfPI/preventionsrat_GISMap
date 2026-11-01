@@ -61,6 +61,7 @@ def main():
         "boundaries": boundaries,
         "pois": pois,
         "unlit": load("unlit_paths.geojson"),
+        "issues": load("issues.json"),
         "basemap": pack_basemap(load("basemap.json")),
     }
     html = (SRC / "map.template.html").read_text()

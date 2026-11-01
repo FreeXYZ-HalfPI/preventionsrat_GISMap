@@ -1,0 +1,140 @@
+{
+  "_comment": "Themen und Maßnahmen des Präventionsrats. Gepflegt von Hand. type: problem | massnahme. status: offen | in_bearbeitung | umgesetzt. coords [lat, lon] oder null (betrifft den ganzen Stadtbezirk). Nur belegte Einträge mit Quelle aufnehmen, keine personenbezogenen Daten.",
+  "updated": "2026-11-01",
+  "sources": {
+    "pbk2026": {"title": "Tätigkeitsbericht des Präventionsrates, Stadtbezirksrat 03.09.2026", "url": "https://www.hannover.de/content/download/1080489/file/T%C3%A4tigkeitsbericht%20des%20Pr%C3%A4ventionsrates%202026.pdf"},
+    "pbk2025": {"title": "Tätigkeitsbericht PBK, Stadtbezirksrat 13.11.2025", "url": "https://www.hannover.de/content/download/1054440/file/251119%20T%C3%A4tigkeitsbericht%20PBK%20f%C3%BCr%20BezR%20zusammengefasst.pdf"},
+    "pbk2024": {"title": "Präsentation PBK, Stadtbezirksrat 14.11.2024", "url": "https://hannover.de/content/download/1027775/file/241114%20Pr%C3%A4sentation%20PBK%20f%C3%BCr%20BezR%20Zusammengefasst.pdf"},
+    "lichtLHH": {"title": "hannover.de: Neue Beleuchtung im Vahrenwalder Park (Programm Sicherheit und Ordnung im öffentlichen Raum)", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Wirtschaft-und-Umwelt/Fachbereich-Umwelt-und-Stadtgrün/Aktuelle-Informationen-aus-dem-Fachbereich/Archiv/Neue-Beleuchtung-im-Vahrenwalder-Park-in-Betrieb"},
+    "fitness": {"title": "hannover.de: Neuer Fitnessparcours im Grünzug Rehmer Feld", "url": "https://www.hannover.de/Kultur-Freizeit/Naherholung/Raus-in-die-Natur/Bewegen/Fitness%C2%ADparcours-in-Hannover/Neuer-Fitnessparcours-im-Gr%C3%BCnzug-Rehmer-Feld-Buchholz"},
+    "osm": {"title": "OpenStreetMap: Wege mit lit=no", "url": "https://www.openstreetmap.org"}
+  },
+  "items": [
+    {
+      "id": "T1", "type": "problem", "status": "in_bearbeitung", "theme": "beleuchtung",
+      "title": "Bessere Beleuchtung im Grünzug Rehmer Feld",
+      "stadtteil": "Groß-Buchholz", "coords": [52.40014, 9.79677], "approx": true,
+      "summary": "Die AG Wohnen nennt bessere Beleuchtung an Standorten wie dem Rehmer Feld als Sicherheitsthema.",
+      "owner": "AG Wohnen", "since": "2025/26",
+      "next": "Abendliche Begehung mit Anwohnenden, Ergebnisse an Fachbereich Tiefbau und Stadtgrün geben.",
+      "sources": ["pbk2026"]
+    },
+    {
+      "id": "T2", "type": "problem", "status": "in_bearbeitung", "theme": "aufenthalt",
+      "title": "Entsiegelung des Schaperplatzes",
+      "stadtteil": "Kleefeld", "coords": [52.37590, 9.79560], "approx": false,
+      "summary": "Mehr Lebensqualität und ökologische Nachhaltigkeit im Wohnumfeld, zum Beispiel durch Entsiegelung des Schaperplatzes.",
+      "owner": "AG Wohnen", "since": "2025/26",
+      "next": "Ideen der Nachbarschaft sammeln, temporäre Begrünung als Pilot prüfen.",
+      "sources": ["pbk2026"]
+    },
+    {
+      "id": "T3", "type": "problem", "status": "in_bearbeitung", "theme": "muell",
+      "title": "Müll im öffentlichen Raum",
+      "stadtteil": null, "coords": null,
+      "summary": "Seit mindestens 2024 durchgehend Schwerpunktthema der AG Wohnen. Konkrete Orte sind in den Berichten nicht genannt.",
+      "owner": "AG Wohnen", "since": "2024",
+      "next": "Orte über die Meldekarte sammeln, Schwerpunkte mit aha und Wohnungsunternehmen besprechen.",
+      "sources": ["pbk2024", "pbk2025", "pbk2026"]
+    },
+    {
+      "id": "T4", "type": "problem", "status": "in_bearbeitung", "theme": "verkehr",
+      "title": "Verkehrssicherheit, z. B. Tempo-30-Zone",
+      "stadtteil": null, "coords": null,
+      "summary": "Die AG Wohnen setzt sich für mehr Verkehrssicherheit ein, etwa die Einrichtung einer Tempo-30-Zone. Der Ort ist im Bericht nicht genannt.",
+      "owner": "AG Wohnen", "since": "2025",
+      "next": "Gefahrenstellen über die Meldekarte verorten.",
+      "sources": ["pbk2025"]
+    },
+    {
+      "id": "T5", "type": "problem", "status": "offen", "theme": "verkehr",
+      "title": "Barrierefreiheit im Straßenraum",
+      "stadtteil": null, "coords": null,
+      "summary": "Barrierefreiheit und Inklusion im Straßenverkehrsraum fördern.",
+      "owner": "AG Wohnen", "since": "2024",
+      "next": "Begehung mit Senior*innen und Menschen mit Behinderung.",
+      "sources": ["pbk2024"]
+    },
+    {
+      "id": "T6", "type": "problem", "status": "offen", "theme": "beleuchtung",
+      "title": "706 Wegeabschnitte ohne Beleuchtung",
+      "stadtteil": null, "coords": null, "layer": "unlit",
+      "summary": "In OpenStreetMap sind 706 Fuß- und Radwegabschnitte im Bezirk als unbeleuchtet erfasst. Nicht jeder davon ist ein Problem, aber sie zeigen, wo sich Begehungen lohnen.",
+      "owner": "noch nicht zugeordnet", "since": "Datenstand 2026",
+      "next": "Ebene „Unbeleuchtete Wege“ einschalten und Prioritäten für Begehungen festlegen.",
+      "sources": ["osm"]
+    },
+    {
+      "id": "T7", "type": "problem", "status": "umgesetzt", "theme": "beleuchtung",
+      "title": "Beleuchtung Grünverbindung Neue-Land-Straße/Nobelring",
+      "stadtteil": "Groß-Buchholz", "coords": [52.39470, 9.81000], "approx": true,
+      "summary": "Laut Stadt im Programm „Sicherheit und Ordnung im öffentlichen Raum“ mit neuer Beleuchtung ausgestattet. Datum nicht geprüft.",
+      "owner": "Landeshauptstadt Hannover", "since": "",
+      "next": "Bei der nächsten Begehung prüfen, ob die Beleuchtung ausreicht.",
+      "sources": ["lichtLHH"]
+    },
+    {
+      "id": "M1", "type": "massnahme", "status": "umgesetzt", "theme": "gewalt",
+      "title": "Rote Bank Kleefeld gegen häusliche Gewalt",
+      "stadtteil": "Kleefeld", "coords": [52.37157, 9.79236], "approx": false,
+      "summary": "Kirchröder Straße/Uhlhornstraße. Jedes Jahr Aktionsstand zum Internationalen Frauentag und Lebendiger Adventskalender.",
+      "owner": "AG Bildung und Gesundheit", "since": "seit 2024",
+      "next": "QR-Code zur Karte und zu Hilfsangeboten an der Bank anbringen.",
+      "sources": ["pbk2024", "pbk2025"]
+    },
+    {
+      "id": "M2", "type": "massnahme", "status": "umgesetzt", "theme": "gewalt",
+      "title": "Zweite Rote Bank im Heideviertel",
+      "stadtteil": "Heideviertel", "coords": null,
+      "summary": "Eingeweiht am 24.03.2025. Der genaue Standort fehlt noch in der Karte.",
+      "owner": "Präventionsrat", "since": "03/2025",
+      "next": "Standort ergänzen.",
+      "sources": ["pbk2025"]
+    },
+    {
+      "id": "M3", "type": "massnahme", "status": "umgesetzt", "theme": "nachbarschaft",
+      "title": "Mittagstisch für alle im ZeitRaum",
+      "stadtteil": "Groß-Buchholz", "coords": [52.40368, 9.79947], "approx": true,
+      "summary": "Läuferweg. Jeden 1. und 3. Freitag um 12 Uhr Mittagessen für 1 €, gekocht von einer inklusiven Kochgruppe. Mit fünf Partnern seit April 2024.",
+      "owner": "Kooperation mit KSH, spar + bau, SoVD, Aktiv DabeiSein", "since": "04/2024",
+      "next": "",
+      "sources": ["pbk2026"]
+    },
+    {
+      "id": "M4", "type": "massnahme", "status": "umgesetzt", "theme": "nachbarschaft",
+      "title": "Sport im Park",
+      "stadtteil": "Kleefeld", "coords": [52.38657, 9.82370], "approx": true,
+      "summary": "Grünfläche beim GDA-Wohnstift. 2024 mit 26 Terminen von Gymnastik bis Tai-Chi, gemeinsam mit dem MTV Groß-Buchholz. 2025 fortgesetzt.",
+      "owner": "AG Bildung und Gesundheit", "since": "Sommer 2024",
+      "next": "",
+      "sources": ["pbk2024", "pbk2026"]
+    },
+    {
+      "id": "M5", "type": "massnahme", "status": "umgesetzt", "theme": "aufenthalt",
+      "title": "Fitnessparcours im Grünzug Rehmer Feld",
+      "stadtteil": "Groß-Buchholz", "coords": [52.39960, 9.79720], "approx": true,
+      "summary": "Drei Geräte in der Hochbeet-Ecke, aufgestellt auf Vorschlag des Stadtbezirksrats.",
+      "owner": "Stadtbezirksrat / Stadtgrün", "since": "",
+      "next": "",
+      "sources": ["fitness"]
+    },
+    {
+      "id": "M6", "type": "massnahme", "status": "umgesetzt", "theme": "nachbarschaft",
+      "title": "Europäischer Nachbarschaftstag an acht Orten",
+      "stadtteil": null, "coords": null,
+      "summary": "23.05.2025 unter anderem an der Schillerschule, in den Spielarkaden, der Kleiderkammer, im ZeitRaum und beim Spar- und Bauverein.",
+      "owner": "Präventionsrat", "since": "05/2025",
+      "next": "",
+      "sources": ["pbk2025"]
+    },
+    {
+      "id": "M7", "type": "massnahme", "status": "in_bearbeitung", "theme": "nachbarschaft",
+      "title": "AG Demokratie: Konzept mit Schulen",
+      "stadtteil": null, "coords": null,
+      "summary": "Neu aufgebaute AG. Konzept zur Demokratieförderung mit und für Schulen, Workshop an der BBS Cora Berliner.",
+      "owner": "AG Demokratie", "since": "2026",
+      "next": "Mitglieder gewinnen.",
+      "sources": ["pbk2026"]
+    }
+  ]
+}

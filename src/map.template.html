@@ -55,6 +55,7 @@
   color-scheme: dark;
 }
 
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
 .app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
@@ -121,11 +122,94 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
 .leaflet-tooltip.st-label { background: transparent; border: 0; box-shadow: none; color: var(--map-boundary); font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 0 3px var(--map-bg), 0 0 6px var(--map-bg); }
 .leaflet-tooltip.st-label::before { display: none; }
 
+/* tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin: 4px -16px -12px; padding: 0 16px; }
+.tabs button { font: inherit; font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: .02em; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--ink-2); padding: 8px 10px 7px; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs button.proposal-tab { margin-left: auto; color: var(--accent); }
+.tabs button:focus-visible, .btn:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* status + issues */
+:root { --st-offen: #c2410c; --st-bearb: #b7791f; --st-umgesetzt: #2f855a; --st-neu: #6b7280; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #a8b0bc; } }
+:root[data-theme="dark"] { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #a8b0bc; }
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--sc); white-space: nowrap; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sc); }
+.pill.problem::before { border-radius: 1px; transform: rotate(45deg); }
+.btn { font: inherit; font-size: 14px; font-weight: 700; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.small { font-size: 12.5px; padding: 5px 9px; font-weight: 600; }
+.summary-row { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--ink-2); }
+.summary-row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.issues { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.issue { border: 1px solid var(--line); border-left: 4px solid var(--sc); border-radius: 8px; padding: 10px 12px; display: grid; gap: 5px; min-width: 0; }
+.issue h3 { margin: 0; font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; }
+.issue p { margin: 0; font-size: 13.5px; overflow-wrap: anywhere; }
+.issue .meta { font-size: 12.5px; color: var(--ink-2); }
+.issue .next { font-size: 13px; }
+.issue .next b { font-weight: 700; }
+.issue .acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.issue .acts a { font-size: 12.5px; color: var(--accent); }
+.note { font-size: 12.5px; color: var(--ink-2); margin: 0; }
+.imark { width: 22px; height: 22px; box-sizing: border-box; border: 2.5px solid var(--panel); background: var(--sc); box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.imark.problem { transform: rotate(45deg); border-radius: 3px; }
+.imark.massnahme { border-radius: 50%; }
+.imark.live { outline: 2px dashed var(--sc); outline-offset: 2px; }
+
+/* report flow */
+.report { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 10px; background: var(--paper); }
+.report h3 { margin: 0; font-family: var(--font-display); font-size: 18px; }
+.report ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
+.report a { color: var(--accent); }
+.report a.btn { color: var(--accent-ink); }
+.report a.btn.ghost { color: var(--accent); }
+.report .picked { font-size: 13px; font-variant-numeric: tabular-nums; }
+.report .row { display: flex; flex-wrap: wrap; gap: 8px; }
+#map.picking { cursor: crosshair; }
+#map.picking .leaflet-interactive { cursor: crosshair; }
+.pick-hint { position: absolute; z-index: 1000; left: 50%; transform: translateX(-50%); top: max(12px, env(safe-area-inset-top, 0px)); background: var(--ink); color: var(--paper); font-size: 13.5px; padding: 7px 12px; border-radius: 999px; pointer-events: none; }
+
+/* proposal overlay */
+.mapwrap { position: relative; min-width: 0; min-height: 0; }
+.mapwrap #map { position: absolute; inset: 0; }
+.proposal { position: absolute; inset: 0; z-index: 1100; background: var(--paper); overflow-y: auto; }
+.proposal-inner { max-width: 820px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+.proposal header { display: grid; gap: 10px; }
+.proposal h2 { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4vw, 40px); line-height: 1.05; font-weight: 700; text-wrap: balance; }
+.proposal h3 { margin: 0; font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+.proposal p, .proposal li { font-size: 15.5px; line-height: 1.55; max-width: 68ch; }
+.proposal p { margin: 0; }
+.proposal .close { justify-self: start; }
+.proposal section { display: grid; gap: 12px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1000px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fact { border-top: 3px solid var(--accent); padding-top: 8px; display: grid; gap: 2px; }
+.fact b { font-family: var(--font-display); font-size: 26px; font-variant-numeric: tabular-nums; line-height: 1; }
+.fact span { font-size: 13px; color: var(--ink-2); }
+.vienna { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.vienna div { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; background: var(--panel); }
+.vienna h4 { margin: 0; font-family: var(--font-display); font-size: 18px; }
+.vienna p { font-size: 14px; }
+.vienna .for-us { font-size: 13.5px; color: var(--accent); font-weight: 700; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: step; }
+.steps > li { display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; max-width: none; }
+.steps > li::before { counter-increment: step; content: counter(step); grid-row: span 3; font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--accent); line-height: 1; }
+.steps h4 { margin: 0; font-family: var(--font-display); font-size: 19px; }
+.steps p { font-size: 14.5px; }
+.steps .tags { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 12.5px; color: var(--ink-2); align-items: center; }
+.timeline { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
+.timeline div { padding: 0 0 14px 18px; position: relative; }
+.timeline div::before { content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.timeline b { font-family: var(--font-display); font-size: 16px; display: block; }
+.timeline span { font-size: 14px; }
+.src-list { font-size: 13px; color: var(--ink-2); display: grid; gap: 4px; padding-left: 18px; margin: 0; }
+.src-list a { color: var(--accent); overflow-wrap: anywhere; }
+
 .sheet-toggle { display: none; }
 
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
-  #map { grid-row: 1; }
+  .mapwrap { grid-row: 1; }
   .panel { grid-row: 2; border-right: 0; border-top: 1px solid var(--line); max-height: 58vh; }
   .panel.collapsed .panel-body, .panel.collapsed .lede { display: none; }
   .panel-head { padding-block: 10px; padding-right: max(16px, env(safe-area-inset-right, 0px)); grid-template-columns: 1fr auto; align-items: center; }
@@ -145,7 +229,30 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
         <h1>Präventionsatlas Buchholz-Kleefeld</h1>
       </div>
       <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
-      <p class="lede">Anlaufstellen, Treffpunkte und Orte im Stadtbezirk, die für Prävention und Sicherheit wichtig sind. Klicken Sie einen Punkt an, um Details zu sehen.</p>
+      <p class="lede">Anlaufstellen, Treffpunkte und Themen im Stadtbezirk. Klicken Sie einen Punkt an, um Details zu sehen, oder melden Sie ein Problem.</p>
+      <div class="tabs" role="tablist" aria-label="Ansicht">
+        <button type="button" role="tab" id="tab-orte" data-view="orte" aria-selected="true">Orte</button>
+        <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false">Themen &amp; Probleme</button>
+        <button type="button" class="proposal-tab" id="openProposal">Vorschlag</button>
+      </div>
+    </div>
+    <div class="panel-body" id="viewThemen" hidden>
+      <div class="summary-row" id="issueSummary"></div>
+      <button class="btn" type="button" id="reportBtn">Problem melden</button>
+      <section class="report" id="reportBox" hidden></section>
+      <section>
+        <div class="group-label">Status</div>
+        <div class="seg" id="statusFilter" role="group" aria-label="Nach Status filtern"></div>
+      </section>
+      <section>
+        <div class="group-label">Art</div>
+        <div class="seg" id="typeFilter" role="group" aria-label="Nach Art filtern"></div>
+      </section>
+      <ul class="issues" id="issueList"></ul>
+      <p class="note" id="liveNote"></p>
+      <footer class="foot">
+        Themen und Maßnahmen stammen aus den Tätigkeitsberichten des Präventionsrats an den Stadtbezirksrat, Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
+      </footer>
     </div>
     <div class="panel-body" id="panelBody">
       <section>
@@ -172,7 +279,131 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
       </footer>
     </div>
   </aside>
-  <div id="map" role="region" aria-label="Karte des Stadtbezirks"></div>
+  <div class="mapwrap">
+    <div id="map" role="region" aria-label="Karte des Stadtbezirks"></div>
+    <div class="pick-hint" id="pickHint" hidden>Tippen Sie auf den Ort des Problems</div>
+    <article class="proposal" id="proposal" hidden aria-labelledby="propTitle">
+      <div class="proposal-inner">
+        <button class="btn ghost close" type="button" id="closeProposal">← Zurück zur Karte</button>
+        <header>
+          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026</div>
+          <h2 id="propTitle">Vom Gremium zur Anlaufstelle: was Buchholz-Kleefeld von Wien lernen kann</h2>
+          <p>Der Präventionsrat überprüft 2026 gemeinsam mit dem Landespräventionsrat seine Struktur und Handlungsfelder, auch um attraktiver für neue Mitglieder zu werden. Dieser Vorschlag zeigt sechs Bausteine, mit denen der Rat sichtbarer wird, Probleme der Nachbarschaft schneller aufnimmt und mehr Menschen beteiligt. Alle Bausteine nutzen, was es im Stadtbezirk schon gibt.</p>
+        </header>
+
+        <section aria-labelledby="h-lage">
+          <h3 id="h-lage">Ausgangslage</h3>
+          <div class="facts">
+            <div class="fact"><b>seit 2013</b><span>besteht der Präventionsrat</span></div>
+            <div class="fact"><b>3–10</b><span>Mitglieder je Arbeitsgruppe (2026)</span></div>
+            <div class="fact"><b>3–6</b><span>Sitzungen je AG und Jahr</span></div>
+            <div class="fact"><b>47.502</b><span>Einwohner*innen in drei Stadtteilen</span></div>
+          </div>
+          <p>Wiederkehrende Themen der AG Wohnen sind Müll im öffentlichen Raum, Beleuchtung (etwa im Rehmer Feld), Verkehrssicherheit und die Aufenthaltsqualität, zum Beispiel am Schaperplatz. Es gibt aber keinen festen Weg, auf dem Anwohnende solche Probleme melden und verfolgen können, und die Ergebnisse der AGs sind öffentlich kaum sichtbar.</p>
+        </section>
+
+        <section aria-labelledby="h-wien">
+          <h3 id="h-wien">Was Wien anders macht</h3>
+          <div class="vienna">
+            <div>
+              <h4>Sag's Wien</h4>
+              <p>Eine App, mit der alle Probleme im öffentlichen Raum melden. Meldungen liegen auf einer Karte, der Status ist sichtbar (angenommen, in Bearbeitung, erledigt). 2023 gingen rund 93.000 Anliegen ein.</p>
+              <span class="for-us">Bei uns: der Präventionsatlas als Meldekarte</span>
+            </div>
+            <div>
+              <h4>Grätzlpolizei &amp; Sicherheitsforum</h4>
+              <p>Seit 2017 in allen Bezirken: feste Ansprechpersonen der Polizei für die Nachbarschaft. Für konkrete Probleme rufen sie ein Sicherheitsforum mit allen Zuständigen zusammen.</p>
+              <span class="for-us">Bei uns: Sicherheitsforum mit der Polizeistation Kleefeld</span>
+            </div>
+            <div>
+              <h4>Fair-Play-Teams</h4>
+              <p>Seit 2010 sind geschulte Teams in Parks und auf Plätzen unterwegs, sprechen Menschen an und vermitteln bei Konflikten. Die Bezirke finanzieren sie, die Stadt steuert zentral.</p>
+              <span class="for-us">Bei uns: Sommer-Teams in den Grünzügen</span>
+            </div>
+            <div>
+              <h4>Grätzloase</h4>
+              <p>Seit 2015 über 1.000 Aktionen: Anwohnende gestalten Parkplätze und Plätze selbst um und bekommen dafür eine kleine Förderung, wenn sie sich um den Ort kümmern.</p>
+              <span class="for-us">Bei uns: Nachbarschafts-Oasen am Schaperplatz</span>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-plan">
+          <h3 id="h-plan">Sechs Bausteine für Buchholz-Kleefeld</h3>
+          <ol class="steps">
+            <li>
+              <h4>Meldekarte statt Beschwerden im Flur</h4>
+              <p>Anwohnende melden Probleme direkt in dieser Karte. Die AG Wohnen prüft die Meldungen einmal im Monat, gibt Schäden an die Stadt weiter (Mängelhinweiskarte, Störung Straßenbeleuchtung) und setzt einen sichtbaren Status. So sieht jede*r, dass etwas passiert.</p>
+              <div class="tags"><span>Vorbild: Sag's Wien</span><span>Aufwand: gering</span><button class="btn small ghost" type="button" data-go="report">Meldung ausprobieren</button></div>
+            </li>
+            <li>
+              <h4>Sicherheitsforum zweimal im Jahr</h4>
+              <p>Ein offener Abend zu den drei häufigsten Themen der Karte, mit Polizeistation Kleefeld, Stadtbezirksmanagement, den zuständigen Fachbereichen, aha und den Wohnungsunternehmen. Am Ende steht eine Liste mit Maßnahmen und Zuständigen, die in die Karte übernommen wird.</p>
+              <div class="tags"><span>Vorbild: Wiener Sicherheitsforum</span><span>Aufwand: mittel</span></div>
+            </li>
+            <li>
+              <h4>Abendbegehungen an dunklen Orten</h4>
+              <p>Gemeinsam mit Frauen, Senior*innen und Jugendlichen abends die Wege ablaufen, die sich unsicher anfühlen. Start im Grünzug Rehmer Feld. Die Karte kennt 706 unbeleuchtete Wegeabschnitte als Ausgangspunkt.</p>
+              <div class="tags"><span>Aufwand: gering</span><button class="btn small ghost" type="button" data-go="unlit">Dunkle Wege zeigen</button></div>
+            </li>
+            <li>
+              <h4>Sommer-Teams in den Grünzügen</h4>
+              <p>Von Juni bis September an festen Tagen ansprechbar sein, wo Menschen sich treffen: Grünzug Roderbruch, Rehmer Feld, Grünfläche beim GDA. Zusammen mit dem Jugendzentrum Roderbruch, der Jugendarbeit und „Sport im Park“, das es schon gibt.</p>
+              <div class="tags"><span>Vorbild: Fair-Play-Teams</span><span>Aufwand: mittel</span><button class="btn small ghost" type="button" data-go="roderbruch">Grünzug zeigen</button></div>
+            </li>
+            <li>
+              <h4>Nachbarschafts-Oasen</h4>
+              <p>Ein kleiner Topf aus den Zuwendungsmitteln des Stadtbezirksrats, aus dem Anwohnende Mitmachprojekte im öffentlichen Raum bezahlen: Hochbeete, Bänke, Pflanzaktionen. Pilot: der Schaperplatz, dessen Entsiegelung die AG Wohnen ohnehin anstrebt.</p>
+              <div class="tags"><span>Vorbild: Grätzloase</span><span>Aufwand: mittel</span><button class="btn small ghost" type="button" data-go="schaperplatz">Schaperplatz zeigen</button></div>
+            </li>
+            <li>
+              <h4>Mitmachen ohne Dauermitgliedschaft</h4>
+              <p>Offene AG-Sitzungen an wechselnden Orten (ZeitRaum, Bürgerhaus Groß-Buchholz, Kulturtreff Roderbruch). Mitarbeit für ein einzelnes Projekt statt für Jahre. QR-Codes an den Roten Bänken und in Aushängen führen zur Karte. Die AG Demokratie bindet Schulen ein.</p>
+              <div class="tags"><span>Aufwand: gering</span></div>
+            </li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="h-zeit">
+          <h3 id="h-zeit">Fahrplan</h3>
+          <div class="timeline">
+            <div><b>Winter 2026/27</b><span>Karte und Meldeweg im Präventionsrat und im Stadtbezirksrat vorstellen, Zuständigkeit für die monatliche Prüfung festlegen.</span></div>
+            <div><b>Frühjahr 2027</b><span>Erste Abendbegehung im Rehmer Feld, erstes Sicherheitsforum.</span></div>
+            <div><b>Sommer 2027</b><span>Sommer-Teams zusammen mit „Sport im Park“, Aufruf für Nachbarschafts-Oasen.</span></div>
+            <div><b>November 2027</b><span>Wirkungsbericht im Stadtbezirksrat: Meldungen, erledigte Themen, neue Mitwirkende.</span></div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-mess">
+          <h3 id="h-mess">Woran wir Erfolg messen</h3>
+          <ul>
+            <li>Zahl der Meldungen pro Monat und Anteil, der innerhalb von 30 Tagen einen Status bekommt</li>
+            <li>Zahl der Themen, die von „offen“ auf „umgesetzt“ wechseln</li>
+            <li>Teilnehmende an Begehungen und Foren</li>
+            <li>Neue Mitwirkende in den Arbeitsgruppen</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="h-ds">
+          <h3 id="h-ds">Datenschutz und Fairness</h3>
+          <p>Die Karte zeigt keine Personen und keine einzelnen Straftaten. Inhalte aus geschlossenen Plattformen wie nebenan.de werden nicht übernommen. Meldungen erscheinen erst nach Prüfung, Namen und Fotos von Menschen werden entfernt. So bleibt die Karte ein Werkzeug für Lösungen und stigmatisiert keine Nachbarschaft.</p>
+        </section>
+
+        <section aria-labelledby="h-q">
+          <h3 id="h-q">Quellen</h3>
+          <ol class="src-list">
+            <li><a href="https://www.hannover.de/content/download/1080489/file/T%C3%A4tigkeitsbericht%20des%20Pr%C3%A4ventionsrates%202026.pdf" target="_blank" rel="noopener">Tätigkeitsbericht des Präventionsrats 2026</a>, <a href="https://www.hannover.de/content/download/1054440/file/251119%20T%C3%A4tigkeitsbericht%20PBK%20f%C3%BCr%20BezR%20zusammengefasst.pdf" target="_blank" rel="noopener">2025</a> und <a href="https://hannover.de/content/download/1027775/file/241114%20Pr%C3%A4sentation%20PBK%20f%C3%BCr%20BezR%20Zusammengefasst.pdf" target="_blank" rel="noopener">2024</a></li>
+            <li><a href="https://www.hannover.de/Leben-in-der-Region-Hannover/Bürger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Präventionsrat-Buchholz-Kleefeld" target="_blank" rel="noopener">Präventionsrat Buchholz-Kleefeld auf hannover.de</a></li>
+            <li><a href="https://www.wien.gv.at/sagswien/" target="_blank" rel="noopener">Stadt Wien: Sag's Wien</a></li>
+            <li><a href="https://wien.orf.at/v2/news/stories/2788515/" target="_blank" rel="noopener">ORF Wien: Start für Wiens Grätzlpolizisten</a></li>
+            <li><a href="https://www.wien.gv.at/freizeit/bildungjugend/fair-play/" target="_blank" rel="noopener">Stadt Wien: Fair-Play-Teams</a></li>
+            <li><a href="https://www.bundeskanzleramt.gv.at/themen/nachhaltige-entwicklung-agenda-2030/erfolgsgeschichten-agenda-2023/erfolgsgeschichten-aus-2026/aktionsprogramm-graetzloase.html" target="_blank" rel="noopener">Bundeskanzleramt: Aktionsprogramm Grätzloase</a></li>
+          </ol>
+        </section>
+        <button class="btn ghost close" type="button" data-close>← Zurück zur Karte</button>
+      </div>
+    </article>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -218,7 +449,7 @@ const bounds = L.geoJSON(bezirk).getBounds();
 map.fitBounds(bounds, { padding: [10, 10] });
 map.setMaxBounds(bounds.pad(0.6));
 
-const panes = ["base", "bounds", "unlit", "pois"];
+const panes = ["base", "bounds", "unlit", "pois", "issues"];
 panes.forEach((p, i) => { map.createPane(p); map.getPane(p).style.zIndex = 300 + i * 50; });
 map.getPane("base").style.pointerEvents = "none";
 const baseR = L.canvas({ pane: "base", padding: 0.5 });
@@ -340,7 +571,7 @@ const DISTRICTS = ["alle", ...stadtteile.map(f => f.properties.name).sort()];
 $("districts").innerHTML = DISTRICTS.map(d => `<button type="button" data-d="${esc(d)}">${d === "alle" ? "Ganzer Bezirk" : esc(d)}</button>`).join("");
 $("districts").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  state.district = b.dataset.d; save(); drawBounds(); render();
+  state.district = b.dataset.d; save(); drawBounds(); render(); if (typeof renderIssues === "function") renderIssues();
   const f = stadtteile.find(s => s.properties.name === state.district) || bezirk;
   map.flyToBounds(L.geoJSON(f).getBounds(), { padding: [20, 20], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.6 });
 });
@@ -410,6 +641,221 @@ function setSheet(open) {
 $("sheetToggle").addEventListener("click", () => setSheet($("panel").classList.contains("collapsed")));
 if (matchMedia("(max-width: 760px)").matches) setSheet(false);
 
+// ---------- Themen, Meldungen, Vorschlag ----------
+const REPO = "FreeXYZ-HalfPI/preventionsrat_GISMap";
+const URL_LICHT = "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Tiefbau/Service/St%C3%B6rungen-der-Stra%C3%9Fenbeleuchtung-melden";
+const URL_MAENGEL = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/B%C3%BCrger-Service-in-der-Landeshauptstadt-Hannover/Ideen-und-Beschwerden/M%C3%A4ngelhinweiskarte";
+const URL_PBK = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Pr%C3%A4ventionsrat-Buchholz-Kleefeld";
+const STATUS = { offen: ["Offen", "--st-offen"], in_bearbeitung: ["In Bearbeitung", "--st-bearb"], umgesetzt: ["Umgesetzt", "--st-umgesetzt"] };
+const ISS = DATA.issues;
+const iState = { status: "alle", type: "alle" };
+let liveIssues = [];
+
+function inRing(x, y, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i], [xj, yj] = ring[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+const stadtteilAt = (lat, lon) => (stadtteile.find(f => f.geometry.coordinates.some(p => inRing(lon, lat, p[0]))) || {}).properties?.name || null;
+const inBezirk = (lat, lon) => bezirk.geometry.coordinates.some(p => inRing(lon, lat, p[0]));
+
+const allIssues = () => [...ISS.items, ...liveIssues];
+function filteredIssues() {
+  return allIssues().filter(it =>
+    (iState.status === "alle" || it.status === iState.status) &&
+    (iState.type === "alle" || it.type === iState.type) &&
+    (state.district === "alle" || !it.stadtteil || it.stadtteil === state.district));
+}
+const pill = it => `<span class="pill ${it.type}" style="--sc:var(${STATUS[it.status][1]})">${it.type === "problem" ? (it.live ? "Meldung" : "Problem") : "Maßnahme"} · ${STATUS[it.status][0]}</span>`;
+const srcLinks = it => it.live
+  ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">Meldung #${esc(it.number)} auf GitHub</a>`
+  : (it.sources || []).map(k => ISS.sources[k]).filter(Boolean).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
+
+function issuePopup(it) {
+  return `<div class="pop" style="--cc:var(${STATUS[it.status][1]})">${pill(it)}<div class="pop-name">${esc(it.title)}</div>
+    <p style="margin:0 0 6px">${esc(it.summary)}</p>
+    <dl>${it.stadtteil ? `<dt>Stadtteil</dt><dd>${esc(it.stadtteil)}</dd>` : ""}${it.owner ? `<dt>Zuständig</dt><dd>${esc(it.owner)}</dd>` : ""}${it.since ? `<dt>Seit</dt><dd>${esc(it.since)}</dd>` : ""}${it.next ? `<dt>Nächster Schritt</dt><dd>${esc(it.next)}</dd>` : ""}</dl>
+    ${it.approx ? `<div class="src">Lage ungefähr.</div>` : ""}<div class="src">Quelle: ${srcLinks(it)}</div></div>`;
+}
+
+const issueGroup = L.layerGroup().addTo(map);
+const issueMarkers = {};
+function drawIssues() {
+  issueGroup.clearLayers();
+  for (const it of filteredIssues()) {
+    if (!it.coords) continue;
+    const icon = L.divIcon({ className: "", html: `<div class="imark ${it.type}${it.live ? " live" : ""}" style="--sc:var(${STATUS[it.status][1]})"></div>`, iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -10] });
+    const m = L.marker(it.coords, { icon, pane: "issues", title: it.title, keyboard: true }).bindPopup(() => issuePopup(it), { maxWidth: 300 });
+    issueGroup.addLayer(m); issueMarkers[it.id] = m;
+  }
+}
+
+function renderIssueFilters() {
+  const all = allIssues();
+  const cnt = f => all.filter(f).length;
+  const seg = (el, opts, key) => {
+    $(el).innerHTML = opts.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${iState[key] === v}">${l}</button>`).join("");
+  };
+  seg("statusFilter", [["alle", "Alle"], ["offen", `Offen (${cnt(i => i.status === "offen")})`], ["in_bearbeitung", `In Bearbeitung (${cnt(i => i.status === "in_bearbeitung")})`], ["umgesetzt", `Umgesetzt (${cnt(i => i.status === "umgesetzt")})`]], "status");
+  seg("typeFilter", [["alle", "Alle"], ["problem", "Probleme"], ["massnahme", "Maßnahmen"]], "type");
+  $("issueSummary").innerHTML = `<span><b>${cnt(i => i.type === "problem" && !i.live)}</b> Themen</span><span><b>${cnt(i => i.type === "massnahme")}</b> Maßnahmen</span><span><b>${liveIssues.length}</b> geprüfte Meldungen</span>`;
+}
+function renderIssues() {
+  renderIssueFilters();
+  const order = { offen: 0, in_bearbeitung: 1, umgesetzt: 2 };
+  const list = filteredIssues().sort((a, b) => order[a.status] - order[b.status] || (a.type > b.type ? 1 : -1));
+  $("issueList").innerHTML = list.map(it => `<li class="issue" style="--sc:var(${STATUS[it.status][1]})">
+      ${pill(it)}<h3>${esc(it.title)}</h3>
+      <div class="meta">${[it.stadtteil || "ganzer Stadtbezirk", it.owner, it.since].filter(Boolean).map(esc).join(" · ")}</div>
+      <p>${esc(it.summary)}</p>
+      ${it.next ? `<p class="next"><b>Nächster Schritt:</b> ${esc(it.next)}</p>` : ""}
+      <div class="acts">${it.coords ? `<button class="btn small ghost" type="button" data-show="${esc(it.id)}">Auf Karte</button>` : ""}${it.layer === "unlit" ? `<button class="btn small ghost" type="button" data-layer="unlit">Ebene zeigen</button>` : ""}<span class="meta">Quelle: ${srcLinks(it)}</span></div>
+    </li>`).join("") || `<li class="note">Keine Einträge für diese Auswahl.</li>`;
+  drawIssues();
+}
+$("statusFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { iState.status = b.dataset.v; renderIssues(); } });
+$("typeFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { iState.type = b.dataset.v; renderIssues(); } });
+$("issueList").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.show) showIssue(b.dataset.show);
+  if (b.dataset.layer === "unlit") showUnlit();
+});
+function showIssue(id) {
+  const it = allIssues().find(i => i.id === id), m = issueMarkers[id];
+  if (!it || !m) return;
+  map.setView(it.coords, Math.max(map.getZoom(), 16), { animate: false });
+  m.openPopup();
+  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+}
+function showUnlit() {
+  state.unlit = true; save(); drawUnlit(); render();
+  map.setView([52.40014, 9.79677], 16, { animate: false });
+  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+}
+
+// live reports from GitHub issues: only those the Präventionsrat has reviewed (label geprueft, in-bearbeitung or umgesetzt)
+function field(body, label) {
+  const m = new RegExp("### " + label + "\\s*\\n+([\\s\\S]*?)(?=\\n### |$)").exec(body || "");
+  const v = m ? m[1].trim() : "";
+  return v === "_No response_" ? "" : v;
+}
+function parseIssue(i) {
+  const names = i.labels.map(l => l.name);
+  const c = /(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/.exec(field(i.body, "Koordinaten"));
+  const coords = c ? [+c[1], +c[2]] : null;
+  const desc = field(i.body, "Was ist das Problem\\?");
+  return {
+    id: "GH" + i.number, number: i.number, live: true, url: i.html_url, type: "problem",
+    status: names.includes("umgesetzt") || i.state === "closed" ? "umgesetzt" : names.includes("in-bearbeitung") ? "in_bearbeitung" : "offen",
+    title: i.title.replace(/^\[Meldung\]\s*/, "") || field(i.body, "Ort") || "Meldung",
+    summary: [field(i.body, "Thema"), field(i.body, "Ort"), desc.length > 280 ? desc.slice(0, 277) + "…" : desc].filter(Boolean).join(" · "),
+    stadtteil: coords ? stadtteilAt(coords[0], coords[1]) : null, coords: coords && inBezirk(coords[0], coords[1]) ? coords : null,
+    owner: "Präventionsrat", since: new Date(i.created_at).toLocaleDateString("de-DE"), next: "",
+  };
+}
+async function loadLive() {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=meldung&state=all&per_page=100`, { headers: { Accept: "application/vnd.github+json" } });
+    if (!r.ok) throw new Error(r.status);
+    const list = (await r.json()).filter(i => !i.pull_request);
+    const ok = i => i.labels.some(l => ["geprueft", "in-bearbeitung", "umgesetzt"].includes(l.name));
+    liveIssues = list.filter(ok).map(parseIssue);
+    const pending = list.filter(i => i.state === "open" && !ok(i)).length;
+    $("liveNote").textContent = pending ? `${pending} neue Meldung${pending > 1 ? "en werden" : " wird"} gerade geprüft.` : "";
+    renderIssues();
+  } catch (e) {
+    $("liveNote").textContent = "Geprüfte Meldungen von Anwohnenden erscheinen in der öffentlichen Version der Karte.";
+  }
+}
+
+// report flow
+let pickMarker = null;
+function reportStart() {
+  const box = $("reportBox"); box.hidden = false;
+  box.innerHTML = `<h3>Problem melden</h3>
+    <ol>
+      <li><b>Notfall?</b> Polizei 110, Feuerwehr und Rettung 112.</li>
+      <li><b>Straßenlampe defekt?</b> <a href="${URL_LICHT}" target="_blank" rel="noopener">Direkt der Stadt melden</a></li>
+      <li><b>Schlagloch, Schaden, wilder Müll?</b> <a href="${URL_MAENGEL}" target="_blank" rel="noopener">Mängelhinweiskarte der Stadt</a></li>
+      <li><b>Alles andere</b>, etwa eine dunkle Ecke, ein Ort mit Konflikten, ein gefährlicher Schulweg oder eine Idee: an den Präventionsrat.</li>
+    </ol>
+    <div class="row"><button class="btn" type="button" id="pickBtn">Ort in der Karte wählen</button><button class="btn ghost" type="button" id="cancelReport">Abbrechen</button></div>`;
+}
+function reportCancel() {
+  $("reportBox").hidden = true; $("map").classList.remove("picking"); $("pickHint").hidden = true;
+  map.off("click", onPick);
+  if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
+}
+function startPick() {
+  $("map").classList.add("picking"); $("pickHint").hidden = false;
+  map.closePopup(); map.off("click", onPick); map.on("click", onPick);
+  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+}
+function onPick(e) {
+  const { lat, lng } = e.latlng;
+  if (!inBezirk(lat, lng)) { $("pickHint").textContent = "Dieser Ort liegt außerhalb des Stadtbezirks. Bitte innerhalb der Grenze tippen."; return; }
+  map.off("click", onPick); $("map").classList.remove("picking"); $("pickHint").hidden = true;
+  $("pickHint").textContent = "Tippen Sie auf den Ort des Problems";
+  const st = stadtteilAt(lat, lng) || "Buchholz-Kleefeld";
+  const ll = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  if (pickMarker) map.removeLayer(pickMarker);
+  pickMarker = L.marker([lat, lng], { pane: "issues", icon: L.divIcon({ className: "", html: `<div class="imark problem" style="--sc:var(--accent)"></div>`, iconSize: [18, 18], iconAnchor: [9, 9] }) }).addTo(map);
+  const gh = `https://github.com/${REPO}/issues/new?template=meldung.yml&title=${encodeURIComponent("[Meldung] " + st + ": ")}&ort=${encodeURIComponent(st)}&koordinaten=${encodeURIComponent(ll)}`;
+  const osm = `https://www.openstreetmap.org/?mlat=${lat.toFixed(5)}&mlon=${lng.toFixed(5)}#map=18/${lat.toFixed(5)}/${lng.toFixed(5)}`;
+  const text = `Meldung an den Präventionsrat Buchholz-Kleefeld\nStadtteil: ${st}\nKoordinaten: ${ll}\nKarte: ${osm}\n\nThema:\nWas ist das Problem?\n`;
+  $("reportBox").innerHTML = `<h3>Ort gewählt</h3>
+    <p class="picked">${esc(st)} · ${ll}</p>
+    <div class="row"><a class="btn" href="${esc(gh)}" target="_blank" rel="noopener">Meldung auf GitHub schreiben</a><button class="btn ghost" type="button" id="copyReport">Text kopieren</button></div>
+    <p class="note">GitHub braucht ein kostenloses Konto. Ohne Konto: Text kopieren und an das Stadtbezirksmanagement schicken, die Kontaktdaten stehen auf der <a href="${URL_PBK}" target="_blank" rel="noopener">Seite des Präventionsrats</a>. Bitte keine Namen oder Fotos von Personen.</p>
+    <textarea id="reportText" readonly rows="6" style="width:100%;box-sizing:border-box;font:inherit;font-size:12.5px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px" hidden>${esc(text)}</textarea>
+    <div class="row"><button class="btn small ghost" type="button" id="pickBtn">Anderen Ort wählen</button><button class="btn small ghost" type="button" id="cancelReport">Fertig</button></div>`;
+  if (matchMedia("(max-width: 760px)").matches) setSheet(true);
+}
+$("reportBtn").addEventListener("click", reportStart);
+$("reportBox").addEventListener("click", async e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.id === "pickBtn") startPick();
+  if (b.id === "cancelReport") reportCancel();
+  if (b.id === "copyReport") {
+    const ta = $("reportText");
+    try { await navigator.clipboard.writeText(ta.value); b.textContent = "Kopiert"; }
+    catch (err) { ta.hidden = false; ta.focus(); ta.select(); b.textContent = "Text markiert, bitte kopieren"; }
+  }
+});
+
+// views: tabs + proposal overlay
+function setView(v) {
+  document.querySelectorAll(".tabs [role=tab]").forEach(t => t.setAttribute("aria-selected", t.dataset.view === v));
+  $("panelBody").hidden = v !== "orte";
+  $("viewThemen").hidden = v !== "themen";
+  if (v !== "themen") reportCancel();
+  // in the Themen view only issues are shown, so they don't drown among the places
+  v === "themen" ? map.removeLayer(poiGroup) : poiGroup.addTo(map);
+}
+document.querySelectorAll(".tabs [role=tab]").forEach(t => t.addEventListener("click", () => { setView(t.dataset.view); setSheet(true); }));
+function openProposal() { $("proposal").hidden = false; $("proposal").scrollTop = 0; $("propTitle").setAttribute("tabindex", "-1"); $("propTitle").focus(); }
+function closeProposal() { $("proposal").hidden = true; map.invalidateSize(); }
+$("openProposal").addEventListener("click", openProposal);
+$("proposal").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.id === "closeProposal" || b.hasAttribute("data-close")) closeProposal();
+  const go = b.dataset.go; if (!go) return;
+  closeProposal();
+  if (go === "report") { setView("themen"); setSheet(true); reportStart(); }
+  if (go === "unlit") showUnlit();
+  if (go === "roderbruch") map.setView([52.39296, 9.81052], 16, { animate: false });
+  if (go === "schaperplatz") { setView("themen"); renderIssues(); showIssue("T2"); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("proposal").hidden) closeProposal(); });
+
+$("issuesAsof").textContent = new Date(ISS.updated).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+const startHash = location.hash.slice(1);
+if (startHash === "themen") setView("themen");
+if (startHash === "vorschlag") openProposal();
+
 $("asof").textContent = new Date(DATA.meta.fetched).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
 
 function restyle() { drawBase(); drawBounds(); drawUnlit(); styleMarkers(); }
@@ -419,6 +865,6 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", restyle);
 // the container may have no size yet at init; fit once layout has settled
 const fitHome = () => { map.invalidateSize(); map.fitBounds(bounds, { padding: [10, 10] }); lastZ = Math.floor(map.getZoom()); };
 fitHome();
-restyle(); render();
+restyle(); render(); renderIssues(); loadLive();
 requestAnimationFrame(() => { fitHome(); drawBase(); });
 </script>
