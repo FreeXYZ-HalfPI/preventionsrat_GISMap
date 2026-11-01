@@ -1,0 +1,424 @@
+<title>Präventionsatlas Buchholz-Kleefeld</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
+<style>/*__LEAFLET_CSS__*/</style>
+<style>
+/* Layout: full-height map, docked side panel (desktop) / pull-up sheet (phone). Palette: Hannover-ish civic green on cool paper, category hues tuned for both themes. */
+:root {
+  --paper: #f3f5f2;
+  --panel: #ffffff;
+  --ink: #18231d;
+  --ink-2: #4c5a52;
+  --line: #d7ddd8;
+  --accent: #1f6e4a;
+  --accent-ink: #ffffff;
+  --map-bg: #eef0ea;
+  --map-road: #ffffff;
+  --map-road-major: #f6dfa6;
+  --map-road-edge: #c9cdc4;
+  --map-path: #b2b6ad;
+  --map-building: #dcdcd4;
+  --map-green: #cfe3c2;
+  --map-forest: #b9d6a8;
+  --map-water: #a9cbe3;
+  --map-rail: #8c8f88;
+  --map-boundary: #1f6e4a;
+  --map-unlit: #c2410c;
+  --font-display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --c-jugend: #d9480f; --c-bildung: #1c64c8; --c-soziales: #8e3fb5; --c-sicherheit: #c81e3a;
+  --c-gesundheit: #0f8a7e; --c-spielplatz: #e0a100; --c-sport: #3f8f2a; --c-gruen: #5b7f3a;
+  --c-religion: #7a6650; --c-oepnv: #3d5a80; --c-nachtleben: #b8336a; --c-infra: #6b7280;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121815; --panel: #19211d; --ink: #e5ece7; --ink-2: #9fb0a6; --line: #2c3731;
+  --accent: #5cc595; --accent-ink: #0b1a12;
+  --map-bg: #1a201c; --map-road: #3a423d; --map-road-major: #6b5d36; --map-road-edge: #262d29; --map-path: #4d5650;
+  --map-building: #2a312d; --map-green: #1f3324; --map-forest: #1c3a22; --map-water: #1d3a52; --map-rail: #6f7570;
+  --map-boundary: #5cc595; --map-unlit: #fb923c;
+  --c-jugend: #ff8a4c; --c-bildung: #6aa8ff; --c-soziales: #c78bea; --c-sicherheit: #ff6b81;
+  --c-gesundheit: #3fd0c0; --c-spielplatz: #ffd24d; --c-sport: #7fd160; --c-gruen: #a3c57d;
+  --c-religion: #c9b08f; --c-oepnv: #8fb2dd; --c-nachtleben: #f27bb0; --c-infra: #a8b0bc;
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --paper: #121815; --panel: #19211d; --ink: #e5ece7; --ink-2: #9fb0a6; --line: #2c3731;
+  --accent: #5cc595; --accent-ink: #0b1a12;
+  --map-bg: #1a201c; --map-road: #3a423d; --map-road-major: #6b5d36; --map-road-edge: #262d29; --map-path: #4d5650;
+  --map-building: #2a312d; --map-green: #1f3324; --map-forest: #1c3a22; --map-water: #1d3a52; --map-rail: #6f7570;
+  --map-boundary: #5cc595; --map-unlit: #fb923c;
+  --c-jugend: #ff8a4c; --c-bildung: #6aa8ff; --c-soziales: #c78bea; --c-sicherheit: #ff6b81;
+  --c-gesundheit: #3fd0c0; --c-spielplatz: #ffd24d; --c-sport: #7fd160; --c-gruen: #a3c57d;
+  --c-religion: #c9b08f; --c-oepnv: #8fb2dd; --c-nachtleben: #f27bb0; --c-infra: #a8b0bc;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+.app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
+.panel { background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.panel-head { padding-block: 18px 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.05; text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-2); font-size: 13.5px; }
+.panel-body { overflow-y: auto; min-height: 0; flex: 1; padding-block: 12px 24px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; display: grid; gap: 18px; align-content: start; }
+.group-label { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 6px; display: flex; justify-content: space-between; align-items: baseline; }
+.group-label button { font: inherit; text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-size: 12.5px; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+.search { width: 100%; box-sizing: border-box; font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+
+.cats { display: grid; gap: 2px; }
+.cat { display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center; padding: 6px 6px; border-radius: 6px; cursor: pointer; user-select: none; }
+.cat:hover { background: var(--paper); }
+.cat input { position: absolute; opacity: 0; pointer-events: none; }
+.cat .sw { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--cc); background: var(--cc); box-sizing: border-box; }
+.cat input:not(:checked) ~ .sw { background: transparent; }
+.cat input:not(:checked) ~ .nm, .cat input:not(:checked) ~ .ct { color: var(--ink-2); opacity: .6; }
+.cat input:focus-visible ~ .sw { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cat .nm { font-size: 14px; }
+.cat .nm small { display: block; color: var(--ink-2); font-size: 12px; line-height: 1.3; }
+.cat .ct { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--ink-2); }
+.cat.line .sw { border-radius: 2px; height: 4px; border: 0; background: var(--cc); }
+.cat.line input:not(:checked) ~ .sw { background: var(--line); }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { border: 1px solid var(--line); border-radius: 8px; padding: 8px; display: grid; gap: 2px; }
+.stat b { font-family: var(--font-display); font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+.stat span { font-size: 12px; color: var(--ink-2); line-height: 1.25; }
+
+.results { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.results li button { width: 100%; text-align: left; font: inherit; background: none; border: 0; color: var(--ink); padding: 6px 6px; border-radius: 6px; cursor: pointer; display: grid; grid-template-columns: 10px 1fr; gap: 10px; align-items: baseline; }
+.results li button:hover, .results li button:focus-visible { background: var(--paper); outline: none; }
+.results .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cc); }
+.results .t { font-size: 14px; min-width: 0; overflow-wrap: anywhere; }
+.results .t small { display: block; font-size: 12px; color: var(--ink-2); }
+.more { font-size: 12.5px; color: var(--ink-2); margin: 6px 0 0; }
+
+.foot { font-size: 12px; color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 12px; }
+.foot a { color: var(--accent); }
+
+#map { height: 100%; background: var(--map-bg); min-width: 0; }
+.leaflet-container { font-family: var(--font-body); background: var(--map-bg); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--panel); color: var(--ink); box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+.leaflet-popup-content { margin: 12px 14px; font-size: 13.5px; line-height: 1.45; min-width: 200px; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--ink-2); }
+.pop-cat { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--cc); }
+.pop-name { font-family: var(--font-display); font-size: 19px; font-weight: 700; line-height: 1.15; margin: 2px 0 6px; }
+.pop dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; }
+.pop dt { color: var(--ink-2); }
+.pop dd { margin: 0; overflow-wrap: anywhere; user-select: text; }
+.pop a { color: var(--accent); }
+.pop .src { margin-top: 8px; font-size: 12px; }
+.leaflet-bar a, .leaflet-bar a:hover { background: var(--panel); color: var(--ink); border-bottom-color: var(--line); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--ink-2); }
+.leaflet-control-attribution a { color: var(--accent); }
+.leaflet-tooltip.st-label { background: transparent; border: 0; box-shadow: none; color: var(--map-boundary); font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 0 3px var(--map-bg), 0 0 6px var(--map-bg); }
+.leaflet-tooltip.st-label::before { display: none; }
+
+.sheet-toggle { display: none; }
+
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  #map { grid-row: 1; }
+  .panel { grid-row: 2; border-right: 0; border-top: 1px solid var(--line); max-height: 58vh; }
+  .panel.collapsed .panel-body, .panel.collapsed .lede { display: none; }
+  .panel-head { padding-block: 10px; padding-right: max(16px, env(safe-area-inset-right, 0px)); grid-template-columns: 1fr auto; align-items: center; }
+  .panel-head > :not(.titles):not(.sheet-toggle) { grid-column: 1 / -1; }
+  .panel-body { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+  h1 { font-size: 22px; }
+  .sheet-toggle { display: inline-block; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+}
+@media (prefers-reduced-motion: reduce) { .leaflet-zoom-anim .leaflet-zoom-animated { transition: none !important; } }
+</style>
+
+<div class="app">
+  <aside class="panel" id="panel">
+    <div class="panel-head">
+      <div class="titles">
+        <div class="eyebrow">Präventionsrat · Stadtbezirk 04 · Hannover</div>
+        <h1>Präventionsatlas Buchholz-Kleefeld</h1>
+      </div>
+      <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
+      <p class="lede">Anlaufstellen, Treffpunkte und Orte im Stadtbezirk, die für Prävention und Sicherheit wichtig sind. Klicken Sie einen Punkt an, um Details zu sehen.</p>
+    </div>
+    <div class="panel-body" id="panelBody">
+      <section>
+        <div class="group-label">Stadtteil</div>
+        <div class="seg" id="districts" role="group" aria-label="Stadtteil wählen"></div>
+      </section>
+      <section class="stats" id="stats" aria-live="polite"></section>
+      <section>
+        <label class="group-label" for="q">Suche</label>
+        <input class="search" id="q" type="search" placeholder="z. B. Jugendzentrum, Schule, Straße …" autocomplete="off">
+      </section>
+      <section>
+        <div class="group-label"><span>Ebenen</span><button id="toggleAll" type="button">Alle aus</button></div>
+        <div class="cats" id="cats"></div>
+      </section>
+      <section>
+        <div class="group-label"><span id="resTitle">Orte</span></div>
+        <ul class="results" id="results"></ul>
+        <p class="more" id="more" hidden></p>
+      </section>
+      <footer class="foot">
+        Daten: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-Mitwirkende</a> (ODbL), Stand <span id="asof"></span>.
+        Fehlt ein Ort oder stimmt etwas nicht? Einträge lassen sich direkt in OpenStreetMap ergänzen, beim nächsten Datenabruf erscheinen sie hier.
+      </footer>
+    </div>
+  </aside>
+  <div id="map" role="region" aria-label="Karte des Stadtbezirks"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+const DATA = /*__DATA__*/null;
+// basemap is shipped delta-encoded; expand to GeoJSON once
+for (const [name, L0] of Object.entries(DATA.basemap)) {
+  DATA.basemap[name] = { type: "FeatureCollection", features: L0.shapes.map(([ki, poly, d]) => {
+    const c = []; let x = 0, y = 0;
+    for (let i = 0; i < d.length; i += 2) { x += d[i]; y += d[i + 1]; c.push([x / 1e5, y / 1e5]); }
+    return { type: "Feature", properties: { k: L0.kinds[ki] }, geometry: poly ? { type: "Polygon", coordinates: [c] } : { type: "LineString", coordinates: c } };
+  }) };
+}
+
+const CATS = [
+  ["jugend", "Kinder & Jugend", "Jugendzentren, Jugendhilfe"],
+  ["bildung", "Bildung & Betreuung", "Schulen, Kitas, Bibliotheken"],
+  ["soziales", "Soziales & Beratung", "Beratung, Begegnung, Vereine"],
+  ["sicherheit", "Sicherheit & Notfall", "Polizei, Feuerwehr, Defibrillatoren"],
+  ["gesundheit", "Gesundheit", "Ärzte, Apotheken, Kliniken"],
+  ["spielplatz", "Spielplätze", ""],
+  ["sport", "Sport", "Sporthallen, Plätze, Bäder"],
+  ["gruen", "Parks & Grün", "benannte Parks und Gärten"],
+  ["religion", "Religiöse Gemeinden", ""],
+  ["oepnv", "Haltestellen", "Stadtbahn, Bus, S-Bahn"],
+  ["nachtleben", "Gastronomie & Kioske", "Bars, Kneipen, Kioske, Spielhallen"],
+  ["infra", "Öffentliche Infrastruktur", "WCs, Post, Recycling"],
+];
+const DEFAULT_ON = new Set(["jugend", "bildung", "soziales", "sicherheit", "spielplatz"]);
+const LABEL = Object.fromEntries(CATS.map(c => [c[0], c[1]]));
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+const state = { district: "alle", q: "", on: new Set(DEFAULT_ON), unlit: false, sel: null };
+try { const s = JSON.parse(localStorage.getItem("pa-bk") || "null"); if (s) { state.on = new Set(s.on); state.district = s.district || "alle"; state.unlit = !!s.unlit; } } catch (e) {}
+const save = () => { try { localStorage.setItem("pa-bk", JSON.stringify({ on: [...state.on], district: state.district, unlit: state.unlit })); } catch (e) {} };
+
+// ---------- map + self-drawn basemap ----------
+const bezirk = DATA.boundaries.features.find(f => f.properties.level === "bezirk");
+const stadtteile = DATA.boundaries.features.filter(f => f.properties.level === "stadtteil");
+const map = L.map("map", { preferCanvas: true, fadeAnimation: false, zoomSnap: 0.25, minZoom: 12, maxZoom: 19, attributionControl: true });
+map.attributionControl.setPrefix(false).addAttribution('© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>');
+const bounds = L.geoJSON(bezirk).getBounds();
+map.fitBounds(bounds, { padding: [10, 10] });
+map.setMaxBounds(bounds.pad(0.6));
+
+const panes = ["base", "bounds", "unlit", "pois"];
+panes.forEach((p, i) => { map.createPane(p); map.getPane(p).style.zIndex = 300 + i * 50; });
+map.getPane("base").style.pointerEvents = "none";
+const baseR = L.canvas({ pane: "base", padding: 0.5 });
+const poiR = L.canvas({ pane: "pois", padding: 0.5, tolerance: 6 });
+
+const ROAD = {
+  motorway: [5, 7, 14], trunk: [5, 7, 14], primary: [4, 6, 12], secondary: [3.5, 5.5, 12], tertiary: [3, 5, 13],
+  unclassified: [2, 4, 14], residential: [2, 4, 14], living_street: [2, 3.5, 14], pedestrian: [2, 3.5, 14], service: [1, 2.2, 15],
+};
+const PATHS = new Set(["footway", "path", "cycleway", "track", "steps"]);
+let baseLayers = [];
+function drawBase() {
+  baseLayers.forEach(l => map.removeLayer(l)); baseLayers = [];
+  const z = map.getZoom(), B = DATA.basemap;
+  const add = l => { l.addTo(map); baseLayers.push(l); };
+  add(L.geoJSON(B.green, { renderer: baseR, interactive: false, style: f => ({ stroke: false, fillOpacity: 1, fillColor: /forest|wood/.test(f.properties.k) ? css("--map-forest") : css("--map-green") }) }));
+  add(L.geoJSON(B.water, { renderer: baseR, interactive: false, style: f => f.geometry.type === "Polygon" ? { stroke: false, fillOpacity: 1, fillColor: css("--map-water") } : { color: css("--map-water"), weight: 3 } }));
+  if (z >= 15) add(L.geoJSON(B.buildings, { renderer: baseR, interactive: false, style: { stroke: false, fillOpacity: 1, fillColor: css("--map-building") } }));
+  if (z >= 15) add(L.geoJSON(B.roads, { renderer: baseR, interactive: false, filter: f => PATHS.has(f.properties.k), style: { color: css("--map-path"), weight: 1, dashArray: "3 3" } }));
+  const scale = Math.max(0.5, Math.pow(1.45, z - 15));
+  const roads = B.roads.features.filter(f => ROAD[f.properties.k] && ROAD[f.properties.k][2] <= z);
+  const major = f => ["motorway", "trunk", "primary", "secondary"].includes(f.properties.k);
+  add(L.geoJSON(roads, { renderer: baseR, interactive: false, style: f => ({ color: css("--map-road-edge"), weight: ROAD[f.properties.k][1] * scale, lineCap: "round" }) }));
+  add(L.geoJSON(roads, { renderer: baseR, interactive: false, style: f => ({ color: major(f) ? css("--map-road-major") : css("--map-road"), weight: ROAD[f.properties.k][0] * scale, lineCap: "round" }) }));
+  add(L.geoJSON(B.rail, { renderer: baseR, interactive: false, style: f => ({ color: css("--map-rail"), weight: f.properties.k === "rail" ? 2 : 1.2, dashArray: f.properties.k === "rail" ? null : "4 3" }) }));
+}
+let lastZ = null;
+map.on("zoomend", () => { const z = Math.floor(map.getZoom()); if (z !== lastZ) { lastZ = z; drawBase(); drawUnlit(); } });
+
+// boundaries: dim everything outside the Bezirk
+const world = [[90, -180], [90, 180], [-90, 180], [-90, -180]];
+const holes = bezirk.geometry.coordinates.map(p => p[0].map(([x, y]) => [y, x]));
+let mask, stLayer, bzLayer;
+function drawBounds() {
+  [mask, stLayer, bzLayer].forEach(l => l && map.removeLayer(l));
+  mask = L.polygon([world, ...holes], { pane: "bounds", interactive: false, stroke: false, fillColor: css("--paper"), fillOpacity: 0.62 }).addTo(map);
+  stLayer = L.geoJSON(stadtteile, { pane: "bounds", interactive: false, style: f => ({ color: css("--map-boundary"), weight: state.district === f.properties.name ? 3 : 1.3, dashArray: "6 5", fillColor: css("--map-boundary"), fillOpacity: state.district === f.properties.name ? 0.06 : 0 }) }).addTo(map);
+  stLayer.eachLayer(l => l.bindTooltip(l.feature.properties.name, { permanent: true, direction: "center", className: "st-label", interactive: false }));
+  bzLayer = L.geoJSON(bezirk, { pane: "bounds", interactive: false, style: { color: css("--map-boundary"), weight: 3, fill: false } }).addTo(map);
+}
+
+// unlit paths
+let unlitLayer;
+function drawUnlit() {
+  if (unlitLayer) map.removeLayer(unlitLayer);
+  if (!state.unlit) return;
+  unlitLayer = L.geoJSON(DATA.unlit, { pane: "unlit", style: { color: css("--map-unlit"), weight: map.getZoom() >= 16 ? 4 : 2, opacity: 0.85 } })
+    .bindPopup(l => `<div class="pop" style="--cc:${css("--map-unlit")}"><div class="pop-cat">Unbeleuchteter Weg</div><div class="pop-name">${esc(l.feature.properties.name || wayName(l.feature.properties.highway))}</div><div class="src">In OpenStreetMap als „nicht beleuchtet“ erfasst · <a href="https://www.openstreetmap.org/${l.feature.properties.osm}" target="_blank" rel="noopener">Quelle</a></div></div>`)
+    .addTo(map);
+}
+const wayName = h => ({ footway: "Fußweg", path: "Weg", cycleway: "Radweg", track: "Feldweg", steps: "Treppe", pedestrian: "Fußgängerzone", living_street: "Spielstraße" })[h] || "Weg";
+
+// ---------- POIs ----------
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const TYPE = {
+  school: "Schule", kindergarten: "Kita", childcare: "Kinderbetreuung", library: "Bibliothek", college: "Hochschule/Kolleg", university: "Hochschule",
+  music_school: "Musikschule", language_school: "Sprachschule", social_facility: "Soziale Einrichtung", social_centre: "Sozialzentrum",
+  community_centre: "Gemeinschaftszentrum", police: "Polizei", fire_station: "Feuerwehr", hospital: "Krankenhaus", clinic: "Klinik",
+  doctors: "Arztpraxis", pharmacy: "Apotheke", dentist: "Zahnarzt", place_of_worship: "Gotteshaus", bar: "Bar", pub: "Kneipe",
+  nightclub: "Club", biergarten: "Biergarten", casino: "Spielbank", gambling: "Spielhalle", toilets: "Öffentliches WC", townhall: "Rathaus/Bürgeramt",
+  post_office: "Post", recycling: "Recycling", playground: "Spielplatz", sports_centre: "Sportzentrum", stadium: "Stadion",
+  swimming_pool: "Schwimmbad", fitness_station: "Fitnessgeräte", sports_hall: "Sporthalle", pitch: "Sportplatz", park: "Park", garden: "Garten",
+  youth_centre: "Jugendzentrum", tram_stop: "Stadtbahn-Haltestelle", station: "Bahnhof", halt: "Haltepunkt", bus_stop: "Bushaltestelle",
+  kiosk: "Kiosk", alcohol: "Getränkemarkt", counselling: "Beratungsstelle", defibrillator: "Defibrillator (AED)",
+  ngo: "Verein/Initiative", association: "Verein", charity: "Gemeinnützige Organisation",
+};
+const FOR = { juvenile: "Jugendliche", child: "Kinder", senior: "Senior:innen", disabled: "Menschen mit Behinderung", homeless: "Wohnungslose", migrant: "Zugewanderte", refugee: "Geflüchtete", drug_addicted: "Suchtkranke", abused: "Gewaltbetroffene", unemployed: "Arbeitslose", diseased: "Erkrankte", mental_health: "psychisch Erkrankte" };
+function typeOf(p) {
+  if (p.community_centre && /youth/.test(p.community_centre)) return "Jugendzentrum";
+  for (const k of ["emergency", "healthcare", "railway", "highway", "shop", "office", "amenity", "leisure"]) if (p[k] && TYPE[p[k]]) return TYPE[p[k]];
+  return LABEL[p.category];
+}
+const titleOf = p => p.name || typeOf(p);
+const addr = p => [[p["addr:street"], p["addr:housenumber"]].filter(Boolean).join(" "), p["addr:postcode"] && `${p["addr:postcode"]} Hannover`].filter(Boolean).join(", ");
+
+function popup(p) {
+  const rows = [];
+  const t = typeOf(p); if (p.name && t) rows.push(["Art", t]);
+  if (p.social_facility_for || p["social_facility:for"]) rows.push(["Für", (p["social_facility:for"]).split(";").map(x => FOR[x.trim()] || x).join(", ")]);
+  if (p.operator) rows.push(["Träger", p.operator]);
+  const a = addr(p); if (a) rows.push(["Adresse", a]);
+  if (p.opening_hours) rows.push(["Geöffnet", p.opening_hours]);
+  const ph = p.phone || p["contact:phone"]; if (ph) rows.push(["Telefon", ph]);
+  if (p.email) rows.push(["E-Mail", p.email]);
+  const w = p.website || p["contact:website"];
+  if (p.denomination || p.religion) rows.push(["Gemeinde", [p.religion, p.denomination].filter(Boolean).join(" · ")]);
+  if (p.wheelchair) rows.push(["Rollstuhl", { yes: "zugänglich", limited: "eingeschränkt", no: "nicht zugänglich" }[p.wheelchair] || p.wheelchair]);
+  const dl = rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+  const web = w ? `<a href="${esc(/^https?:/.test(w) ? w : "https://" + w)}" target="_blank" rel="noopener">Website</a> · ` : "";
+  return `<div class="pop" style="--cc:${css("--c-" + p.category)}"><div class="pop-cat">${esc(LABEL[p.category])}${p.stadtteil ? " · " + esc(p.stadtteil) : ""}</div><div class="pop-name">${esc(titleOf(p))}</div><dl>${dl}</dl><div class="src">${web}<a href="https://www.openstreetmap.org/${p.osm}" target="_blank" rel="noopener">In OpenStreetMap ansehen</a></div></div>`;
+}
+
+const markers = DATA.pois.features.map(f => {
+  const p = f.properties, [lon, lat] = f.geometry.coordinates;
+  const m = L.circleMarker([lat, lon], { renderer: poiR, radius: 6, weight: 1.5 });
+  m.feature = f; m.bindPopup(() => popup(p), { maxWidth: 300 });
+  p._search = [p.name, typeOf(p), p.operator, p["addr:street"], LABEL[p.category]].filter(Boolean).join(" ").toLowerCase();
+  return m;
+});
+function styleMarkers() {
+  markers.forEach(m => { const c = css("--c-" + m.feature.properties.category); m.setStyle({ color: css("--panel"), fillColor: c, fillOpacity: 0.95 }); });
+}
+const poiGroup = L.layerGroup().addTo(map);
+
+function visible() {
+  const q = state.q.trim().toLowerCase();
+  return markers.filter(m => {
+    const p = m.feature.properties;
+    if (!state.on.has(p.category)) return false;
+    if (state.district !== "alle" && p.stadtteil !== state.district) return false;
+    if (q && !p._search.includes(q)) return false;
+    return true;
+  });
+}
+
+// ---------- panel ----------
+const $ = id => document.getElementById(id);
+const DISTRICTS = ["alle", ...stadtteile.map(f => f.properties.name).sort()];
+$("districts").innerHTML = DISTRICTS.map(d => `<button type="button" data-d="${esc(d)}">${d === "alle" ? "Ganzer Bezirk" : esc(d)}</button>`).join("");
+$("districts").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  state.district = b.dataset.d; save(); drawBounds(); render();
+  const f = stadtteile.find(s => s.properties.name === state.district) || bezirk;
+  map.flyToBounds(L.geoJSON(f).getBounds(), { padding: [20, 20], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.6 });
+});
+
+function countBy(cat) {
+  return markers.filter(m => m.feature.properties.category === cat && (state.district === "alle" || m.feature.properties.stadtteil === state.district)).length;
+}
+function renderCats() {
+  $("cats").innerHTML = CATS.map(([k, n, s]) => `<label class="cat" style="--cc:var(--c-${k})"><input type="checkbox" id="cat-${k}" data-k="${k}" ${state.on.has(k) ? "checked" : ""}><span class="sw"></span><span class="nm">${n}${s ? `<small>${s}</small>` : ""}</span><span class="ct">${countBy(k)}</span></label>`).join("")
+    + `<label class="cat line" style="--cc:var(--map-unlit)"><input type="checkbox" id="cat-unlit" data-k="unlit" ${state.unlit ? "checked" : ""}><span class="sw"></span><span class="nm">Unbeleuchtete Wege<small>Fuß- und Radwege ohne Beleuchtung</small></span><span class="ct">${DATA.unlit.features.length}</span></label>`;
+  $("toggleAll").textContent = state.on.size ? "Alle aus" : "Alle an";
+}
+$("cats").addEventListener("change", e => {
+  const k = e.target.dataset.k; if (!k) return;
+  if (k === "unlit") { state.unlit = e.target.checked; drawUnlit(); }
+  else e.target.checked ? state.on.add(k) : state.on.delete(k);
+  save(); render();
+});
+$("toggleAll").addEventListener("click", () => {
+  state.on = state.on.size ? new Set() : new Set(CATS.map(c => c[0])); save(); render();
+});
+let qT; $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { state.q = e.target.value; render(); }, 120); });
+
+function renderStats() {
+  const inD = f => state.district === "alle" || f.properties.stadtteil === state.district;
+  const pois = DATA.pois.features.filter(inD);
+  const n = c => pois.filter(f => f.properties.category === c).length;
+  const st = state.district === "alle" ? null : stadtteile.find(s => s.properties.name === state.district);
+  const pop = st ? st.properties.population : bezirk.properties.population;
+  $("stats").innerHTML = [
+    [n("jugend") + n("soziales"), "Jugend-, Sozial- und Beratungsorte"],
+    [n("bildung"), "Schulen, Kitas, Bibliotheken"],
+    [n("spielplatz"), "Spielplätze"],
+  ].map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+}
+
+const LIST_MAX = 150;
+function render() {
+  document.querySelectorAll("#districts button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === state.district));
+  renderCats(); renderStats();
+  const vis = visible();
+  poiGroup.clearLayers(); vis.forEach(m => poiGroup.addLayer(m));
+  const sorted = vis.slice().sort((a, b) => (a.feature.properties.category === "oepnv") - (b.feature.properties.category === "oepnv") || titleOf(a.feature.properties).localeCompare(titleOf(b.feature.properties), "de"));
+  $("resTitle").textContent = `${vis.length} Orte`;
+  $("results").innerHTML = sorted.slice(0, LIST_MAX).map((m, i) => {
+    const p = m.feature.properties;
+    const sub = [p.name ? typeOf(p) : null, addr(p).split(",")[0], state.district === "alle" ? p.stadtteil : null].filter(Boolean).join(" · ");
+    return `<li><button type="button" data-i="${markers.indexOf(m)}" style="--cc:var(--c-${p.category})"><span class="dot"></span><span class="t">${esc(titleOf(p))}${sub ? `<small>${esc(sub)}</small>` : ""}</span></button></li>`;
+  }).join("");
+  $("more").hidden = vis.length <= LIST_MAX;
+  $("more").textContent = `… und ${vis.length - LIST_MAX} weitere. Suche oder Ebenen eingrenzen, um mehr zu sehen.`;
+}
+$("results").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const m = markers[+b.dataset.i];
+  map.setView(m.getLatLng(), Math.max(map.getZoom(), 17));
+  m.openPopup();
+  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+});
+
+function setSheet(open) {
+  $("panel").classList.toggle("collapsed", !open);
+  $("sheetToggle").setAttribute("aria-expanded", open);
+  $("sheetToggle").textContent = open ? "Karte" : "Filter & Liste";
+  setTimeout(() => map.invalidateSize(), 50);
+}
+$("sheetToggle").addEventListener("click", () => setSheet($("panel").classList.contains("collapsed")));
+if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+
+$("asof").textContent = new Date(DATA.meta.fetched).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+
+function restyle() { drawBase(); drawBounds(); drawUnlit(); styleMarkers(); }
+new MutationObserver(restyle).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", restyle);
+
+// the container may have no size yet at init; fit once layout has settled
+const fitHome = () => { map.invalidateSize(); map.fitBounds(bounds, { padding: [10, 10] }); lastZ = Math.floor(map.getZoom()); };
+fitHome();
+restyle(); render();
+requestAnimationFrame(() => { fitHome(); drawBase(); });
+</script>
