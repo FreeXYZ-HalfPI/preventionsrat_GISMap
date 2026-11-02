@@ -64,6 +64,7 @@ def main():
         "unlit": load("unlit_paths.geojson"),
         "issues": load("issues.json"),
         "schulwege": load("schulwege.json"),
+        "streets": load("street_labels.json"),
         "kennzahlen": load("kennzahlen.json"),
         "basemap": pack_basemap(load("basemap.json")),
     }

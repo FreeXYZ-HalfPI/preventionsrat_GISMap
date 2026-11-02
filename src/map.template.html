@@ -213,8 +213,7 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
   .panel { grid-row: 2; border-right: 0; border-top: 1px solid var(--line); max-height: 58vh; }
   .panel.collapsed .panel-body, .panel.collapsed .lede { display: none; }
   .panel-head { padding-block: 10px; padding-right: max(16px, env(safe-area-inset-right, 0px)); grid-template-columns: 1fr auto; align-items: center; }
-  .panel-head > :not(.titles):not(.sheet-toggle) { grid-column: 1 / -1; }
-  .panel-body { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+    .panel-body { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
   h1 { font-size: 22px; }
   .sheet-toggle { display: inline-block; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
 }
@@ -259,23 +258,68 @@ table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 12p
 .cards3 p { font-size: 14px; }
 .cards3 .for-us { font-size: 13.5px; color: var(--accent); font-weight: 700; }
 .cards3 .lvl { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+
+/* v3: layout, tabs, map tools */
+.panel-head { grid-template-columns: 1fr auto; align-items: start; gap: 8px 10px; padding-block: 14px 0; }
+.panel-head .tabs { grid-column: 1 / -1; }
+h1 { font-size: 21px; margin-top: 2px; }
+.head-actions { display: flex; gap: 6px; align-items: center; }
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; overflow: visible; margin: 0 -16px; padding: 0 8px; }
+.tabs button { display: grid; justify-items: center; gap: 1px; padding: 7px 2px 6px; font-size: 13.5px; border-bottom-width: 3px; }
+.tabs .ti { font-size: 15px; line-height: 1; opacity: .75; }
+.tabs button[aria-selected="true"] .ti { color: var(--accent); opacity: 1; }
+.panel { min-width: 0; }
+.app { grid-template-columns: 372px 1fr; }
+.search { font-size: 15px; padding: 10px 12px; }
+.map-tools { position: absolute; z-index: 900; top: 12px; right: 12px; display: grid; gap: 8px; justify-items: end; }
+.map-tools .tool { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.map-tools .tool:hover { border-color: var(--accent); color: var(--accent); }
+.map-tools .tool:focus-visible, .report-fab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.report-fab { box-shadow: 0 2px 10px rgba(0,0,0,.3); border-radius: 999px; padding: 10px 16px; font-size: 14.5px; }
+.report-fab span { font-size: 16px; margin-right: 2px; }
+.where { position: absolute; z-index: 900; left: 12px; bottom: 28px; max-width: calc(100% - 24px); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 7px 12px; font-size: 13.5px; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.where b { font-family: var(--font-display); font-size: 15px; }
+.leaflet-top.leaflet-left { top: 0; }
+.leaflet-bottom.leaflet-left .leaflet-control-scale { margin-left: 12px; margin-bottom: 8px; }
+.leaflet-control-scale-line { background: color-mix(in srgb, var(--panel) 80%, transparent); color: var(--ink); border-color: var(--ink-2); font-size: 11px; }
+.slabel { position: absolute; left: 0; top: 0; white-space: nowrap; font: 600 11.5px/1 var(--font-body); color: var(--map-label); letter-spacing: .01em;
+  text-shadow: -1.5px 0 var(--map-bg), 1.5px 0 var(--map-bg), 0 -1.5px var(--map-bg), 0 1.5px var(--map-bg), 0 0 3px var(--map-bg); pointer-events: none; }
+.slabel.major { font-size: 12.5px; font-weight: 700; }
+.me-dot { width: 16px; height: 16px; border-radius: 50%; background: #2563eb; border: 3px solid #fff; box-shadow: 0 0 0 2px #2563eb55, 0 1px 5px rgba(0,0,0,.5); }
+:root { --map-label: #4a524c; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --map-label: #c4cec7; } }
+:root[data-theme="dark"] { --map-label: #c4cec7; }
+@media (max-width: 760px) {
+  .panel-head { padding-block: 8px 0; }
+  .panel-head > :not(.titles):not(.head-actions) { grid-column: 1 / -1; }
+  .panel-head .eyebrow { font-size: 11px; }
+  h1 { font-size: 18px; }
+  .tabs button { padding-block: 5px 4px; font-size: 12.5px; }
+  .tabs .ti { font-size: 13px; }
+  .panel.collapsed .tabs { display: none; }
+  .map-tools { top: 8px; right: 8px; }
+  .where { bottom: 36px; left: 8px; font-size: 12.5px; }
+  .report-fab { padding: 8px 12px; font-size: 13.5px; }
+  .map-tools .tool { width: 38px; height: 38px; }
+}
 </style>
 
 <div class="app">
   <aside class="panel" id="panel">
     <div class="panel-head">
       <div class="titles">
-        <div class="eyebrow">Präventionsrat · Stadtbezirk 04 · Hannover</div>
+        <div class="eyebrow">Präventionsrat · Hannover</div>
         <h1>Präventionsatlas Buchholz-Kleefeld</h1>
       </div>
-      <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
-      <p class="lede">Anlaufstellen, Treffpunkte und Themen im Stadtbezirk. Klicken Sie einen Punkt an, um Details zu sehen, oder melden Sie ein Problem.</p>
+      <div class="head-actions">
+        <button class="btn small ghost" type="button" id="openProposal">Vorschlag</button>
+        <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
+      </div>
       <div class="tabs" role="tablist" aria-label="Ansicht">
-        <button type="button" role="tab" id="tab-orte" data-view="orte" aria-selected="true">Orte</button>
-        <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false">Themen</button>
-        <button type="button" role="tab" id="tab-schulweg" data-view="schulweg" aria-selected="false">Schulwege &amp; Licht</button>
-        <button type="button" role="tab" id="tab-zahlen" data-view="zahlen" aria-selected="false">Zahlen</button>
-        <button type="button" class="proposal-tab" id="openProposal">Vorschlag</button>
+        <button type="button" role="tab" id="tab-orte" data-view="orte" aria-selected="true"><span class="ti" aria-hidden="true">◉</span>Orte</button>
+        <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false"><span class="ti" aria-hidden="true">◆</span>Themen</button>
+        <button type="button" role="tab" id="tab-schulweg" data-view="schulweg" aria-selected="false"><span class="ti" aria-hidden="true">▣</span>Schulwege</button>
+        <button type="button" role="tab" id="tab-zahlen" data-view="zahlen" aria-selected="false"><span class="ti" aria-hidden="true">▤</span>Zahlen</button>
       </div>
     </div>
     <div class="panel-body" id="viewThemen" hidden>
@@ -343,14 +387,13 @@ table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 12p
     </div>
     <div class="panel-body" id="panelBody">
       <section>
+        <input class="search" id="q" type="search" placeholder="Suchen: Jugendzentrum, Schule, Straße …" aria-label="Orte suchen" autocomplete="off">
+      </section>
+      <section>
         <div class="group-label">Stadtteil</div>
         <div class="seg" id="districts" role="group" aria-label="Stadtteil wählen"></div>
       </section>
       <section class="stats" id="stats" aria-live="polite"></section>
-      <section>
-        <label class="group-label" for="q">Suche</label>
-        <input class="search" id="q" type="search" placeholder="z. B. Jugendzentrum, Schule, Straße …" autocomplete="off">
-      </section>
       <section>
         <div class="group-label"><span>Ebenen</span><button id="toggleAll" type="button">Alle aus</button></div>
         <div class="cats" id="cats"></div>
@@ -369,6 +412,12 @@ table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 12p
   </aside>
   <div class="mapwrap">
     <div id="map" role="region" aria-label="Karte des Stadtbezirks"></div>
+    <div class="map-tools" role="group" aria-label="Kartenwerkzeuge">
+      <button class="btn report-fab" type="button" id="fabReport"><span aria-hidden="true">＋</span> Problem melden</button>
+      <button class="tool" type="button" id="locateBtn" title="Mein Standort" aria-label="Mein Standort anzeigen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg></button>
+      <button class="tool" type="button" id="homeBtn" title="Ganzer Stadtbezirk" aria-label="Ganzen Stadtbezirk zeigen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+    <div class="where" id="where" aria-live="polite" hidden></div>
     <div class="pick-hint" id="pickHint" hidden>Tippen Sie auf den Ort des Problems</div>
     <article class="proposal" id="proposal" hidden aria-labelledby="propTitle">
       <div class="proposal-inner">
@@ -991,6 +1040,56 @@ $("reportBox").addEventListener("click", async e => {
 });
 
 
+
+// ---------- Orientierung: Straßennamen, Standort, Kartenmitte ----------
+map.createPane("labels"); map.getPane("labels").style.zIndex = 475; map.getPane("labels").style.pointerEvents = "none";
+const labelGroup = L.layerGroup().addTo(map);
+L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
+function drawLabels() {
+  labelGroup.clearLayers();
+  const z = map.getZoom(); if (z < 14.5) return;
+  const maxRank = z < 15.5 ? 2 : z < 16.5 ? 3 : 4, minLen = z < 16 ? 250 : z < 17 ? 100 : 0;
+  const view = map.getBounds().pad(0.05), placed = [];
+  const cand = DATA.streets.filter(s => s[4] <= maxRank && s[5] >= minLen && view.contains([s[1], s[2]])).sort((a, b) => a[4] - b[4] || b[5] - a[5]);
+  for (const [name, lat, lon, ang, rank] of cand) {
+    const major = rank <= 2, w = name.length * (major ? 7.2 : 6.5) + 6, h = 14, r = ang * Math.PI / 180;
+    const bw = Math.abs(w * Math.cos(r)) + Math.abs(h * Math.sin(r)), bh = Math.abs(w * Math.sin(r)) + Math.abs(h * Math.cos(r));
+    const p = map.latLngToContainerPoint([lat, lon]);
+    if (placed.some(q => Math.abs(q.x - p.x) < (q.w + bw) / 2 && Math.abs(q.y - p.y) < (q.h + bh) / 2)) continue;
+    placed.push({ x: p.x, y: p.y, w: bw, h: bh });
+    labelGroup.addLayer(L.marker([lat, lon], { pane: "labels", interactive: false, keyboard: false, icon: L.divIcon({ className: "", iconSize: [0, 0], html: `<div class="slabel${major ? " major" : ""}" style="transform:translate(-50%,-50%) rotate(${ang}deg)">${esc(name)}</div>` }) }));
+  }
+}
+map.on("zoomend moveend", drawLabels);
+
+const whereEl = $("where");
+let whereMsgUntil = 0;
+function showWhere(html, hold) { whereEl.innerHTML = html; whereEl.hidden = false; if (hold) whereMsgUntil = Date.now() + hold; }
+function centerWhere() {
+  if (Date.now() < whereMsgUntil) return;
+  const c = map.getCenter(), st = stadtteilAt(c.lat, c.lng);
+  showWhere(st ? `Kartenmitte: <b>${esc(st)}</b>` : "Kartenmitte außerhalb des Stadtbezirks");
+}
+map.on("moveend", centerWhere);
+let meLayer = null;
+$("locateBtn").addEventListener("click", () => {
+  showWhere("Standort wird gesucht …", 4000);
+  map.locate({ enableHighAccuracy: true, timeout: 12000 });
+});
+map.on("locationfound", e => {
+  if (meLayer) map.removeLayer(meLayer);
+  const st = stadtteilAt(e.latlng.lat, e.latlng.lng);
+  meLayer = L.layerGroup([
+    L.circle(e.latlng, { radius: Math.min(e.accuracy, 500), color: "#2563eb", weight: 1, fillOpacity: 0.1, interactive: false }),
+    L.marker(e.latlng, { icon: L.divIcon({ className: "", html: '<div class="me-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), keyboard: false, interactive: false }),
+  ]).addTo(map);
+  if (st) { map.setView(e.latlng, Math.max(map.getZoom(), 17), { animate: false }); showWhere(`Sie sind hier: <b>${esc(st)}</b>`, 8000); }
+  else showWhere("Ihr Standort liegt außerhalb des Stadtbezirks.", 8000);
+});
+map.on("locationerror", () => showWhere("Standort nicht verfügbar. Bitte Ortungsfreigabe im Browser erlauben.", 8000));
+$("homeBtn").addEventListener("click", () => { whereMsgUntil = 0; map.flyToBounds(bounds, { padding: [10, 10], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.5 }); });
+$("fabReport").addEventListener("click", () => { setView("themen"); setSheet(true); reportStart(); });
+
 // ---------- Schulwege & Licht ----------
 const SW = DATA.schulwege, KZ = DATA.kennzahlen;
 const RISK = { hoch: ["Prüfbedarf hoch", "--risk-hoch"], mittel: ["Prüfbedarf mittel", "--risk-mittel"], gering: ["Prüfbedarf gering", "--risk-gering"] };
@@ -1200,6 +1299,6 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", restyle);
 // the container may have no size yet at init; fit once layout has settled
 const fitHome = () => { map.invalidateSize(); map.fitBounds(bounds, { padding: [10, 10] }); lastZ = Math.floor(map.getZoom()); };
 fitHome();
-restyle(); render(); renderIssues(); loadLive();
+restyle(); render(); renderIssues(); loadLive(); drawLabels(); centerWhere();
 requestAnimationFrame(() => { fitHome(); drawBase(); });
 </script>
