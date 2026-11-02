@@ -1,0 +1,63 @@
+name: Wie sicher fühlen Sie sich hier?
+description: Ihre Einschätzung zu einem Ort am Abend. Nur gezählte Antworten erscheinen auf der Karte, nicht Ihr Text.
+title: "[Wahrnehmung] "
+labels: ["wahrnehmung"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Bitte keine Namen, Kennzeichen oder Fotos von Personen.** Diese Antwort ist öffentlich.
+        Auf der Karte werden nur Zahlen pro Ort gezeigt, und erst ab drei geprüften Antworten. Defekte Lampen bitte direkt der Stadt melden. In Notfällen: 110.
+  - type: input
+    id: ort
+    attributes:
+      label: Ort
+      description: Wird aus der Karte übernommen (zum Beispiel L3 oder der Name einer Schule).
+    validations:
+      required: true
+  - type: dropdown
+    id: gefuehl
+    attributes:
+      label: Gefühl am Abend
+      options:
+        - Eher sicher
+        - Eher unsicher
+    validations:
+      required: true
+  - type: dropdown
+    id: grund
+    attributes:
+      label: Hauptgrund
+      options:
+        - Zu dunkel
+        - Blendendes oder kaltes Licht
+        - Menschenleer
+        - Gebüsch oder schlechte Sicht
+        - Verkehr oder Schulweg
+        - Gute Beleuchtung
+        - Belebt, andere Menschen in der Nähe
+        - Übersichtlich
+        - Anderes
+    validations:
+      required: true
+  - type: dropdown
+    id: zeit
+    attributes:
+      label: Tageszeit
+      options:
+        - Dämmerung
+        - Abend
+        - Nacht
+        - Eher tagsüber
+  - type: textarea
+    id: anmerkung
+    attributes:
+      label: Anmerkung (freiwillig)
+      description: Was würde helfen? Wird nicht auf der Karte gezeigt.
+  - type: checkboxes
+    id: datenschutz
+    attributes:
+      label: Datenschutz
+      options:
+        - label: Meine Antwort enthält keine personenbezogenen Daten anderer Menschen.
+          required: true
