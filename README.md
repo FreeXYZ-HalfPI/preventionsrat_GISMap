@@ -36,6 +36,30 @@ Drei Tabs ergänzen die Orte-Karte:
 - **Zahlen**: Kennzahlen aus Statistischen Profilen 2022, Sozialbericht 2023 und Sicherheitsbericht 2025 je Stadtteil, auf der Karte einfärbbar (Kinderanteil, Transferleistungen, Unfälle, Radanteil), mit Einordnung für die AGs.
 - **Vorschlag**: neuer Abschnitt zu Ansätzen aus Hannover und Niedersachsen (mobile Sicherheitskonferenz, Communities That Care, AK Schulwegsicherheit im Kreispräventionsrat Heidekreis, Elternhaltestelle, Mängelhinweiskarte).
 
+## Mehrere Stadtbezirke
+
+Oben links wählt ein Menü den Stadtbezirk. Jeder Bezirk ist eine eigene, eigenständige Seite, die aus derselben Vorlage gebaut wird:
+
+| Bezirk | Seite |
+|---|---|
+| Buchholz-Kleefeld (04) | `index.html` |
+| Bothfeld-Vahrenheide (03) | `bezirke/bothfeld-vahrenheide.html` |
+
+Einen weiteren Bezirk anlegen:
+
+1. Eintrag in `config/districts.json` (OSM-Relation des Bezirks und der Stadtteile, Kartenausschnitt, Polizeistation, Hinweis zum Präventionsgremium).
+2. Daten abrufen und analysieren, zum Beispiel für `bothfeld-vahrenheide`:
+   ```bash
+   export DISTRICT=bothfeld-vahrenheide
+   python3 scripts/fetch_osm.py && python3 scripts/fetch_basemap.py
+   python3 scripts/fetch_streets.py && python3 scripts/fetch_schulumfeld.py
+   python3 scripts/analyse_schulwege.py
+   ```
+3. In `data/<bezirk>/` von Hand `issues.json` (Themen mit Quelle) und `kennzahlen.json` anlegen.
+4. `python3 scripts/build_map.py` baut alle Bezirke (oder nur einen mit `DISTRICT=...`).
+
+Bothfeld-Vahrenheide hat bisher Themen aus Sitzungsunterlagen des Stadtbezirksrats und den Ordnungsdienst-Zahlen, aber noch keine Stadtteil-Kennzahlen und keinen Vorschlagstext.
+
 ## Datenquelle
 
 Alle Daten stammen aus [OpenStreetMap](https://www.openstreetmap.org) © OpenStreetMap-Mitwirkende,

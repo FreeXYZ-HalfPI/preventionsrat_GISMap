@@ -1,0 +1,746 @@
+{
+ "updated": "2026-11-02",
+ "has_street_context": true,
+ "schools": [
+  {
+   "name": "Fridtjof-Nansen-Schule",
+   "coords": [
+    52.4145313,
+    9.7579212
+   ],
+   "stadtteil": "Vahrenheide",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 1205,
+   "kitas": 3,
+   "spielplaetze": 2,
+   "haltestellen": 3,
+   "hauptstrassen": [],
+   "querungshilfen": 1,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "1205 m unbeleuchtete Wege im Umfeld",
+    "3 Haltestellen in der Nähe, viel Ein- und Aussteigen",
+    "3 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung",
+    "schulstrasse"
+   ]
+  },
+  {
+   "name": "Hoffmann-von-Fallersleben-Schule",
+   "coords": [
+    52.4089769,
+    9.7974109
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 928,
+   "kitas": 1,
+   "spielplaetze": 1,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Sutelstraße"
+   ],
+   "querungshilfen": 18,
+   "ampeln": 5,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Sutelstraße",
+    "928 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung",
+    "schulstrasse"
+   ]
+  },
+  {
+   "name": "Freie Evangelische Schule Hannover - Grundschule",
+   "coords": [
+    52.4149833,
+    9.7900404
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 541,
+   "kitas": 3,
+   "spielplaetze": 2,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Kugelfangtrift",
+    "Sündernstraße"
+   ],
+   "querungshilfen": 14,
+   "ampeln": 9,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Kugelfangtrift, Sündernstraße",
+    "541 m unbeleuchtete Wege im Umfeld",
+    "3 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung",
+    "schulstrasse"
+   ]
+  },
+  {
+   "name": "Freie Evangelische Schule Hannover - KGS",
+   "coords": [
+    52.4133687,
+    9.7918115
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 581,
+   "kitas": 3,
+   "spielplaetze": 4,
+   "haltestellen": 0,
+   "hauptstrassen": [
+    "Sündernstraße"
+   ],
+   "querungshilfen": 13,
+   "ampeln": 7,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Sündernstraße",
+    "581 m unbeleuchtete Wege im Umfeld",
+    "3 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Freies Gymnasium Hannover",
+   "coords": [
+    52.4149664,
+    9.7913941
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 548,
+   "kitas": 3,
+   "spielplaetze": 3,
+   "haltestellen": 2,
+   "hauptstrassen": [
+    "Kugelfangtrift",
+    "Langenforther Straße",
+    "Sündernstraße"
+   ],
+   "querungshilfen": 18,
+   "ampeln": 9,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Kugelfangtrift, Langenforther Straße, Sündernstraße",
+    "548 m unbeleuchtete Wege im Umfeld",
+    "3 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Primarschule FGH",
+   "coords": [
+    52.4148234,
+    9.7920815
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 548,
+   "kitas": 2,
+   "spielplaetze": 5,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Kugelfangtrift",
+    "Langenforther Straße",
+    "Sündernstraße"
+   ],
+   "querungshilfen": 19,
+   "ampeln": 9,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Kugelfangtrift, Langenforther Straße, Sündernstraße",
+    "548 m unbeleuchtete Wege im Umfeld",
+    "2 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung",
+    "schulstrasse"
+   ]
+  },
+  {
+   "name": "IGS Vahrenheide-Sahlkamp",
+   "coords": [
+    52.4143381,
+    9.7497663
+   ],
+   "stadtteil": "Vahrenheide",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 1234,
+   "kitas": 3,
+   "spielplaetze": 2,
+   "haltestellen": 2,
+   "hauptstrassen": [],
+   "querungshilfen": 7,
+   "ampeln": 0,
+   "verkehrsberuhigung": 1,
+   "punkte": 3,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "1234 m unbeleuchtete Wege im Umfeld",
+    "3 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Werk-statt-Schule",
+   "coords": [
+    52.4149047,
+    9.7926876
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Förderschule",
+   "unbeleuchtet_m": 563,
+   "kitas": 1,
+   "spielplaetze": 5,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Kugelfangtrift",
+    "Langenforther Straße",
+    "Sündernstraße"
+   ],
+   "querungshilfen": 18,
+   "ampeln": 10,
+   "verkehrsberuhigung": 0,
+   "punkte": 3,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Kugelfangtrift, Langenforther Straße, Sündernstraße",
+    "563 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "IGS Bothfeld",
+   "coords": [
+    52.4147022,
+    9.8006298
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 481,
+   "kitas": 2,
+   "spielplaetze": 3,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 3,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "481 m unbeleuchtete Wege im Umfeld",
+    "2 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Herschelschule",
+   "coords": [
+    52.4114043,
+    9.7396285
+   ],
+   "stadtteil": "Vahrenheide",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 197,
+   "kitas": 0,
+   "spielplaetze": 0,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Großer Kolonnenweg",
+    "Sahlkamp"
+   ],
+   "querungshilfen": 21,
+   "ampeln": 9,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Großer Kolonnenweg, Sahlkamp"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Freie Waldorfschule Hannover-Bothfeld",
+   "coords": [
+    52.4135024,
+    9.812019
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 753,
+   "kitas": 2,
+   "spielplaetze": 2,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 1,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "753 m unbeleuchtete Wege im Umfeld",
+    "2 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Hägewiesen",
+   "coords": [
+    52.4151195,
+    9.7754961
+   ],
+   "stadtteil": "Sahlkamp",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 284,
+   "kitas": 4,
+   "spielplaetze": 5,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 6,
+   "ampeln": 1,
+   "verkehrsberuhigung": 0,
+   "punkte": 1,
+   "pruefbedarf": "gering",
+   "gruende": [
+    "4 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Gartenheimstraße",
+   "coords": [
+    52.4190161,
+    9.8042434
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 392,
+   "kitas": 1,
+   "spielplaetze": 5,
+   "haltestellen": 2,
+   "hauptstrassen": [],
+   "querungshilfen": 5,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 1,
+   "pruefbedarf": "gering",
+   "gruende": [
+    "392 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Grimsehlweg",
+   "coords": [
+    52.4252011,
+    9.8090842
+   ],
+   "stadtteil": "Bothfeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 0,
+   "kitas": 0,
+   "spielplaetze": 1,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 0,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 0,
+   "pruefbedarf": "gering",
+   "gruende": [],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Tegelweg",
+   "coords": [
+    52.4228105,
+    9.7666591
+   ],
+   "stadtteil": "Sahlkamp",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 108,
+   "kitas": 1,
+   "spielplaetze": 2,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 0,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 0,
+   "pruefbedarf": "gering",
+   "gruende": [],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "schulwegueberwachung"
+   ]
+  }
+ ],
+ "hotspots": [
+  {
+   "id": "BV-L1",
+   "coords": [
+    52.413776,
+    9.790568
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 245,
+   "radius_m": 200,
+   "punkte": 23.9,
+   "naehe": {
+    "Schule": 5,
+    "Kita": 3,
+    "Spielplatz": 2,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Freie Evangelische Schule Hannover - Grundschule",
+    "Freie Evangelische Schule Hannover - KGS",
+    "Freies Gymnasium Hannover",
+    "Kindertagesstätte Die Traumkiste",
+    "Kunterbunte Kindervilla"
+   ]
+  },
+  {
+   "id": "BV-L2",
+   "coords": [
+    52.413981,
+    9.755692
+   ],
+   "stadtteil": "Vahrenheide",
+   "unbeleuchtet_m": 231,
+   "radius_m": 200,
+   "punkte": 17.3,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 2,
+    "Spielplatz": 0,
+    "Haltestelle": 9
+   },
+   "orte": [
+    "Familienzentrum Carl-Sonnenschein-Haus",
+    "Fridtjof-Nansen-Schule",
+    "Krabbelstube Simsalabim"
+   ]
+  },
+  {
+   "id": "BV-L3",
+   "coords": [
+    52.413959,
+    9.760327
+   ],
+   "stadtteil": "Vahrenheide",
+   "unbeleuchtet_m": 524,
+   "radius_m": 200,
+   "punkte": 15.2,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 2,
+    "Spielplatz": 1,
+    "Haltestelle": 3
+   },
+   "orte": [
+    "Emmy-Lanzke-Weg",
+    "Familienzentrum Titus",
+    "Fridtjof-Nansen-Schule",
+    "Kindertagesstätte Dunantstraße"
+   ]
+  },
+  {
+   "id": "BV-L4",
+   "coords": [
+    52.41534,
+    9.767365
+   ],
+   "stadtteil": "Sahlkamp",
+   "unbeleuchtet_m": 510,
+   "radius_m": 200,
+   "punkte": 11.1,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 4,
+    "Spielplatz": 0,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Die Eselfreunde",
+    "Kindertagesstätte Wietzegraben",
+    "Kindertagesstätte Wigwam",
+    "Kindertagesstätte und Familienzentrum Wittenberger Straße"
+   ]
+  },
+  {
+   "id": "BV-L5",
+   "coords": [
+    52.412129,
+    9.778095
+   ],
+   "stadtteil": "Sahlkamp",
+   "unbeleuchtet_m": 237,
+   "radius_m": 200,
+   "punkte": 10.4,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 4,
+    "Spielplatz": 2,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Hägewiesen-Kids",
+    "Kindertagesstätte Hägewiesen",
+    "Kindertagesstätte Hängewiesen",
+    "Schwarzwaldstraße",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "BV-L6",
+   "coords": [
+    52.420805,
+    9.798601
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 156,
+   "radius_m": 200,
+   "punkte": 10.1,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 1,
+    "Spielplatz": 5,
+    "Haltestelle": 2
+   },
+   "orte": [
+    "Kindertagesstätte Herzkamp",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "BV-L7",
+   "coords": [
+    52.409818,
+    9.795218
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 233,
+   "radius_m": 200,
+   "punkte": 8.8,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 1,
+    "Spielplatz": 1,
+    "Haltestelle": 1
+   },
+   "orte": [
+    "Hoffmann-von-Fallersleben-Schule",
+    "Kindertagesstätte Posener Straße",
+    "Posener Straße/Ludwig-Sievers-Ring"
+   ]
+  },
+  {
+   "id": "BV-L8",
+   "coords": [
+    52.416779,
+    9.75353
+   ],
+   "stadtteil": "Vahrenheide",
+   "unbeleuchtet_m": 625,
+   "radius_m": 200,
+   "punkte": 8.3,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 1,
+    "Haltestelle": 1
+   },
+   "orte": [
+    "Peter-Strasser-Allee"
+   ]
+  },
+  {
+   "id": "BV-L9",
+   "coords": [
+    52.413822,
+    9.802035
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 165,
+   "radius_m": 200,
+   "punkte": 8.1,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 1,
+    "Spielplatz": 2,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Bothfelder Anger",
+    "IGS Bothfeld",
+    "Kindertagesstätte Rohdenhof",
+    "Spielplatz Bothfelder Anger"
+   ]
+  },
+  {
+   "id": "BV-L10",
+   "coords": [
+    52.405998,
+    9.797763
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 414,
+   "radius_m": 200,
+   "punkte": 8.1,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 0,
+    "Haltestelle": 4
+   },
+   "orte": []
+  },
+  {
+   "id": "BV-L11",
+   "coords": [
+    52.41454,
+    9.813287
+   ],
+   "stadtteil": "Bothfeld",
+   "unbeleuchtet_m": 158,
+   "radius_m": 200,
+   "punkte": 7.6,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 2,
+    "Spielplatz": 0,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Freie Waldorfschule Hannover-Bothfeld",
+    "Kindertagesstätte St. Valentin",
+    "Waldorfkindergarten Raphael"
+   ]
+  },
+  {
+   "id": "BV-L12",
+   "coords": [
+    52.40871,
+    9.77815
+   ],
+   "stadtteil": "Sahlkamp",
+   "unbeleuchtet_m": 430,
+   "radius_m": 200,
+   "punkte": 7.3,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 1,
+    "Haltestelle": 2
+   },
+   "orte": [
+    "Spielplatz"
+   ]
+  }
+ ]
+}

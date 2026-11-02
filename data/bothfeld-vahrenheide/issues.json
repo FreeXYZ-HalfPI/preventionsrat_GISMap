@@ -1,0 +1,184 @@
+{
+ "_comment": "Themen aus Sitzungsunterlagen des Stadtbezirksrats Bothfeld-Vahrenheide und dem Sicherheitsbericht 2025. Nur belegte Einträge mit Quelle. Ergebnisse von Anträgen sind teils nicht geprüft und so gekennzeichnet.",
+ "updated": "2026-11-02",
+ "sources": {
+  "ds0057": {
+   "title": "Stadt Hannover, Drucksache 0057/2026: Beleuchtung Peter-Strasser-Allee (Antrag SPD, Entscheidung 16.03.2026)",
+   "url": "https://e-government.hannover-stadt.de/lhhsimwebre.nsf/DS/0057-2026"
+  },
+  "stbr1105": {
+   "title": "Stadtbezirksrat Bothfeld-Vahrenheide, Sitzung 05.11.2025 (Tagesordnung)",
+   "url": "https://e-government.hannover-stadt.de/lhhsimwebre.nsf/TM/20251105_STBR03"
+  },
+  "termine": {
+   "title": "Stadtbezirksrat Bothfeld-Vahrenheide, Termine und Sitzungen",
+   "url": "https://e-government.hannover-stadt.de/lhhsimwebre.nsf/Termine.xsp?view=TermineSTBR03"
+  },
+  "sich25": {
+   "title": "Sicherheitsbericht 2025 (Ordnungsdienst, Stadtbezirk 3)",
+   "url": "https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf"
+  },
+  "polizei17": {
+   "title": "Kleine Anfrage: Polizeistation Sahlkamp/Vahrenheide (24-Stunden-Besetzung)",
+   "url": "https://kleineanfragen.de/niedersachsen/18/839-polizeistation-sahlkamp-vahrenheide.pdf"
+  }
+ },
+ "items": [
+  {
+   "id": "B1",
+   "type": "problem",
+   "status": "in_bearbeitung",
+   "theme": "beleuchtung",
+   "title": "Beleuchtung entlang der Peter-Strasser-Allee",
+   "stadtteil": "Vahrenheide",
+   "coords": [
+    52.416779,
+    9.75353
+   ],
+   "summary": "Auf Antrag der SPD-Fraktion sollen die Geh- und Radwege beidseitig der Stadtbahnlinie 2 Mastleuchten erhalten. Die Verwaltung folgte dem Antrag, der erste Abschnitt ist beauftragt (Entscheidung vom 16.03.2026). Der Marker zeigt ungefähr die Gegend, in der die Karte unbeleuchtete Wege nahe einer Haltestelle „Peter-Strasser-Allee“ findet (Schwerpunkt BV-L8), nicht den genauen Verlauf.",
+   "owner": "Stadtbezirksrat / Landeshauptstadt Hannover",
+   "since": "2026",
+   "next": "Bei der nächsten Begehung prüfen, ob der erste Abschnitt fertig ist und wann die weiteren folgen.",
+   "sources": [
+    "ds0057"
+   ],
+   "approx": true
+  },
+  {
+   "id": "B2",
+   "type": "problem",
+   "status": "offen",
+   "theme": "beleuchtung",
+   "title": "Bessere Beleuchtung im östlichen Laher Kirchweg",
+   "stadtteil": "Lahe",
+   "coords": [
+    52.41213,
+    9.81
+   ],
+   "summary": "Antrag der SPD-Fraktion auf der Tagesordnung vom 05.11.2025 (Drucksache 15-2144/2025). Das Ergebnis ist hier nicht geprüft. Lage ungefähr: Straßenmitte des Laher Kirchwegs.",
+   "owner": "Stadtbezirksrat",
+   "since": "11/2025",
+   "next": "Ergebnis im Sitzungsmanagement der Stadt nachsehen und Status ergänzen.",
+   "sources": [
+    "stbr1105"
+   ],
+   "approx": true
+  },
+  {
+   "id": "B3",
+   "type": "problem",
+   "status": "offen",
+   "theme": "verkehr",
+   "title": "Querung Varrelheide",
+   "stadtteil": "Lahe",
+   "coords": [
+    52.43082,
+    9.81162
+   ],
+   "summary": "Der Stadtbezirksrat behandelte am 17.06.2026 (TOP 6.3.1) die Querung Varrelheide. Inhalt und Ergebnis sind hier nicht geprüft. Lage ungefähr: Straßenmitte der Varrelheide.",
+   "owner": "Stadtbezirksrat",
+   "since": "06/2026",
+   "next": "Beschluss nachlesen und Status ergänzen.",
+   "sources": [
+    "termine"
+   ],
+   "approx": true
+  },
+  {
+   "id": "B4",
+   "type": "problem",
+   "status": "offen",
+   "theme": "verkehr",
+   "title": "Schulwegsicherheit und Weg zum Kindergarten",
+   "stadtteil": null,
+   "coords": null,
+   "summary": "Anfrage der SPD-Fraktion „Weg zum Kindergarten – Schulwegsicherheit – Sicherheit für Fußgänger*innen“ (Drucksache 15-2149/2025, Sitzung 05.11.2025). Der Ort ist im Tagesordnungstext nicht genannt.",
+   "owner": "Stadtbezirksrat",
+   "since": "11/2025",
+   "next": "Antwort der Verwaltung nachlesen, Orte über die Karte „Schulwege“ verorten.",
+   "sources": [
+    "stbr1105"
+   ]
+  },
+  {
+   "id": "B5",
+   "type": "problem",
+   "status": "offen",
+   "theme": "verkehr",
+   "title": "Akustiksignale an Ampeln",
+   "stadtteil": null,
+   "coords": null,
+   "summary": "Gemeinsamer Antrag von FDP, SPD und Bündnis 90/Die Grünen (Drucksache 15-2169/2025). Es geht um Verkehrssicherheit und Barrierefreiheit, der Ort ist im Tagesordnungstext nicht genannt.",
+   "owner": "Stadtbezirksrat",
+   "since": "11/2025",
+   "next": "Ergebnis nachlesen und Status ergänzen.",
+   "sources": [
+    "stbr1105"
+   ]
+  },
+  {
+   "id": "B6",
+   "type": "problem",
+   "status": "offen",
+   "theme": "nachbarschaft",
+   "title": "Straßensozialarbeit in Vahrenheide",
+   "stadtteil": "Vahrenheide",
+   "coords": null,
+   "summary": "Antrag der CDU-Fraktion auf der Tagesordnung vom 05.11.2025. Das Ergebnis ist hier nicht geprüft.",
+   "owner": "Stadtbezirksrat",
+   "since": "11/2025",
+   "next": "Ergebnis nachlesen und Status ergänzen.",
+   "sources": [
+    "stbr1105"
+   ]
+  },
+  {
+   "id": "B7",
+   "type": "problem",
+   "status": "offen",
+   "theme": "nachbarschaft",
+   "title": "Personalsituation in den Jugendzentren des Stadtbezirks",
+   "stadtteil": null,
+   "coords": null,
+   "summary": "Anfrage der SPD-Fraktion (Drucksache 15-1947/2025, Sitzung 05.11.2025) zur Personalsituation in den Jugendzentren.",
+   "owner": "Stadtbezirksrat",
+   "since": "11/2025",
+   "next": "Antwort der Verwaltung nachlesen.",
+   "sources": [
+    "stbr1105"
+   ]
+  },
+  {
+   "id": "B8",
+   "type": "problem",
+   "status": "offen",
+   "theme": "verkehr",
+   "title": "Parken und Verkehrsverstöße nehmen zu",
+   "stadtteil": null,
+   "coords": null,
+   "summary": "Laut Sicherheitsbericht 2025 stiegen die Verkehrsordnungswidrigkeiten im Stadtbezirk von 355 auf 1.109 und die Abschleppmaßnahmen von 16 auf 59. Der Bericht sieht keine Verschlechterung der Sicherheitslage, sondern verkehrsrechtliche Fragen im Vordergrund.",
+   "owner": "Ordnungsdienst der Landeshauptstadt",
+   "since": "2025",
+   "next": "Schwerpunkte mit dem Ordnungsdienst besprechen, Orte über die Meldekarte sammeln.",
+   "sources": [
+    "sich25"
+   ]
+  },
+  {
+   "id": "B9",
+   "type": "problem",
+   "status": "offen",
+   "theme": "gewalt",
+   "title": "24-Stunden-Besetzung der Polizeistation Sahlkamp/Vahrenheide",
+   "stadtteil": null,
+   "coords": null,
+   "summary": "Der Bezirksrat beschloss 2017 einen Antrag auf Besetzung rund um die Uhr (16 Stimmen, 1 Enthaltung). Die Antwort des Innenministeriums stand im November 2017 noch aus. Ein aktueller Stand ist nicht geprüft.",
+   "owner": "Stadtbezirksrat",
+   "since": "2017",
+   "next": "Aktuellen Stand bei Polizeiinspektion und Stadtbezirksmanagement erfragen.",
+   "sources": [
+    "polizei17"
+   ]
+  }
+ ]
+}

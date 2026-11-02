@@ -1,0 +1,16 @@
+{
+  "_comment": "Bothfeld-Vahrenheide: bisher nur der Ordnungsdienst aus dem Sicherheitsbericht 2025 (S. 40). Stadtteil-Kennzahlen aus den Statistischen Profilen 2022 (Stadtbezirk 03) fehlen noch.",
+  "sources": {
+    "sich25": {"title": "Sicherheitsbericht 2025, Polizeidirektion Hannover, Landeshauptstadt Hannover, aha (Ordnungsdienst, Stadtbezirk 3)", "url": "https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf"},
+    "stat22": {"title": "Statistische Profile der Stadtteile und Stadtbezirke 2022, Stadtbezirk 03 Bothfeld-Vahrenheide", "url": "https://www.statistikprofile-hannover.de"}
+  },
+  "bezirk": {"name": "Bothfeld-Vahrenheide"},
+  "stadtteile": {},
+  "ordnungsamt_2025": {
+    "verkehrsordnungswidrigkeiten": {"2024": 355, "2025": 1109},
+    "abschleppmassnahmen": {"2024": 16, "2025": 59},
+    "kontrollen": {"2024": 166, "2025": 207},
+    "platzverweise": {"2024": 2, "2025": 1},
+    "einordnung": "Der Bericht sieht keine Anhaltspunkte für eine Verschlechterung der Sicherheits- und Ordnungslage. Die Entwicklung wird von verkehrsrechtlichen Fragen geprägt; Auffälligkeiten bei störendem Verhalten oder Aufenthalt obdachloser Personen wurden nicht erfasst."
+  }
+}

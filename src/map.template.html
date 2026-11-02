@@ -245,7 +245,7 @@ details.meas a { color: var(--accent); overflow-wrap: anywhere; }
 .pop .meas-list { margin-top: 6px; }
 .pop .meas-list b { display: block; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); }
 .smark { width: 26px; height: 26px; box-sizing: border-box; border-radius: 6px; border: 2.5px solid var(--panel); background: var(--rc); color: #fff; font: 700 14px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
-.lmark { width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid var(--panel); background: var(--map-unlit); color: #fff; font: 700 11px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.lmark { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; min-width: 26px; height: 26px; padding: 0 5px; box-sizing: border-box; border-radius: 13px; border: 2.5px solid var(--panel); background: var(--map-unlit); color: #fff; font: 700 11px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
 table.zt { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 table.zt th, table.zt td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--line); }
 table.zt th:first-child, table.zt td:first-child { text-align: left; }
@@ -270,6 +270,10 @@ h1 { font-size: 21px; margin-top: 2px; }
 .tabs .ti { font-size: 15px; line-height: 1; opacity: .75; }
 .tabs button[aria-selected="true"] .ti { color: var(--accent); opacity: 1; }
 .panel { min-width: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.dswitch { appearance: none; -webkit-appearance: none; font: inherit; font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.1; color: var(--ink); background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23888' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 10px center; border: 1px solid var(--line); border-radius: 10px; padding: 6px 32px 6px 10px; max-width: 100%; cursor: pointer; }
+.dswitch:hover { border-color: var(--accent); }
+.dswitch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .app { grid-template-columns: 372px 1fr; }
 .search { font-size: 15px; padding: 10px 12px; }
 .map-tools { position: absolute; z-index: 900; top: 12px; right: 12px; display: grid; gap: 8px; justify-items: end; }
@@ -295,6 +299,7 @@ h1 { font-size: 21px; margin-top: 2px; }
   .panel-head > :not(.titles):not(.head-actions) { grid-column: 1 / -1; }
   .panel-head .eyebrow { font-size: 11px; }
   h1 { font-size: 18px; }
+  .dswitch { font-size: 17px; padding-block: 4px; }
   .tabs button { padding-block: 5px 4px; font-size: 12.5px; }
   .tabs .ti { font-size: 13px; }
   .panel.collapsed .tabs { display: none; }
@@ -309,11 +314,11 @@ h1 { font-size: 21px; margin-top: 2px; }
   <aside class="panel" id="panel">
     <div class="panel-head">
       <div class="titles">
-        <div class="eyebrow">Präventionsrat · Hannover</div>
-        <h1>Präventionsatlas Buchholz-Kleefeld</h1>
+        <div class="eyebrow">Präventionsatlas · Stadtbezirk <span id="bezNr"></span></div>
+        <h1><label class="sr-only" for="districtSwitch">Stadtbezirk wählen</label><select id="districtSwitch" class="dswitch"></select></h1>
       </div>
       <div class="head-actions">
-        <button class="btn small ghost" type="button" id="openProposal">Vorschlag</button>
+        <button class="btn small ghost" type="button" id="openProposal" hidden>Vorschlag</button>
         <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
       </div>
       <div class="tabs" role="tablist" aria-label="Ansicht">
@@ -324,6 +329,7 @@ h1 { font-size: 21px; margin-top: 2px; }
       </div>
     </div>
     <div class="panel-body" id="viewThemen" hidden>
+      <div class="callout" id="districtNote"></div>
       <div class="summary-row" id="issueSummary"></div>
       <button class="btn" type="button" id="reportBtn">Problem melden</button>
       <section class="report" id="reportBox" hidden></section>
@@ -338,7 +344,7 @@ h1 { font-size: 21px; margin-top: 2px; }
       <ul class="issues" id="issueList"></ul>
       <p class="note" id="liveNote"></p>
       <footer class="foot">
-        Themen und Maßnahmen stammen aus den Tätigkeitsberichten des Präventionsrats an den Stadtbezirksrat, Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
+        Themen und Maßnahmen stammen aus den im Eintrag genannten Quellen (Tätigkeitsberichte, Sitzungsunterlagen des Stadtbezirksrats), Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
         <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
       </footer>
     </div>
@@ -627,6 +633,9 @@ for (const [name, L0] of Object.entries(DATA.basemap)) {
   }) };
 }
 
+const DD = DATA.district;
+const IS_BK = DD.slug === "buchholz-kleefeld";
+document.title = "Präventionsatlas " + DD.name;
 const CATS = [
   ["jugend", "Kinder & Jugend", "Jugendzentren, Jugendhilfe"],
   ["bildung", "Bildung & Betreuung", "Schulen, Kitas, Bibliotheken"],
@@ -646,13 +655,13 @@ const LABEL = Object.fromEntries(CATS.map(c => [c[0], c[1]]));
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
 const state = { district: "alle", q: "", on: new Set(DEFAULT_ON), unlit: false, sel: null };
-try { const s = JSON.parse(localStorage.getItem("pa-bk") || "null"); if (s) { state.on = new Set(s.on); state.district = s.district || "alle"; state.unlit = !!s.unlit; } } catch (e) {}
-const save = () => { try { localStorage.setItem("pa-bk", JSON.stringify({ on: [...state.on], district: state.district, unlit: state.unlit })); } catch (e) {} };
+try { const s = JSON.parse(localStorage.getItem("pa-" + DD.slug) || "null"); if (s) { state.on = new Set(s.on); state.district = s.district || "alle"; state.unlit = !!s.unlit; } } catch (e) {}
+const save = () => { try { localStorage.setItem("pa-" + DD.slug, JSON.stringify({ on: [...state.on], district: state.district, unlit: state.unlit })); } catch (e) {} };
 
 // ---------- map + self-drawn basemap ----------
 const bezirk = DATA.boundaries.features.find(f => f.properties.level === "bezirk");
 const stadtteile = DATA.boundaries.features.filter(f => f.properties.level === "stadtteil");
-const map = L.map("map", { preferCanvas: true, fadeAnimation: false, zoomSnap: 0.25, minZoom: 12, maxZoom: 19, attributionControl: true });
+const map = L.map("map", { preferCanvas: true, fadeAnimation: false, zoomSnap: 0.25, minZoom: 11, maxZoom: 19, attributionControl: true });
 map.attributionControl.setPrefix(false).addAttribution('© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>');
 const bounds = L.geoJSON(bezirk).getBounds();
 map.fitBounds(bounds, { padding: [10, 10] });
@@ -665,7 +674,7 @@ const baseR = L.canvas({ pane: "base", padding: 0.5 });
 const poiR = L.canvas({ pane: "pois", padding: 0.5, tolerance: 6 });
 
 const ROAD = {
-  motorway: [5, 7, 14], trunk: [5, 7, 14], primary: [4, 6, 12], secondary: [3.5, 5.5, 12], tertiary: [3, 5, 13],
+  motorway: [5, 7, 11], trunk: [5, 7, 11], primary: [4, 6, 11], secondary: [3.5, 5.5, 11], tertiary: [3, 5, 13],
   unclassified: [2, 4, 14], residential: [2, 4, 14], living_street: [2, 3.5, 14], pedestrian: [2, 3.5, 14], service: [1, 2.2, 15],
 };
 const PATHS = new Set(["footway", "path", "cycleway", "track", "steps"]);
@@ -860,7 +869,7 @@ if (matchMedia("(max-width: 760px)").matches) setSheet(false);
 const REPO = "FreeXYZ-HalfPI/preventionsrat_GISMap";
 const URL_LICHT = "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Tiefbau/Service/St%C3%B6rungen-der-Stra%C3%9Fenbeleuchtung-melden";
 const URL_MAENGEL = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/B%C3%BCrger-Service-in-der-Landeshauptstadt-Hannover/Ideen-und-Beschwerden/M%C3%A4ngelhinweiskarte";
-const URL_PBK = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Pr%C3%A4ventionsrat-Buchholz-Kleefeld";
+const URL_PBK = DD.praeventionsrat.url;
 const STATUS = { offen: ["Offen", "--st-offen"], in_bearbeitung: ["In Bearbeitung", "--st-bearb"], umgesetzt: ["Umgesetzt", "--st-umgesetzt"] };
 const ISS = DATA.issues;
 const iState = { status: "alle", type: "alle" };
@@ -947,7 +956,7 @@ function showIssue(id) {
 }
 function showUnlit() {
   state.unlit = true; save(); drawUnlit(); render();
-  map.setView([52.40014, 9.79677], 16, { animate: false });
+  map.setView(DD.home_view, 16, { animate: false });
   if (matchMedia("(max-width: 760px)").matches) setSheet(false);
 }
 
@@ -967,7 +976,7 @@ function parseIssue(i) {
     status: names.includes("umgesetzt") || i.state === "closed" ? "umgesetzt" : names.includes("in-bearbeitung") ? "in_bearbeitung" : "offen",
     title: i.title.replace(/^\[Meldung\]\s*/, "") || field(i.body, "Ort") || "Meldung",
     summary: [field(i.body, "Thema"), field(i.body, "Ort"), desc.length > 280 ? desc.slice(0, 277) + "…" : desc].filter(Boolean).join(" · "),
-    stadtteil: coords ? stadtteilAt(coords[0], coords[1]) : null, coords: coords && inBezirk(coords[0], coords[1]) ? coords : null,
+    stadtteil: coords ? stadtteilAt(coords[0], coords[1]) : null, outside: !!coords && !inBezirk(coords[0], coords[1]), coords: coords && inBezirk(coords[0], coords[1]) ? coords : null,
     owner: "Präventionsrat", since: new Date(i.created_at).toLocaleDateString("de-DE"), next: "",
   };
 }
@@ -977,7 +986,7 @@ async function loadLive() {
     if (!r.ok) throw new Error(r.status);
     const list = (await r.json()).filter(i => !i.pull_request);
     const ok = i => i.labels.some(l => ["geprueft", "in-bearbeitung", "umgesetzt"].includes(l.name));
-    liveIssues = list.filter(ok).map(parseIssue);
+    liveIssues = list.filter(ok).map(parseIssue).filter(it => !it.outside && (it.coords || IS_BK));
     const pending = list.filter(i => i.state === "open" && !ok(i)).length;
     $("liveNote").textContent = pending ? `${pending} neue Meldung${pending > 1 ? "en werden" : " wird"} gerade geprüft.` : "";
     renderIssues();
@@ -1014,17 +1023,17 @@ function onPick(e) {
   if (!inBezirk(lat, lng)) { $("pickHint").textContent = "Dieser Ort liegt außerhalb des Stadtbezirks. Bitte innerhalb der Grenze tippen."; return; }
   map.off("click", onPick); $("map").classList.remove("picking"); $("pickHint").hidden = true;
   $("pickHint").textContent = "Tippen Sie auf den Ort des Problems";
-  const st = stadtteilAt(lat, lng) || "Buchholz-Kleefeld";
+  const st = stadtteilAt(lat, lng) || DD.name;
   const ll = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
   if (pickMarker) map.removeLayer(pickMarker);
   pickMarker = L.marker([lat, lng], { pane: "issues", icon: L.divIcon({ className: "", html: `<div class="imark problem" style="--sc:var(--accent)"></div>`, iconSize: [18, 18], iconAnchor: [9, 9] }) }).addTo(map);
   const gh = `https://github.com/${REPO}/issues/new?template=meldung.yml&title=${encodeURIComponent("[Meldung] " + st + ": ")}&ort=${encodeURIComponent(st)}&koordinaten=${encodeURIComponent(ll)}`;
   const osm = `https://www.openstreetmap.org/?mlat=${lat.toFixed(5)}&mlon=${lng.toFixed(5)}#map=18/${lat.toFixed(5)}/${lng.toFixed(5)}`;
-  const text = `Meldung an den Präventionsrat Buchholz-Kleefeld\nStadtteil: ${st}\nKoordinaten: ${ll}\nKarte: ${osm}\n\nThema:\nWas ist das Problem?\n`;
+  const text = `Meldung an das Stadtbezirksmanagement ${DD.name}\nStadtteil: ${st}\nKoordinaten: ${ll}\nKarte: ${osm}\n\nThema:\nWas ist das Problem?\n`;
   $("reportBox").innerHTML = `<h3>Ort gewählt</h3>
     <p class="picked">${esc(st)} · ${ll}</p>
     <div class="row"><a class="btn" href="${esc(gh)}" target="_blank" rel="noopener">Meldung auf GitHub schreiben</a><button class="btn ghost" type="button" id="copyReport">Text kopieren</button></div>
-    <p class="note">GitHub braucht ein kostenloses Konto. Ohne Konto: Text kopieren und an das Stadtbezirksmanagement schicken, die Kontaktdaten stehen auf der <a href="${URL_PBK}" target="_blank" rel="noopener">Seite des Präventionsrats</a>. Bitte keine Namen oder Fotos von Personen.</p>
+    <p class="note">GitHub braucht ein kostenloses Konto. Ohne Konto: Text kopieren und an das Stadtbezirksmanagement schicken, die Kontaktdaten stehen auf der <a href="${URL_PBK}" target="_blank" rel="noopener">Seite des Stadtbezirks</a>. Bitte keine Namen oder Fotos von Personen.</p>
     <textarea id="reportText" readonly rows="6" style="width:100%;box-sizing:border-box;font:inherit;font-size:12.5px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px" hidden>${esc(text)}</textarea>
     <div class="row"><button class="btn small ghost" type="button" id="pickBtn">Anderen Ort wählen</button><button class="btn small ghost" type="button" id="cancelReport">Fertig</button></div>`;
   if (matchMedia("(max-width: 760px)").matches) setSheet(true);
@@ -1115,7 +1124,7 @@ const MEAS = {
   elternhaltestelle: ["Elternhaltestelle einrichten", "Eine Halte- und Ausstiegsstelle in 200 bis 300 m Abstand zur Schule, von der Kinder die letzten Meter laufen. In Hannover wurde 2025 eine neu gestaltete Elternhaltestelle an der Friedrich-Ebert-Schule am Salzweg eingeweiht.", ["eltern"]],
   schulstrasse: ["Schulstraße als Pilot prüfen", "Die Straße vor der Schule wird zu Schulbeginn und Schulschluss für Autos gesperrt. Laut Medienbericht gab es in Hannover bisher nur eine Schulstraße (seit 2017). Ein Pilot braucht Zustimmung von Schule, Anliegern und Stadt.", ["ss"]],
   radausbildung: ["Radfahrausbildung und Verkehrserziehung", "Die Polizeidirektion nennt für 2025 stadtweit 3.097 Veranstaltungen zur Verkehrssicherheit für Kinder und Jugendliche, darunter Radfahrausbildung, Verkehrserziehung und Elternabende. In Kleefeld sind 47 % der an Unfällen mit Personenschaden Beteiligten Radfahrende (2020).", ["sich"]],
-  schulwegueberwachung: ["Schulwegüberwachung anfragen", "Die Polizei überwacht Schulwege und Orte mit erhöhtem Gefährdungsrisiko wie Grundschulen. Wunsch an die Polizeistation Kleefeld oder über die Schule melden.", ["sich"]],
+  schulwegueberwachung: ["Schulwegüberwachung anfragen", "Die Polizei überwacht Schulwege und Orte mit erhöhtem Gefährdungsrisiko wie Grundschulen. Wunsch an die " + DD.polizeistation + " oder über die Schule melden.", ["sich"]],
   licht_melden: ["Beleuchtung melden", "Defekte Lampe: Störung melden. Fehlende Beleuchtung an einem Weg: über die Mängelhinweiskarte melden (anonym möglich) und die Stelle in dieser Karte als Meldung eintragen, damit der Präventionsrat sie gebündelt an Stadtbezirksrat und Fachbereich gibt.", ["licht", "maengel"]],
   abendbegehung: ["Abendbegehung machen", "Nach dem Vorbild der mobilen Sicherheitskonferenz: Hinweise sammeln, eine Route von etwa zwei Stunden festlegen und die Stellen gemeinsam mit Anwohnenden, Stadtbezirksrat, Polizei und zuständigen Fachbereichen ablaufen. Auch Orte nennen, an denen man sich sicher fühlt.", ["msk"]],
 };
@@ -1124,7 +1133,7 @@ const swState = { zones: true, hot: true, perc: true };
 const PERC_MIN = 3;
 const PERC = {};   // ort-key -> { safe, unsafe, reasons }
 let percTotal = 0;
-const percKey = o => { const m = /^(L\d+)\b/.exec(o.trim()); if (m) return m[1]; const s = SW.schools.find(x => o.trim().startsWith(x.name)); return s ? s.name : null; };
+const percKey = o => { const m = /^((?:[A-Z]{2}-)?L\d+)\b/.exec(o.trim()); if (m) return m[1]; const s = SW.schools.find(x => o.trim().startsWith(x.name)); return s ? s.name : null; };
 async function loadPerception() {
   try {
     const r = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=wahrnehmung&state=all&per_page=100`, { headers: { Accept: "application/vnd.github+json" } });
@@ -1170,7 +1179,7 @@ function renderPerception() {
   const ready = percForm.gefuehl && percForm.grund;
   const ort = `${percForm.key}${percForm.key !== percForm.label ? " · " + percForm.label : ""}`;
   const gh = `https://github.com/${REPO}/issues/new?template=wahrnehmung.yml&title=${encodeURIComponent("[Wahrnehmung] " + ort)}&ort=${encodeURIComponent(ort)}&gefuehl=${encodeURIComponent(percForm.gefuehl)}&grund=${encodeURIComponent(percForm.grund)}&zeit=${encodeURIComponent(percForm.zeit)}`;
-  const text = `Wahrnehmung an den Präventionsrat Buchholz-Kleefeld\nOrt: ${ort}\nGefühl am Abend: ${percForm.gefuehl}\nHauptgrund: ${percForm.grund}\nTageszeit: ${percForm.zeit}\n`;
+  const text = `Wahrnehmung, Stadtbezirk ${DD.name}\nOrt: ${ort}\nGefühl am Abend: ${percForm.gefuehl}\nHauptgrund: ${percForm.grund}\nTageszeit: ${percForm.zeit}\n`;
   b.innerHTML = `<h3>Wie fühlt sich dieser Ort abends an?</h3>
     <p class="picked">${esc(ort)}</p>
     <div><div class="group-label">1. Gefühl</div>${seg("gefuehl", ["Eher sicher", "Eher unsicher"], percForm.gefuehl)}</div>
@@ -1244,7 +1253,7 @@ function drawSw() {
   if (swState.hot) for (const h of SW.hotspots.filter(district)) {
     const c = css("--map-unlit");
     swGroup.addLayer(L.circle(h.coords, { pane: "zones", radius: h.radius_m, color: c, weight: 2, dashArray: "2 5", fillColor: c, fillOpacity: 0.12, interactive: false }));
-    const icon = L.divIcon({ className: "", html: `<div class="lmark">${esc(h.id)}</div>`, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12] });
+    const icon = L.divIcon({ className: "", html: `<div class="lmark">${esc(h.id)}</div>`, iconSize: [0, 0], popupAnchor: [0, -14] });
     const m = L.marker(h.coords, { icon, pane: "issues", title: "Beleuchtungs-Schwerpunkt " + h.id, keyboard: true }).bindPopup(() => hotPopup(h), { maxWidth: 300 });
     swGroup.addLayer(m); hotMarkers[h.id] = m;
   }
@@ -1309,6 +1318,7 @@ function choroStats() {
   return { val, min: Math.min(...vs), max: Math.max(...vs), fmt: c[2] };
 }
 function renderZahlen() {
+  if (!DD.has_kennzahlen) { renderZahlenPartial(); return; }
   $("choroSel").innerHTML = Object.entries(CHORO).map(([k, c]) => `<button type="button" data-k="${k}" aria-pressed="${choroKey === k}">${c[0]}</button>`).join("");
   $("choroNote").textContent = CHORO_NOTE[choroKey];
   const S = KZ.stadtteile, B = KZ.bezirk, f1 = v => v == null ? "–" : v.toFixed(1).replace(".", ","), n0 = v => v.toLocaleString("de-DE");
@@ -1332,6 +1342,14 @@ function renderZahlen() {
     <div><b>AG Wohnen:</b> 8 von 10 Unfallbeteiligten sind Auto oder Fahrrad, in Kleefeld fast die Hälfte Radfahrende. Das spricht für sichere Radrouten und Tempo 30 am Schulumfeld. Parken und Verkehr sind laut Sicherheitsbericht der Schwerpunkt des Ordnungsdienstes.</div>
     <div><b>AG Bildung und Gesundheit:</b> ${n0(B.unter18)} Kinder und Jugendliche leben im Bezirk, ${n0(KZ.stadtteile["Groß-Buchholz"].unter18)} davon in Groß-Buchholz. Dort beziehen auch 17,8 % Transferleistungen: Angebote wie „Sport im Park“ und der Mittagstisch erreichen diese Gruppe.</div>
     <div><b>AG Demokratie:</b> Mehr als 4 von 10 Einwohner*innen haben einen Migrationshintergrund (42,1 %). Das Schulkonzept sollte mehrsprachig denken: häufigste Alltagssprachen nach Deutsch sind Arabisch (5,5 %), Polnisch (3,1 %), Russisch (2,7 %).</div></div>`;
+  $("zSrc").innerHTML = Object.values(KZ.sources).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("");
+}
+function renderZahlenPartial() {
+  document.querySelector("#viewZahlen > .callout").innerHTML = "<b>Zahlen aus den Berichten der Stadt.</b> Für diesen Bezirk bisher nur der Ordnungsdienst aus dem Sicherheitsbericht 2025."; $("choroSel").parentElement.hidden = true; $("zTable").parentElement.hidden = true; $("zMeaning").hidden = true;
+  const O = KZ.ordnungsamt_2025, n0 = v => v.toLocaleString("de-DE");
+  const L = { verkehrsordnungswidrigkeiten: "Verkehrsordnungswidrigkeiten", abschleppmassnahmen: "Abschleppmaßnahmen", kontrollen: "Kontrollen", platzverweise: "Platzverweise" };
+  $("zOrd").innerHTML = (O ? `<div class="group-label">Ordnungsdienst 2025 (Vorjahr → 2025)</div><table class="zt"><tbody>${Object.entries(L).filter(([k]) => O[k]).map(([k, l]) => `<tr><td>${l}</td><td>${n0(O[k]["2024"])} → ${n0(O[k]["2025"])}</td></tr>`).join("")}</tbody></table><p class="note" style="margin-top:6px">${esc(O.einordnung || "")}</p>` : "")
+    + `<div class="callout" style="margin-top:12px">Stadtteil-Kennzahlen (Bevölkerung, Kinder, Transferleistungen, Unfälle) sind für ${esc(DD.name)} noch nicht eingepflegt. Sie stehen in den Statistischen Profilen der Stadt, siehe Quellen.</div>`;
   $("zSrc").innerHTML = Object.values(KZ.sources).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("");
 }
 $("choroSel").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; choroKey = b.dataset.k; renderZahlen(); drawBounds(); });
@@ -1369,6 +1387,11 @@ $("proposal").addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("proposal").hidden) closeProposal(); });
 
+$("bezNr").textContent = DD.nr;
+$("districtSwitch").innerHTML = DD.districts.map(d => `<option value="${esc(d.href)}"${d.slug === DD.slug ? " selected" : ""}>${esc(d.name)}</option>`).join("");
+$("districtSwitch").addEventListener("change", e => { location.href = e.target.value + (location.hash || ""); });
+$("openProposal").hidden = !DD.has_proposal;
+$("districtNote").innerHTML = `<b>Präventionsgremium:</b> ${esc(DD.praeventionsrat.text)} <a href="${esc(DD.praeventionsrat.url)}" target="_blank" rel="noopener">Seite der Stadt</a>`;
 $("issuesAsof").textContent = new Date(ISS.updated).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
 const startHash = location.hash.slice(1);
 if (startHash === "themen") setView("themen");

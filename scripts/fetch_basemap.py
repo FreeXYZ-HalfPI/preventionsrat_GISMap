@@ -1,10 +1,11 @@
 """Fetch a light basemap (streets, rail, water, green, buildings) around
-Buchholz-Kleefeld so the map renders without an external tile server."""
+the Stadtbezirk (config/districts.json) so the map renders without an external tile server."""
 import json
-from fetch_osm import overpass, OUT, BEZIRK
+from fetch_osm import overpass, OUT
+from district import D
 
 # Bezirk bbox plus a small margin (south, west, north, east)
-BBOX = "52.355,9.765,52.420,9.850"
+BBOX = D["bbox"]
 
 LAYERS = {
     "roads": f'way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified|residential|living_street|pedestrian|service|footway|path|cycleway|track|steps)$"]({BBOX});',

@@ -9,9 +9,9 @@ ENDPOINTS = [
     "https://overpass.private.coffee/api/interpreter",
 ]
 UA = "PraeventionsratBuchholzKleefeld/1.0 (community map)"
-OUT = Path(__file__).resolve().parent.parent / "data"
-BEZIRK = 1862974
-STADTTEILE = [3360790, 3360791, 3360792]
+from district import D, DATA as OUT
+BEZIRK = D["relation"]
+STADTTEILE = D["stadtteile_rel"]
 
 
 def overpass(q):

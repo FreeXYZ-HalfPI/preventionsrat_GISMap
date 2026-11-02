@@ -9,9 +9,9 @@ Der Prüfbedarf ist ein transparenter Punktwert aus OSM-Merkmalen, keine amtlich
 import json, math
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-LAT0 = 52.39
+from district import D, DATA, SLUG
+LAT0 = D["lat0"]
+PREFIX = "" if SLUG == "buchholz-kleefeld" else "BV-"
 KX, KY = 111320 * math.cos(math.radians(LAT0)), 110574
 
 
@@ -166,7 +166,7 @@ def main():
         lon, lat = c[0] / KX, c[1] / KY
         names = sorted({n for t, n in hits if t in ("Schule", "Kita", "Spielplatz")})
         hotspots.append({
-            "id": f"L{i}", "coords": [round(lat, 6), round(lon, 6)], "stadtteil": stadtteil_of(lon, lat, parts),
+            "id": f"{PREFIX}L{i}", "coords": [round(lat, 6), round(lon, 6)], "stadtteil": stadtteil_of(lon, lat, parts),
             "unbeleuchtet_m": round(L), "radius_m": 200, "punkte": round(pr, 1),
             "naehe": {t: sum(1 for tt, _ in hits if tt == t) for t in ("Schule", "Kita", "Spielplatz", "Haltestelle")},
             "orte": names[:5],

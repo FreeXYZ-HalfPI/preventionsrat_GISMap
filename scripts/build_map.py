@@ -1,6 +1,6 @@
 """Combine fetched data with the template into one self-contained index.html.
 Entwickelt von MB Saryazdi für den Präventionsrat Buchholz-Kleefeld."""
-import json
+import json, os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -45,8 +45,9 @@ def pack_basemap(base):
     return out
 
 
-def main():
-    load = lambda n: json.loads((DATA / n).read_text())
+def build(slug, cfg, all_cfg):
+    d = ROOT / cfg["data_dir"]
+    load = lambda n: json.loads((d / n).read_text())
     boundaries = load("boundaries.geojson")
     pois = load("pois.geojson")
     stadtteile = [f for f in boundaries["features"] if f["properties"]["level"] == "stadtteil"]
@@ -57,7 +58,13 @@ def main():
         f["properties"]["stadtteil"] = next(
             (s["properties"]["name"] for s in stadtteile if in_feature(x, y, s)), None)
 
+    here = (ROOT / cfg["out"]).parent
+    district = {k: cfg[k] for k in ("name", "nr", "home_view", "praeventionsrat", "polizeistation", "has_proposal", "has_kennzahlen")}
+    district["slug"] = slug
+    district["districts"] = [{"slug": k, "name": v["name"], "href": os.path.relpath(ROOT / v["out"], here).replace(os.sep, "/")}
+                             for k, v in all_cfg.items()]
     data = {
+        "district": district,
         "meta": load("meta.json"),
         "boundaries": boundaries,
         "pois": pois,
@@ -71,15 +78,31 @@ def main():
     html = (SRC / "map.template.html").read_text()
     html = html.replace("/*__LEAFLET_CSS__*/", (SRC / "leaflet-1.9.4.css").read_text())
     html = html.replace("/*__DATA__*/null", json.dumps(data, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/"))
-    # Fragment for claude.ai Artifacts (they add the document skeleton themselves)
-    (ROOT / "build").mkdir(exist_ok=True)
-    (ROOT / "build" / "artifact.html").write_text(html)
+    if slug == "buchholz-kleefeld":
+        # Fragment for claude.ai Artifacts (they add the document skeleton themselves)
+        (ROOT / "build").mkdir(exist_ok=True)
+        (ROOT / "build" / "artifact.html").write_text(html)
     # Full document for GitHub Pages / any static host
     page = ('<!doctype html>\n<html lang="de">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
             '<style>body{margin:0}</style>\n</head>\n<body>\n' + html + '\n</body>\n</html>\n')
-    (ROOT / "index.html").write_text(page)
-    print(f"index.html {len(page) / 1e6:.1f} MB, {len(pois['features'])} places")
+    out = ROOT / cfg["out"]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page)
+    print(f"{cfg['out']} {len(page) / 1e6:.1f} MB, {len(pois['features'])} places")
+
+
+def main():
+    cfg = json.loads((ROOT / "config" / "districts.json").read_text())
+    cfg = {k: v for k, v in cfg.items() if not k.startswith("_")}
+    only = os.environ.get("DISTRICT")
+    for slug, c in cfg.items():
+        if only and slug != only:
+            continue
+        if not (ROOT / c["data_dir"] / "street_labels.json").exists() or not (ROOT / c["data_dir"] / "schulwege.json").exists():
+            print(f"skip {slug}: data incomplete")
+            continue
+        build(slug, c, cfg)
 
 
 if __name__ == "__main__":

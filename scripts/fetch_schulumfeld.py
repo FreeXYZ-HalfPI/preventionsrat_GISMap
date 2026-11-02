@@ -5,8 +5,9 @@ import datetime, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fetch_osm import overpass, OUT
+from district import D
 
-BBOX = "52.355,9.765,52.420,9.850"  # Stadtbezirk plus Rand
+BBOX = D["bbox"]  # Stadtbezirk plus Rand
 Q = f"""[out:json][timeout:120];
 (
   way[highway~"^(primary|secondary|tertiary)$"][name]({BBOX});

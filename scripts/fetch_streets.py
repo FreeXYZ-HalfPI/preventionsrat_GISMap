@@ -5,14 +5,15 @@ from collections import defaultdict
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fetch_osm import overpass, OUT
+from district import D
 
-BBOX = "52.355,9.765,52.420,9.850"
+BBOX = D["bbox"]
 Q = f"""[out:json][timeout:120];
 way[highway~"^(primary|secondary|tertiary|unclassified|residential|living_street|pedestrian)$"][name]({BBOX});
 out tags geom;
 """
 RANK = {"primary": 0, "secondary": 1, "tertiary": 2, "unclassified": 3, "residential": 3, "living_street": 4, "pedestrian": 4}
-LAT0 = 52.39
+LAT0 = D["lat0"]
 KX, KY = 111320 * math.cos(math.radians(LAT0)), 110574
 
 
