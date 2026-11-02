@@ -219,6 +219,46 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
   .sheet-toggle { display: inline-block; font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
 }
 @media (prefers-reduced-motion: reduce) { .leaflet-zoom-anim .leaflet-zoom-animated { transition: none !important; } }
+
+/* Schulwege, Licht, Zahlen */
+:root { --risk-hoch: #b91c1c; --risk-mittel: #b7791f; --risk-gering: #2f855a; --zone: #1c64c8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --risk-hoch: #ff7b7b; --risk-mittel: #f6c453; --risk-gering: #68d391; --zone: #6aa8ff; } }
+:root[data-theme="dark"] { --risk-hoch: #ff7b7b; --risk-mittel: #f6c453; --risk-gering: #68d391; --zone: #6aa8ff; }
+.tabs { overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { white-space: nowrap; padding-inline: 8px; font-size: 14.5px; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; background: var(--paper); }
+.callout b { font-weight: 700; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; background: var(--rc); }
+.risk { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--rc); }
+.risk::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--rc); margin-right: 5px; }
+.school { border: 1px solid var(--line); border-left: 4px solid var(--rc); border-radius: 8px; padding: 10px 12px; display: grid; gap: 5px; min-width: 0; }
+.school h3 { margin: 0; font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; }
+.school ul, .pop ul { margin: 0; padding-left: 17px; font-size: 13px; display: grid; gap: 2px; }
+.school .meta { font-size: 12.5px; color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chips span { font-size: 11.5px; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--ink-2); }
+details.meas { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 13.5px; }
+details.meas summary { cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+details.meas p { margin: 6px 0 0; }
+details.meas a { color: var(--accent); overflow-wrap: anywhere; }
+.pop .meas-list { margin-top: 6px; }
+.pop .meas-list b { display: block; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); }
+.smark { width: 26px; height: 26px; box-sizing: border-box; border-radius: 6px; border: 2.5px solid var(--panel); background: var(--rc); color: #fff; font: 700 14px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.lmark { width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid var(--panel); background: var(--map-unlit); color: #fff; font: 700 11px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+table.zt { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.zt th, table.zt td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+table.zt th:first-child, table.zt td:first-child { text-align: left; }
+table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 12px; color: var(--ink-2); }
+.credit { font-size: 12px; color: var(--ink-2); }
+.credit b { color: var(--ink); }
+.cards3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.cards3 > div { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; background: var(--panel); }
+.cards3 h4 { margin: 0; font-family: var(--font-display); font-size: 18px; }
+.cards3 p { font-size: 14px; }
+.cards3 .for-us { font-size: 13.5px; color: var(--accent); font-weight: 700; }
+.cards3 .lvl { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
 </style>
 
 <div class="app">
@@ -232,7 +272,9 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
       <p class="lede">Anlaufstellen, Treffpunkte und Themen im Stadtbezirk. Klicken Sie einen Punkt an, um Details zu sehen, oder melden Sie ein Problem.</p>
       <div class="tabs" role="tablist" aria-label="Ansicht">
         <button type="button" role="tab" id="tab-orte" data-view="orte" aria-selected="true">Orte</button>
-        <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false">Themen &amp; Probleme</button>
+        <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false">Themen</button>
+        <button type="button" role="tab" id="tab-schulweg" data-view="schulweg" aria-selected="false">Schulwege &amp; Licht</button>
+        <button type="button" role="tab" id="tab-zahlen" data-view="zahlen" aria-selected="false">Zahlen</button>
         <button type="button" class="proposal-tab" id="openProposal">Vorschlag</button>
       </div>
     </div>
@@ -252,7 +294,52 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
       <p class="note" id="liveNote"></p>
       <footer class="foot">
         Themen und Maßnahmen stammen aus den Tätigkeitsberichten des Präventionsrats an den Stadtbezirksrat, Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
+        <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
       </footer>
+    </div>
+    <div class="panel-body" id="viewSchulweg" hidden>
+      <div class="callout"><b>Schulwegsicherheit und Beleuchtung.</b> Die Karte zeigt um jede Schule eine Kernzone (100 m, Bringen und Abholen) und ein Schulumfeld (300 m, Weg zu Fuß und mit dem Rad). Der <b>Prüfbedarf</b> ist ein Hinweis, wo sich eine Begehung lohnt. Er ist keine amtliche Unfallanalyse und beruht auf OpenStreetMap-Daten.</div>
+      <section>
+        <div class="group-label">Ebenen</div>
+        <div class="cats" id="swLayers"></div>
+        <div class="legend" id="swLegend"></div>
+      </section>
+      <section>
+        <div class="group-label"><span>Schulen nach Prüfbedarf</span></div>
+        <ul class="issues" id="schoolList"></ul>
+      </section>
+      <section>
+        <div class="group-label"><span>Beleuchtungs-Schwerpunkte</span></div>
+        <p class="note" id="hotNote"></p>
+        <ul class="issues" id="hotList"></ul>
+      </section>
+      <section>
+        <div class="group-label"><span>Maßnahmen aus der Praxis</span></div>
+        <div id="measList" style="display:grid;gap:8px"></div>
+      </section>
+      <footer class="foot">
+        Grundlage: OpenStreetMap-Daten (Schulen, Haltestellen, Wege, Hauptstraßen, Querungen), Stand <span id="swAsof"></span>. Kennzahlen zu Unfällen und Bevölkerung im Tab „Zahlen“.
+        <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
+      </footer>
+    </div>
+    <div class="panel-body" id="viewZahlen" hidden>
+      <div class="callout"><b>Zahlen aus den Berichten der Stadt.</b> Statistische Profile 2022, Sozialbericht 2023 und Sicherheitsbericht 2025. Wählen Sie einen Wert, dann färbt sich die Karte nach Stadtteil.</div>
+      <section>
+        <div class="group-label">Auf der Karte einfärben</div>
+        <div class="seg" id="choroSel" role="group" aria-label="Kennzahl wählen"></div>
+        <p class="note" id="choroNote"></p>
+      </section>
+      <section>
+        <div class="group-label">Stadtteile im Vergleich</div>
+        <table class="zt" id="zTable"></table>
+      </section>
+      <section id="zOrd"></section>
+      <section id="zMeaning"></section>
+      <section>
+        <div class="group-label">Quellen</div>
+        <ol class="src-list" id="zSrc"></ol>
+      </section>
+      <footer class="foot"><div class="credit">Entwickelt von <b>MB Saryazdi</b></div></footer>
     </div>
     <div class="panel-body" id="panelBody">
       <section>
@@ -276,6 +363,7 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
       <footer class="foot">
         Daten: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-Mitwirkende</a> (ODbL), Stand <span id="asof"></span>.
         Fehlt ein Ort oder stimmt etwas nicht? Einträge lassen sich direkt in OpenStreetMap ergänzen, beim nächsten Datenabruf erscheinen sie hier.
+        <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
       </footer>
     </div>
   </aside>
@@ -286,7 +374,7 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
       <div class="proposal-inner">
         <button class="btn ghost close" type="button" id="closeProposal">← Zurück zur Karte</button>
         <header>
-          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026</div>
+          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026 · Entwickelt von MB Saryazdi</div>
           <h2 id="propTitle">Vom Gremium zur Anlaufstelle: was Buchholz-Kleefeld von Wien lernen kann</h2>
           <p>Der Präventionsrat überprüft 2026 gemeinsam mit dem Landespräventionsrat seine Struktur und Handlungsfelder, auch um attraktiver für neue Mitglieder zu werden. Dieser Vorschlag zeigt sechs Bausteine, mit denen der Rat sichtbarer wird, Probleme der Nachbarschaft schneller aufnimmt und mehr Menschen beteiligt. Alle Bausteine nutzen, was es im Stadtbezirk schon gibt.</p>
         </header>
@@ -326,6 +414,68 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
               <span class="for-us">Bei uns: Nachbarschafts-Oasen am Schaperplatz</span>
             </div>
           </div>
+        </section>
+
+        <section aria-labelledby="h-nds">
+          <h3 id="h-nds">Was Hannover und Niedersachsen schon tun</h3>
+          <p>Neben Wien gibt es Ansätze vor der Haustür, die den Kontakt zu den Bürger*innen verbessern. Sie sind belegt in Sicherheitsbericht 2025, Statistischen Profilen und Sozialbericht oder auf den Seiten der Stadt und des Landespräventionsrats. Die rechte Zeile sagt, was davon in dieser Karte steckt.</p>
+          <div class="cards3">
+            <div>
+              <span class="lvl">Hannover · Stadtbezirksmanagement</span>
+              <h4>Mobile Sicherheitskonferenz</h4>
+              <p>Zweimal im Jahr in wechselnden Stadtbezirken (zuletzt Südstadt-Bult am 08.12.2025, Ricklingen angekündigt). Vorab melden Bürger*innen Orte, an denen sie sich unsicher fühlen, aber auch Orte, an denen sie sich sicher fühlen. Aus den Hinweisen entsteht eine zweistündige Route mit Polizei, Fachbereichen und Stadtbezirksrat.</p>
+              <span class="for-us">Bei uns: Meldekarte und Beleuchtungs-Schwerpunkte als fertige Routenvorschläge</span>
+            </div>
+            <div>
+              <span class="lvl">Hannover · Polizei, Üstra, Stadt</span>
+              <h4>Sicherheitsbefragung und ÖPNV-Partnerschaft</h4>
+              <p>Die Befragung Ende 2023 zeigte verbreitete Unsicherheit an Haltestellen. Daraus folgte unter anderem die Optimierung der Ausleuchtung an Haltestellen als gemeinsames Ziel.</p>
+              <span class="for-us">Bei uns: Haltestellen fließen in die Gewichtung der Schwerpunkte ein</span>
+            </div>
+            <div>
+              <span class="lvl">Niedersachsen · Landespräventionsrat</span>
+              <h4>Communities That Care</h4>
+              <p>Datenbasierte Prävention, die Risiken und Schutzfaktoren in der Nachbarschaft misst. Hannover führt das Programm seit 2024 mit einer Lenkungsgruppe aus Polizei, Landesamt für Schule und Bildung, Jugendhilfe und Stadtbezirksmanagement ein, der Landespräventionsrat berät und fördert kommunale Gremien.</p>
+              <span class="for-us">Bei uns: Tab „Zahlen“ macht die Daten aus drei Berichten sichtbar (AG Bildung und Gesundheit)</span>
+            </div>
+            <div>
+              <span class="lvl">Niedersachsen · Kreispräventionsrat Heidekreis</span>
+              <h4>Dauerhafter Arbeitskreis Schulwegsicherheit</h4>
+              <p>Ein Präventionsrat richtet eine feste Arbeitsgruppe „Gemeinsam für die Schulwegsicherheit“ ein, in der lokale Akteure dauerhaft zusammenarbeiten.</p>
+              <span class="for-us">Bei uns: Schulwegsicherheit als festes Thema der AG Wohnen, mit Schulen und Eltern</span>
+            </div>
+            <div>
+              <span class="lvl">Hannover · Land Niedersachsen</span>
+              <h4>Elternhaltestelle an der Friedrich-Ebert-Schule</h4>
+              <p>Am Salzweg wurde 2025 eine neu gestaltete Elternhaltestelle eingeweiht, damit Kinder nicht direkt vor dem Schultor aus dem Auto steigen.</p>
+              <span class="for-us">Bei uns: Maßnahme bei Grundschulen mit Hauptstraße oder vielen Haltestellen im Umfeld</span>
+            </div>
+            <div>
+              <span class="lvl">Hannover · Mängelhinweiskarte</span>
+              <h4>Anonym und auf der Karte melden</h4>
+              <p>Hinweise zum öffentlichen Raum lassen sich ohne Name und Telefonnummer abgeben. Die Karte hier ergänzt das um Themen, die keine Reparatur sind: dunkle Ecken, unsichere Schulwege, Treffpunkte.</p>
+              <span class="for-us">Bei uns: Meldeweg mit Weiterleitung an die Stadt</span>
+            </div>
+            <div>
+              <span class="lvl">Niedersachsen · Landesprogramm Demokratie</span>
+              <h4>Demokratie in Kommunen und Schulen</h4>
+              <p>Die Koordinierungsstelle im Landespräventionsrat fördert, dass erprobte Methoden in Kommunen und Schulen übertragen werden, darunter Communities That Care und Schools That Care. Die Antragsfrist des Förderaufrufs 2025 ist abgelaufen.</p>
+              <span class="for-us">Bei uns: Anknüpfungspunkt für die AG Demokratie und ihr Schulkonzept</span>
+            </div>
+            <div>
+              <span class="lvl">Hannover · Runder Tisch, HAIP</span>
+              <h4>Rote Bank und Hilfen bei häuslicher Gewalt</h4>
+              <p>Das Hannoversche Interventionsprogramm vernetzt Beratung, Polizei und Jugendhilfe. In Buchholz-Kleefeld stehen zwei Rote Bänke, mit dem Aktionsstand am Frauentag als offene Begegnung.</p>
+              <span class="for-us">Bei uns: Bänke als Maßnahmen in der Themenkarte</span>
+            </div>
+          </div>
+          <p>Nicht gefunden habe ich öffentliche Beschreibungen, wie die AGs Bildung und Gesundheit oder Demokratie in anderen Stadtbezirken oder Kommunen arbeiten. Bekannt sind nur die Berichte des Landespräventionsrats und der Stadt. Hier lohnt eine Anfrage beim Landespräventionsrat.</p>
+        </section>
+
+        <section aria-labelledby="h-sw">
+          <h3 id="h-sw">Schulwege und Licht: so entsteht der Prüfbedarf</h3>
+          <p>Für jede Schule zählt die Karte Punkte aus OpenStreetMap-Daten: Hauptverkehrsstraße im Umfeld (2), keine erfasste Querungshilfe daneben (1), mehr als 300 m unbeleuchtete Wege im Umfeld (1), mehr als 800 m (2), drei oder mehr Haltestellen (1), zwei oder mehr Kitas (1). Ab 4 Punkten gilt der Prüfbedarf als hoch, ab 2 als mittel. Die Beleuchtungs-Schwerpunkte sind 150-m-Felder mit viel unbeleuchtetem Weg, gewichtet nach Nähe zu Schulen, Kitas, Spielplätzen und Haltestellen. Die Zahlen zeigen, wo eine Begehung zuerst lohnt, nicht, dass dort etwas passiert ist. Die Maßnahmen sind übliche Schritte, die andere Städte und Hannover selbst nutzen. Ob sie passen, entscheidet die Begehung mit Schule, Eltern, Polizei und Stadt.</p>
+          <div class="tags"><button class="btn small ghost" type="button" data-go="schulweg">Schulwege auf der Karte zeigen</button></div>
         </section>
 
         <section aria-labelledby="h-plan">
@@ -398,8 +548,16 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
             <li><a href="https://wien.orf.at/v2/news/stories/2788515/" target="_blank" rel="noopener">ORF Wien: Start für Wiens Grätzlpolizisten</a></li>
             <li><a href="https://www.wien.gv.at/freizeit/bildungjugend/fair-play/" target="_blank" rel="noopener">Stadt Wien: Fair-Play-Teams</a></li>
             <li><a href="https://www.bundeskanzleramt.gv.at/themen/nachhaltige-entwicklung-agenda-2030/erfolgsgeschichten-agenda-2023/erfolgsgeschichten-aus-2026/aktionsprogramm-graetzloase.html" target="_blank" rel="noopener">Bundeskanzleramt: Aktionsprogramm Grätzloase</a></li>
+            <li><a href="https://www.hannover.de/Service/Presse-Medien/Landeshauptstadt-Hannover/Aktuelle-Meldungen-und-Veranstaltungen/Mobile-Sicherheitskonferenz-in-Ricklingen" target="_blank" rel="noopener">Stadt Hannover: Mobile Sicherheitskonferenz in Ricklingen</a></li>
+            <li><a href="https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf" target="_blank" rel="noopener">Sicherheitsbericht 2025</a> (Polizeidirektion, Stadt, aha), Kap. Verkehrsunfallprävention, ÖPNV-Sicherheitspartnerschaft, Communities That Care, Ordnungsdienst</li>
+            <li>Statistische Profile der Stadtteile und Stadtbezirke 2022, Stadtbezirk 04, und Sozialbericht 2023 der Landeshauptstadt Hannover</li>
+            <li><a href="https://lpr.niedersachsen.de/" target="_blank" rel="noopener">Landespräventionsrat Niedersachsen</a>, <a href="https://lpr.niedersachsen.de/fileadmin/user_upload/redaktion_lpr/Dateien_zur_KoStLP__Lilit_/Foerderaufruf_Praxistransfer_Rad-Praev.pdf" target="_blank" rel="noopener">Förderaufruf Praxistransfer</a></li>
+            <li><a href="https://www.heidekreis.de/_Resources/Persistent/0/e/c/3/0ec384139561d8f0e6317cbe6fad077ef262f7d0/Flyer_AK_Schulwegsicherheit_im_KPR.pdf" target="_blank" rel="noopener">Heidekreis: Flyer AK Schulwegsicherheit im Kreispräventionsrat</a></li>
+            <li><a href="https://www.landesverkehrswacht.de/fileadmin/user_upload/LVW/Presse/2025/MI_PI_069_Innenministerin_Daniela_Behrens_Sicherer_Schulweg.pdf" target="_blank" rel="noopener">Innenministerium Niedersachsen: Elternhaltestelle Salzweg (Pressemitteilung 069/2025)</a></li>
+            <li><a href="https://www.umweltbundesamt.de/themen/verkehrswende-endlich-mehr-spielraeume-fuer-staedte" target="_blank" rel="noopener">Umweltbundesamt: StVO-Novelle 2024 und Tempo 30</a></li>
           </ol>
         </section>
+        <p class="credit">Entwickelt von <b>MB Saryazdi</b> für den Präventionsrat Buchholz-Kleefeld.</p>
         <button class="btn ghost close" type="button" data-close>← Zurück zur Karte</button>
       </div>
     </article>
@@ -449,7 +607,7 @@ const bounds = L.geoJSON(bezirk).getBounds();
 map.fitBounds(bounds, { padding: [10, 10] });
 map.setMaxBounds(bounds.pad(0.6));
 
-const panes = ["base", "bounds", "unlit", "pois", "issues"];
+const panes = ["base", "bounds", "zones", "unlit", "pois", "issues"];
 panes.forEach((p, i) => { map.createPane(p); map.getPane(p).style.zIndex = 300 + i * 50; });
 map.getPane("base").style.pointerEvents = "none";
 const baseR = L.canvas({ pane: "base", padding: 0.5 });
@@ -486,8 +644,14 @@ let mask, stLayer, bzLayer;
 function drawBounds() {
   [mask, stLayer, bzLayer].forEach(l => l && map.removeLayer(l));
   mask = L.polygon([world, ...holes], { pane: "bounds", interactive: false, stroke: false, fillColor: css("--paper"), fillOpacity: 0.62 }).addTo(map);
-  stLayer = L.geoJSON(stadtteile, { pane: "bounds", interactive: false, style: f => ({ color: css("--map-boundary"), weight: state.district === f.properties.name ? 3 : 1.3, dashArray: "6 5", fillColor: css("--map-boundary"), fillOpacity: state.district === f.properties.name ? 0.06 : 0 }) }).addTo(map);
-  stLayer.eachLayer(l => l.bindTooltip(l.feature.properties.name, { permanent: true, direction: "center", className: "st-label", interactive: false }));
+  const ch = choroStats();
+  stLayer = L.geoJSON(stadtteile, { pane: "bounds", interactive: false, style: f => {
+    const v = ch && ch.val[f.properties.name];
+    return { color: css("--map-boundary"), weight: state.district === f.properties.name ? 3 : 1.3, dashArray: "6 5",
+      fillColor: ch ? css("--map-unlit") : css("--map-boundary"),
+      fillOpacity: ch && v != null ? 0.12 + 0.5 * (ch.max > ch.min ? (v - ch.min) / (ch.max - ch.min) : 0.5) : (state.district === f.properties.name ? 0.06 : 0) };
+  } }).addTo(map);
+  stLayer.eachLayer(l => l.bindTooltip(l.feature.properties.name + (ch && ch.val[l.feature.properties.name] != null ? `<br>${ch.fmt(ch.val[l.feature.properties.name])}` : ""), { permanent: true, direction: "center", className: "st-label", interactive: false }));
   bzLayer = L.geoJSON(bezirk, { pane: "bounds", interactive: false, style: { color: css("--map-boundary"), weight: 3, fill: false } }).addTo(map);
 }
 
@@ -571,7 +735,7 @@ const DISTRICTS = ["alle", ...stadtteile.map(f => f.properties.name).sort()];
 $("districts").innerHTML = DISTRICTS.map(d => `<button type="button" data-d="${esc(d)}">${d === "alle" ? "Ganzer Bezirk" : esc(d)}</button>`).join("");
 $("districts").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  state.district = b.dataset.d; save(); drawBounds(); render(); if (typeof renderIssues === "function") renderIssues();
+  state.district = b.dataset.d; save(); drawBounds(); render(); if (typeof renderIssues === "function") renderIssues(); if (!$("viewSchulweg").hidden) { renderSw(); drawSw(); }
   const f = stadtteile.find(s => s.properties.name === state.district) || bezirk;
   map.flyToBounds(L.geoJSON(f).getBounds(), { padding: [20, 20], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.6 });
 });
@@ -826,14 +990,183 @@ $("reportBox").addEventListener("click", async e => {
   }
 });
 
+
+// ---------- Schulwege & Licht ----------
+const SW = DATA.schulwege, KZ = DATA.kennzahlen;
+const RISK = { hoch: ["Prüfbedarf hoch", "--risk-hoch"], mittel: ["Prüfbedarf mittel", "--risk-mittel"], gering: ["Prüfbedarf gering", "--risk-gering"] };
+const rcol = k => `var(${RISK[k][1]})`;
+const SRC = {
+  plan: ["Stadt Hannover: Schulwegpläne", "https://www.hannover.de/Leben-in-der-Region-Hannover/Soziales/Kinder-Jugendliche/Grundschulzeit/Schulwegpläne"],
+  lvw: ["Landesverkehrswacht: Wissensblatt Schulwegplan", "https://landesverkehrswacht.de/fileadmin/user_upload/LVW/Wissensblatt/2023_WB_15_Schulwegplan.pdf"],
+  uba: ["Umweltbundesamt: StVO-Novelle 2024", "https://www.umweltbundesamt.de/themen/verkehrswende-endlich-mehr-spielraeume-fuer-staedte"],
+  sich: ["Sicherheitsbericht 2025, Hannover", "https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf"],
+  eltern: ["Innenministerium Niedersachsen: Elternhaltestelle Salzweg", "https://www.landesverkehrswacht.de/fileadmin/user_upload/LVW/Presse/2025/MI_PI_069_Innenministerin_Daniela_Behrens_Sicherer_Schulweg.pdf"],
+  ss: ["news4teachers: Schulstraßen und Elterntaxis", "https://www.news4teachers.de/2025/09/fuer-mehr-sicherheit-elterntaxis-werden-ausgebremst-mit-fuer-autos-gesperrten-schulstrassen/"],
+  msk: ["Stadt Hannover: Mobile Sicherheitskonferenz", "https://www.hannover.de/Service/Presse-Medien/Landeshauptstadt-Hannover/Aktuelle-Meldungen-und-Veranstaltungen/Mobile-Sicherheitskonferenz-in-Ricklingen"],
+  maengel: ["Stadt Hannover: Mängelhinweiskarte", URL_MAENGEL],
+  licht: ["Stadt Hannover: Störung Straßenbeleuchtung melden", URL_LICHT],
+};
+const MEAS = {
+  schulwegplan: ["Schulwegplan prüfen", "Der Schulwegplan markiert gefährliche Stellen auf dem Weg zur Grundschule und soll jede Familie erhalten. Die Stadt Hannover stellt Pläne für Grundschulen bereit. Bei dieser Schule prüfen, ob es einen aktuellen Plan gibt und ob die Stellen aus der Karte darin stehen.", ["plan", "lvw"]],
+  tempo30: ["Tempo 30 vor der Schule beantragen", "Seit der StVO-Novelle 2024 können Kommunen Tempo 30 vor Schulen, Kitas und Spielplätzen auch an Hauptstraßen leichter anordnen, ohne dass erst eine besondere Gefahrenlage nachgewiesen werden muss. Antrag über die Straßenverkehrsbehörde, Anregung über den Stadtbezirksrat.", ["uba"]],
+  querung: ["Sichere Querung schaffen", "Zebrastreifen, Mittelinsel oder Ampel an den Stellen, an denen Kinder die Hauptstraße queren. Die Novelle 2024 erweitert auch das Ermessen bei Zebrastreifen. Vor Ort zählen, wo Kinder tatsächlich queren.", ["uba"]],
+  unfallkommission: ["Unfallkommission einbinden", "Die Polizei hat den Vorsitz der Unfallkommission und führt mit Verkehrs- und Baubehörden Ortstermine durch, um den Verkehrsraum sicherer zu gestalten. Die Karte liefert die Orte, die Schule und Eltern nennen.", ["sich"]],
+  elternhaltestelle: ["Elternhaltestelle einrichten", "Eine Halte- und Ausstiegsstelle in 200 bis 300 m Abstand zur Schule, von der Kinder die letzten Meter laufen. In Hannover wurde 2025 eine neu gestaltete Elternhaltestelle an der Friedrich-Ebert-Schule am Salzweg eingeweiht.", ["eltern"]],
+  schulstrasse: ["Schulstraße als Pilot prüfen", "Die Straße vor der Schule wird zu Schulbeginn und Schulschluss für Autos gesperrt. Laut Medienbericht gab es in Hannover bisher nur eine Schulstraße (seit 2017). Ein Pilot braucht Zustimmung von Schule, Anliegern und Stadt.", ["ss"]],
+  radausbildung: ["Radfahrausbildung und Verkehrserziehung", "Die Polizeidirektion nennt für 2025 stadtweit 3.097 Veranstaltungen zur Verkehrssicherheit für Kinder und Jugendliche, darunter Radfahrausbildung, Verkehrserziehung und Elternabende. In Kleefeld sind 47 % der an Unfällen mit Personenschaden Beteiligten Radfahrende (2020).", ["sich"]],
+  schulwegueberwachung: ["Schulwegüberwachung anfragen", "Die Polizei überwacht Schulwege und Orte mit erhöhtem Gefährdungsrisiko wie Grundschulen. Wunsch an die Polizeistation Kleefeld oder über die Schule melden.", ["sich"]],
+  licht_melden: ["Beleuchtung melden", "Defekte Lampe: Störung melden. Fehlende Beleuchtung an einem Weg: über die Mängelhinweiskarte melden (anonym möglich) und die Stelle in dieser Karte als Meldung eintragen, damit der Präventionsrat sie gebündelt an Stadtbezirksrat und Fachbereich gibt.", ["licht", "maengel"]],
+  abendbegehung: ["Abendbegehung machen", "Nach dem Vorbild der mobilen Sicherheitskonferenz: Hinweise sammeln, eine Route von etwa zwei Stunden festlegen und die Stellen gemeinsam mit Anwohnenden, Stadtbezirksrat, Polizei und zuständigen Fachbereichen ablaufen. Auch Orte nennen, an denen man sich sicher fühlt.", ["msk"]],
+};
+const swState = { zones: true, hot: true };
+const swGroup = L.layerGroup();
+const mLinks = ids => ids.map(k => `<a href="${esc(SRC[k][1])}" target="_blank" rel="noopener">${esc(SRC[k][0])}</a>`).join(" · ");
+const mList = ids => ids.map(k => `<li>${esc(MEAS[k][0])}</li>`).join("");
+function schoolFacts(s) {
+  const f = [];
+  f.push(`${s.unbeleuchtet_m.toLocaleString("de-DE")} m unbeleuchtete Wege im Umfeld`);
+  if (s.hauptstrassen && s.hauptstrassen.length) f.push("Hauptstraße: " + s.hauptstrassen.join(", "));
+  if (s.haltestellen) f.push(`${s.haltestellen} Haltestellen`);
+  if (s.kitas) f.push(`${s.kitas} Kitas`);
+  if (s.spielplaetze) f.push(`${s.spielplaetze} Spielplätze`);
+  return f;
+}
+function schoolPopup(s) {
+  return `<div class="pop" style="--cc:${rcol(s.pruefbedarf)}"><div class="pop-cat">${esc(s.art)} · ${esc(s.stadtteil || "")}</div><div class="pop-name">${esc(s.name)}</div>
+    <div class="risk" style="--rc:${rcol(s.pruefbedarf)}">${RISK[s.pruefbedarf][0]} · ${s.punkte} Punkte</div>
+    <ul>${s.gruende.map(g => `<li>${esc(g)}</li>`).join("") || "<li>keine Auffälligkeiten in den Daten</li>"}</ul>
+    <div class="meas-list"><b>Mögliche Maßnahmen</b><ul>${mList(s.massnahmen)}</ul></div>
+    <div class="src">Kernzone 100 m und Schulumfeld 300 m. Hinweis aus OSM-Daten, keine Unfallstatistik. Details im Tab „Schulwege &amp; Licht“.</div></div>`;
+}
+function hotPopup(h) {
+  const n = h.naehe, parts = [];
+  if (n.Schule) parts.push(`${n.Schule} Schule${n.Schule > 1 ? "n" : ""}`);
+  if (n.Kita) parts.push(`${n.Kita} Kita${n.Kita > 1 ? "s" : ""}`);
+  if (n.Spielplatz) parts.push(`${n.Spielplatz} Spielplatz${n.Spielplatz > 1 ? "e" : ""}`);
+  if (n.Haltestelle) parts.push(`${n.Haltestelle} Haltestelle${n.Haltestelle > 1 ? "n" : ""}`);
+  return `<div class="pop" style="--cc:var(--map-unlit)"><div class="pop-cat">Beleuchtungs-Schwerpunkt · ${esc(h.stadtteil || "")}</div><div class="pop-name">${esc(h.id)}: ${h.unbeleuchtet_m} m unbeleuchtet</div>
+    <p style="margin:0 0 4px">In der Nähe (200 m): ${esc(parts.join(", ") || "nichts erfasst")}${h.orte.length ? "<br>" + esc(h.orte.join(", ")) : ""}</p>
+    <div class="meas-list"><b>Nächste Schritte</b><ul><li>Abendbegehung mit Anwohnenden</li><li>Beleuchtungsbedarf melden</li></ul></div>
+    <div class="src">Nicht jeder unbeleuchtete Weg ist ein Problem. Die Begehung klärt, ob Handlungsbedarf besteht.</div></div>`;
+}
+function drawSw() {
+  swGroup.clearLayers();
+  const district = s => state.district === "alle" || s.stadtteil === state.district;
+  if (swState.zones) for (const s of SW.schools.filter(district)) {
+    const c = css(RISK[s.pruefbedarf][1]);
+    swGroup.addLayer(L.circle(s.coords, { pane: "zones", radius: 300, color: c, weight: 1.5, dashArray: "5 4", fillColor: c, fillOpacity: 0.09, interactive: false }));
+    swGroup.addLayer(L.circle(s.coords, { pane: "zones", radius: 100, color: c, weight: 2, fillColor: c, fillOpacity: 0.2, interactive: false }));
+    const icon = L.divIcon({ className: "", html: `<div class="smark" style="--rc:${rcol(s.pruefbedarf)}">S</div>`, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12] });
+    swGroup.addLayer(L.marker(s.coords, { icon, pane: "issues", title: s.name, keyboard: true }).bindPopup(() => schoolPopup(s), { maxWidth: 320 }));
+    schoolMarkers[s.name] = swGroup.getLayers()[swGroup.getLayers().length - 1];
+  }
+  if (swState.hot) for (const h of SW.hotspots.filter(district)) {
+    const c = css("--map-unlit");
+    swGroup.addLayer(L.circle(h.coords, { pane: "zones", radius: h.radius_m, color: c, weight: 2, dashArray: "2 5", fillColor: c, fillOpacity: 0.12, interactive: false }));
+    const icon = L.divIcon({ className: "", html: `<div class="lmark">${esc(h.id)}</div>`, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12] });
+    const m = L.marker(h.coords, { icon, pane: "issues", title: "Beleuchtungs-Schwerpunkt " + h.id, keyboard: true }).bindPopup(() => hotPopup(h), { maxWidth: 300 });
+    swGroup.addLayer(m); hotMarkers[h.id] = m;
+  }
+}
+const schoolMarkers = {}, hotMarkers = {};
+function renderSw() {
+  $("swLayers").innerHTML = `<label class="cat" style="--cc:var(--zone)"><input type="checkbox" data-sw="zones" ${swState.zones ? "checked" : ""}><span class="sw"></span><span class="nm">Schulzonen<small>Kernzone 100 m und Umfeld 300 m</small></span><span class="ct">${SW.schools.length}</span></label>
+    <label class="cat" style="--cc:var(--map-unlit)"><input type="checkbox" data-sw="hot" ${swState.hot ? "checked" : ""}><span class="sw"></span><span class="nm">Beleuchtungs-Schwerpunkte<small>viel unbeleuchteter Weg nahe Schulen, Kitas, Spielplätzen</small></span><span class="ct">${SW.hotspots.length}</span></label>
+    <label class="cat line" style="--cc:var(--map-unlit)"><input type="checkbox" data-sw="unlit" ${state.unlit ? "checked" : ""}><span class="sw"></span><span class="nm">Unbeleuchtete Wege<small>alle in OSM erfassten Abschnitte</small></span><span class="ct">${DATA.unlit.features.length}</span></label>`;
+  $("swLegend").innerHTML = Object.keys(RISK).map(k => `<span><i style="--rc:${rcol(k)}"></i>${RISK[k][0]}</span>`).join("");
+  const dist = s => state.district === "alle" || s.stadtteil === state.district;
+  $("schoolList").innerHTML = SW.schools.filter(dist).map(s => `<li class="school" style="--rc:${rcol(s.pruefbedarf)}">
+      <span class="risk" style="--rc:${rcol(s.pruefbedarf)}">${RISK[s.pruefbedarf][0]} · ${s.punkte} P.</span>
+      <h3>${esc(s.name)}</h3><div class="meta">${esc(s.art)} · ${esc(s.stadtteil || "")}</div>
+      <div class="chips">${schoolFacts(s).map(x => `<span>${esc(x)}</span>`).join("")}</div>
+      <details class="meas"><summary>${s.massnahmen.length} mögliche Maßnahmen</summary><ul style="margin:6px 0 0;padding-left:18px">${s.massnahmen.map(k => `<li>${esc(MEAS[k][0])}</li>`).join("")}</ul></details>
+      <div class="acts"><button class="btn small ghost" type="button" data-school="${esc(s.name)}">Auf Karte</button></div></li>`).join("") || `<li class="note">Keine Schulen in dieser Auswahl.</li>`;
+  $("hotNote").textContent = `Die ${SW.hotspots.length} Felder mit dem meisten unbeleuchteten Weg in der Nähe von Schulen, Kitas, Spielplätzen und Haltestellen. Gedacht als Vorschlag für die ersten Abendbegehungen.`;
+  $("hotList").innerHTML = SW.hotspots.filter(dist).map(h => `<li class="school" style="--rc:var(--map-unlit)"><h3>${esc(h.id)} · ${esc(h.stadtteil || "")}</h3>
+      <div class="meta">${h.unbeleuchtet_m} m unbeleuchtet${h.orte.length ? " · " + esc(h.orte.slice(0, 3).join(", ")) : ""}</div>
+      <div class="acts"><button class="btn small ghost" type="button" data-hot="${esc(h.id)}">Auf Karte</button></div></li>`).join("");
+  $("measList").innerHTML = Object.entries(MEAS).map(([k, [t, d, s]]) => `<details class="meas"><summary>${esc(t)}</summary><p>${esc(d)}</p><p class="note">Quelle: ${mLinks(s)}</p></details>`).join("");
+  $("swAsof").textContent = new Date(SW.updated).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+}
+$("swLayers").addEventListener("change", e => {
+  const k = e.target.dataset.sw; if (!k) return;
+  if (k === "unlit") { state.unlit = e.target.checked; save(); drawUnlit(); renderCats(); } else { swState[k] = e.target.checked; drawSw(); }
+});
+function flyOpen(m, ll, z) {
+  map.setView(ll, z, { animate: false }); m.openPopup();
+  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+}
+$("viewSchulweg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.school) { const s = SW.schools.find(x => x.name === b.dataset.school); if (s && schoolMarkers[s.name]) flyOpen(schoolMarkers[s.name], s.coords, 17); }
+  if (b.dataset.hot) { const h = SW.hotspots.find(x => x.id === b.dataset.hot); if (h && hotMarkers[h.id]) flyOpen(hotMarkers[h.id], h.coords, 17); }
+});
+
+// ---------- Zahlen ----------
+const CHORO = {
+  keine: ["Keine Einfärbung", null, null],
+  unter18: ["Kinder und Jugendliche", n => KZ.stadtteile[n].unter18_pct, v => `${v.toFixed(1).replace(".", ",")} % unter 18 Jahre`],
+  transfer: ["Transferleistungen", n => KZ.stadtteile[n].transfer_pct, v => `${v.toFixed(1).replace(".", ",")} % beziehen Transferleistungen`],
+  unfall: ["Unfälle mit Personenschaden", n => KZ.stadtteile[n].unfaelle / KZ.stadtteile[n].einwohner * 1000, v => `${v.toFixed(1).replace(".", ",")} je 1.000 Einwohner*innen (2020)`],
+  rad: ["Radfahrende bei Unfällen", n => KZ.stadtteile[n].beteiligte_rad_pct, v => `${v.toFixed(1).replace(".", ",")} % der Unfallbeteiligten fuhren Rad (2020)`],
+};
+const CHORO_NOTE = {
+  keine: "",
+  unter18: "Groß-Buchholz hat mit 17,5 % den höchsten Anteil, Kleefeld und Heideviertel liegen bei je 15,0 %.",
+  transfer: "Im Bezirk beziehen 15,4 % Transferleistungen. Zwischen Groß-Buchholz (17,8 %) und dem Heideviertel (7,5 %) liegen mehr als 10 Prozentpunkte.",
+  unfall: "Absolute Zahlen: Groß-Buchholz 74, Kleefeld 44, Heideviertel 17. Je 1.000 Einwohner*innen liegen Kleefeld und Heideviertel vorn. Kleine Fallzahlen schwanken stark.",
+  rad: "In Kleefeld waren 32 von 68 Unfallbeteiligten Radfahrende. Hinweis auf Radfahrausbildung und sichere Radrouten zur Schule.",
+};
+let choroKey = "keine";
+function choroStats() {
+  const c = CHORO[choroKey]; if (!c || !c[1] || $("viewZahlen").hidden) return null;
+  const val = {}; stadtteile.forEach(f => { const n = f.properties.name; if (KZ.stadtteile[n]) val[n] = c[1](n); });
+  const vs = Object.values(val).filter(v => v != null);
+  return { val, min: Math.min(...vs), max: Math.max(...vs), fmt: c[2] };
+}
+function renderZahlen() {
+  $("choroSel").innerHTML = Object.entries(CHORO).map(([k, c]) => `<button type="button" data-k="${k}" aria-pressed="${choroKey === k}">${c[0]}</button>`).join("");
+  $("choroNote").textContent = CHORO_NOTE[choroKey];
+  const S = KZ.stadtteile, B = KZ.bezirk, f1 = v => v == null ? "–" : v.toFixed(1).replace(".", ","), n0 = v => v.toLocaleString("de-DE");
+  const names = Object.keys(S);
+  const row = (label, fn, bez) => `<tr><td>${label}</td>${names.map(n => `<td>${fn(S[n])}</td>`).join("")}<td>${bez}</td></tr>`;
+  $("zTable").innerHTML = `<thead><tr><th></th>${names.map(n => `<th>${esc(n)}</th>`).join("")}<th>Bezirk</th></tr></thead><tbody>
+    ${row("Einwohner*innen", s => n0(s.einwohner), n0(B.einwohner))}
+    ${row("Unter 18 Jahre", s => n0(s.unter18), n0(B.unter18))}
+    ${row("Unter 18, Anteil %", s => f1(s.unter18_pct), f1(B.unter18_pct))}
+    ${row("Grundschulalter (6–9)", s => n0(s.grundschulalter), "–")}
+    ${row("Migrationshintergrund %", s => f1(s.migration_pct), f1(B.migration_pct))}
+    ${row("Transferleistungen %", s => f1(s.transfer_pct), f1(B.transfer_pct))}
+    ${row("Unfälle m. Personenschaden", s => n0(s.unfaelle), n0(B.unfaelle_personenschaden_2020))}
+    ${row("davon Radfahrende, % der Beteiligten", s => f1(s.beteiligte_rad_pct), f1(B.beteiligte_rad / B.unfall_beteiligte * 100))}
+    ${row("davon Fußgänger*innen, %", s => f1(s.beteiligte_fuss_pct), f1(B.beteiligte_fuss / B.unfall_beteiligte * 100))}</tbody>`;
+  const O = KZ.ordnungsamt_2025, ch = k => { const d = O[k]; return `${n0(d["2024"])} → ${n0(d["2025"])}`; };
+  $("zOrd").innerHTML = `<div class="group-label">Ordnungsdienst 2025 (Vorjahr → 2025)</div>
+    <table class="zt"><tbody><tr><td>Verkehrsordnungswidrigkeiten</td><td>${ch("verkehrsordnungswidrigkeiten")}</td></tr><tr><td>Abschleppmaßnahmen</td><td>${ch("abschleppmassnahmen")}</td></tr><tr><td>Kontrollen</td><td>${ch("kontrollen")}</td></tr><tr><td>Platzverweise</td><td>${ch("platzverweise")}</td></tr><tr><td>Verstöße Spielplatzsatzung</td><td>${ch("spielplatzsatzung")}</td></tr></tbody></table>
+    <p class="note" style="margin-top:6px">${esc(O.einordnung)}</p>`;
+  $("zMeaning").innerHTML = `<div class="group-label">Was die Zahlen für die AGs bedeuten</div><div class="callout" style="display:grid;gap:6px">
+    <div><b>AG Wohnen:</b> 8 von 10 Unfallbeteiligten sind Auto oder Fahrrad, in Kleefeld fast die Hälfte Radfahrende. Das spricht für sichere Radrouten und Tempo 30 am Schulumfeld. Parken und Verkehr sind laut Sicherheitsbericht der Schwerpunkt des Ordnungsdienstes.</div>
+    <div><b>AG Bildung und Gesundheit:</b> ${n0(B.unter18)} Kinder und Jugendliche leben im Bezirk, ${n0(KZ.stadtteile["Groß-Buchholz"].unter18)} davon in Groß-Buchholz. Dort beziehen auch 17,8 % Transferleistungen: Angebote wie „Sport im Park“ und der Mittagstisch erreichen diese Gruppe.</div>
+    <div><b>AG Demokratie:</b> Mehr als 4 von 10 Einwohner*innen haben einen Migrationshintergrund (42,1 %). Das Schulkonzept sollte mehrsprachig denken: häufigste Alltagssprachen nach Deutsch sind Arabisch (5,5 %), Polnisch (3,1 %), Russisch (2,7 %).</div></div>`;
+  $("zSrc").innerHTML = Object.values(KZ.sources).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("");
+}
+$("choroSel").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; choroKey = b.dataset.k; renderZahlen(); drawBounds(); });
+
 // views: tabs + proposal overlay
 function setView(v) {
   document.querySelectorAll(".tabs [role=tab]").forEach(t => t.setAttribute("aria-selected", t.dataset.view === v));
   $("panelBody").hidden = v !== "orte";
   $("viewThemen").hidden = v !== "themen";
+  $("viewSchulweg").hidden = v !== "schulweg";
+  $("viewZahlen").hidden = v !== "zahlen";
   if (v !== "themen") reportCancel();
-  // in the Themen view only issues are shown, so they don't drown among the places
-  v === "themen" ? map.removeLayer(poiGroup) : poiGroup.addTo(map);
+  // each view shows only its own layers, so they don't drown among the places
+  v === "orte" ? poiGroup.addTo(map) : map.removeLayer(poiGroup);
+  v === "schulweg" ? (drawSw(), swGroup.addTo(map)) : map.removeLayer(swGroup);
+  v === "orte" || v === "themen" ? issueGroup.addTo(map) : map.removeLayer(issueGroup);
+  if (v === "schulweg") renderSw();
+  if (v === "zahlen") renderZahlen();
+  drawBounds();
 }
 document.querySelectorAll(".tabs [role=tab]").forEach(t => t.addEventListener("click", () => { setView(t.dataset.view); setSheet(true); }));
 function openProposal() { $("proposal").hidden = false; $("proposal").scrollTop = 0; $("propTitle").setAttribute("tabindex", "-1"); $("propTitle").focus(); }
@@ -846,6 +1179,7 @@ $("proposal").addEventListener("click", e => {
   closeProposal();
   if (go === "report") { setView("themen"); setSheet(true); reportStart(); }
   if (go === "unlit") showUnlit();
+  if (go === "schulweg") { setView("schulweg"); setSheet(true); }
   if (go === "roderbruch") map.setView([52.39296, 9.81052], 16, { animate: false });
   if (go === "schaperplatz") { setView("themen"); renderIssues(); showIssue("T2"); }
 });
@@ -855,10 +1189,11 @@ $("issuesAsof").textContent = new Date(ISS.updated).toLocaleDateString("de-DE", 
 const startHash = location.hash.slice(1);
 if (startHash === "themen") setView("themen");
 if (startHash === "vorschlag") openProposal();
+if (startHash === "schulweg" || startHash === "zahlen") setView(startHash);
 
 $("asof").textContent = new Date(DATA.meta.fetched).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
 
-function restyle() { drawBase(); drawBounds(); drawUnlit(); styleMarkers(); }
+function restyle() { drawBase(); drawBounds(); drawUnlit(); styleMarkers(); if (!$("viewSchulweg").hidden) drawSw(); }
 new MutationObserver(restyle).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", restyle);
 

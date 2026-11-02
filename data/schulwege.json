@@ -1,0 +1,703 @@
+{
+ "updated": "2026-11-01",
+ "has_street_context": true,
+ "schools": [
+  {
+   "name": "Leinetal Gymnasium & Realschule",
+   "coords": [
+    52.3764135,
+    9.8048404
+   ],
+   "stadtteil": "Kleefeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 1201,
+   "kitas": 1,
+   "spielplaetze": 2,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Berckhusenstraße"
+   ],
+   "querungshilfen": 6,
+   "ampeln": 1,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Berckhusenstraße",
+    "1201 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Nackenberger Straße",
+   "coords": [
+    52.3768116,
+    9.8061016
+   ],
+   "stadtteil": "Kleefeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 973,
+   "kitas": 1,
+   "spielplaetze": 2,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Berckhusenstraße",
+    "Karl-Wiechert-Allee"
+   ],
+   "querungshilfen": 7,
+   "ampeln": 1,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Berckhusenstraße, Karl-Wiechert-Allee",
+    "973 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Ludolf-Wilhelm-Fricke-Schule",
+   "coords": [
+    52.3688308,
+    9.8069789
+   ],
+   "stadtteil": "Kleefeld",
+   "art": "Förderschule",
+   "unbeleuchtet_m": 1683,
+   "kitas": 0,
+   "spielplaetze": 1,
+   "haltestellen": 2,
+   "hauptstrassen": [
+    "Kirchröder Straße"
+   ],
+   "querungshilfen": 18,
+   "ampeln": 15,
+   "verkehrsberuhigung": 0,
+   "punkte": 4,
+   "pruefbedarf": "hoch",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Kirchröder Straße",
+    "1683 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Groß-Buchholzer-Kirchweg",
+   "coords": [
+    52.4013914,
+    9.8043493
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 477,
+   "kitas": 1,
+   "spielplaetze": 0,
+   "haltestellen": 2,
+   "hauptstrassen": [
+    "Groß-Buchholzer Kirchweg",
+    "Groß-Buchholzer Straße"
+   ],
+   "querungshilfen": 7,
+   "ampeln": 6,
+   "verkehrsberuhigung": 0,
+   "punkte": 3,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Groß-Buchholzer Kirchweg, Groß-Buchholzer Straße",
+    "477 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "elternhaltestelle",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Albert-Liebmann-Schule",
+   "coords": [
+    52.4074406,
+    9.8190214
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "Förderschule",
+   "unbeleuchtet_m": 773,
+   "kitas": 0,
+   "spielplaetze": 0,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Buchholzer Straße",
+    "Kirchhorster Straße",
+    "Podbielskistraße"
+   ],
+   "querungshilfen": 29,
+   "ampeln": 28,
+   "verkehrsberuhigung": 0,
+   "punkte": 3,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Buchholzer Straße, Kirchhorster Straße, Podbielskistraße",
+    "773 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Heinrich-Ernst-Stötzner-Schule",
+   "coords": [
+    52.3961044,
+    9.8108087
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "Förderschule",
+   "unbeleuchtet_m": 1278,
+   "kitas": 1,
+   "spielplaetze": 3,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 15,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "1278 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "IGS Roderbruch",
+   "coords": [
+    52.3870303,
+    9.817982
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 583,
+   "kitas": 4,
+   "spielplaetze": 4,
+   "haltestellen": 1,
+   "hauptstrassen": [],
+   "querungshilfen": 15,
+   "ampeln": 5,
+   "verkehrsberuhigung": 2,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "583 m unbeleuchtete Wege im Umfeld",
+    "4 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Schillerschule",
+   "coords": [
+    52.3732851,
+    9.7994419
+   ],
+   "stadtteil": "Kleefeld",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 822,
+   "kitas": 0,
+   "spielplaetze": 6,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 2,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "822 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Gerhart-Hauptmann-Realschule",
+   "coords": [
+    52.3988645,
+    9.7838896
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 154,
+   "kitas": 0,
+   "spielplaetze": 1,
+   "haltestellen": 2,
+   "hauptstrassen": [
+    "Hermann-Bahlsen-Allee",
+    "Podbielskistraße",
+    "Walderseestraße"
+   ],
+   "querungshilfen": 20,
+   "ampeln": 14,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Hermann-Bahlsen-Allee, Podbielskistraße, Walderseestraße"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Landesbildungszentrum für Blinde",
+   "coords": [
+    52.3638478,
+    9.805628
+   ],
+   "stadtteil": null,
+   "art": "Förderschule",
+   "unbeleuchtet_m": 2065,
+   "kitas": 0,
+   "spielplaetze": 0,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 1,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "2065 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Am Buchholzer Grün",
+   "coords": [
+    52.4061707,
+    9.8181584
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 1145,
+   "kitas": 0,
+   "spielplaetze": 1,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 1,
+   "ampeln": 1,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "1145 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule Lüneburger Damm",
+   "coords": [
+    52.3779974,
+    9.8219454
+   ],
+   "stadtteil": "Heideviertel",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 827,
+   "kitas": 1,
+   "spielplaetze": 0,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 0,
+   "ampeln": 0,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "827 m unbeleuchtete Wege im Umfeld"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Grundschule im Kleefelde",
+   "coords": [
+    52.3773585,
+    9.7881832
+   ],
+   "stadtteil": "Kleefeld",
+   "art": "Grundschule",
+   "unbeleuchtet_m": 742,
+   "kitas": 2,
+   "spielplaetze": 4,
+   "haltestellen": 0,
+   "hauptstrassen": [],
+   "querungshilfen": 7,
+   "ampeln": 0,
+   "verkehrsberuhigung": 1,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "742 m unbeleuchtete Wege im Umfeld",
+    "2 Kitas im Umfeld, viele kleine Kinder unterwegs"
+   ],
+   "massnahmen": [
+    "schulwegplan",
+    "radausbildung",
+    "licht_melden",
+    "abendbegehung",
+    "schulwegueberwachung"
+   ]
+  },
+  {
+   "name": "Käthe-Kollwitz-Schule",
+   "coords": [
+    52.4014624,
+    9.783546
+   ],
+   "stadtteil": null,
+   "art": "weiterführende Schule",
+   "unbeleuchtet_m": 135,
+   "kitas": 0,
+   "spielplaetze": 0,
+   "haltestellen": 1,
+   "hauptstrassen": [
+    "Podbielskistraße",
+    "Spannhagenstraße"
+   ],
+   "querungshilfen": 22,
+   "ampeln": 12,
+   "verkehrsberuhigung": 0,
+   "punkte": 2,
+   "pruefbedarf": "mittel",
+   "gruende": [
+    "Hauptverkehrsstraße im Umfeld: Podbielskistraße, Spannhagenstraße"
+   ],
+   "massnahmen": [
+    "tempo30",
+    "querung",
+    "unfallkommission",
+    "schulwegueberwachung"
+   ]
+  }
+ ],
+ "hotspots": [
+  {
+   "id": "L1",
+   "coords": [
+    52.371854,
+    9.804463
+   ],
+   "stadtteil": "Kleefeld",
+   "unbeleuchtet_m": 431,
+   "radius_m": 200,
+   "punkte": 16.3,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 1,
+    "Haltestelle": 11
+   },
+   "orte": [
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L2",
+   "coords": [
+    52.38947,
+    9.817437
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 201,
+   "radius_m": 200,
+   "punkte": 14.0,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 6,
+    "Haltestelle": 6
+   },
+   "orte": [
+    "Bornhof",
+    "Nußriede",
+    "Rotekreuzstraße",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L3",
+   "coords": [
+    52.37771,
+    9.791038
+   ],
+   "stadtteil": "Kleefeld",
+   "unbeleuchtet_m": 235,
+   "radius_m": 200,
+   "punkte": 13.8,
+   "naehe": {
+    "Schule": 1,
+    "Kita": 3,
+    "Spielplatz": 4,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Grundschule im Kleefelde",
+    "Kinderhort Camelot",
+    "Kindertagesstätte Schweriner Straße",
+    "Kleefelder Knirpse - Große Knirpse",
+    "Mecklenburger Straße"
+   ]
+  },
+  {
+   "id": "L4",
+   "coords": [
+    52.407306,
+    9.808978
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 345,
+   "radius_m": 200,
+   "punkte": 13.4,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 2,
+    "Spielplatz": 4,
+    "Haltestelle": 3
+   },
+   "orte": [
+    "Kindertagesstätte Buchholzer Grün",
+    "Kindertagesstätte In den Sieben Stücken",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L5",
+   "coords": [
+    52.376478,
+    9.797445
+   ],
+   "stadtteil": "Kleefeld",
+   "unbeleuchtet_m": 258,
+   "radius_m": 200,
+   "punkte": 13.1,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 1,
+    "Spielplatz": 5,
+    "Haltestelle": 4
+   },
+   "orte": [
+    "Kindertagesstätte Strelitzer Weg",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L6",
+   "coords": [
+    52.379994,
+    9.800118
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 477,
+   "radius_m": 200,
+   "punkte": 12.8,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 2,
+    "Spielplatz": 5,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Die Hirtenkinder",
+    "Kindertagesstätte Weltkinder",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L7",
+   "coords": [
+    52.394844,
+    9.815329
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 741,
+   "radius_m": 200,
+   "punkte": 11.9,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 1,
+    "Spielplatz": 1,
+    "Haltestelle": 2
+   },
+   "orte": [
+    "Haus Kunterbunt",
+    "Neue-Land-Straße"
+   ]
+  },
+  {
+   "id": "L8",
+   "coords": [
+    52.400369,
+    9.820152
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 378,
+   "radius_m": 200,
+   "punkte": 11.3,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 1,
+    "Spielplatz": 2,
+    "Haltestelle": 4
+   },
+   "orte": [
+    "Kindertagesstätte Fridtjof-Nansen-Haus",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L9",
+   "coords": [
+    52.376076,
+    9.804267
+   ],
+   "stadtteil": "Kleefeld",
+   "unbeleuchtet_m": 177,
+   "radius_m": 200,
+   "punkte": 11.3,
+   "naehe": {
+    "Schule": 2,
+    "Kita": 1,
+    "Spielplatz": 0,
+    "Haltestelle": 2
+   },
+   "orte": [
+    "Grundschule Nackenberger Straße",
+    "Kleefelder Frischlinge",
+    "Leinetal Gymnasium & Realschule"
+   ]
+  },
+  {
+   "id": "L10",
+   "coords": [
+    52.392444,
+    9.808726
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 718,
+   "radius_m": 200,
+   "punkte": 10.2,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 3,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Drachenspielplatz",
+    "Spielplatz",
+    "Spielplatz Tripweg (Grünzug Roderbruch Nord)"
+   ]
+  },
+  {
+   "id": "L11",
+   "coords": [
+    52.37496,
+    9.808677
+   ],
+   "stadtteil": "Heideviertel",
+   "unbeleuchtet_m": 202,
+   "radius_m": 200,
+   "punkte": 10.0,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 0,
+    "Spielplatz": 1,
+    "Haltestelle": 7
+   },
+   "orte": [
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L12",
+   "coords": [
+    52.38009,
+    9.79331
+   ],
+   "stadtteil": "Groß-Buchholz",
+   "unbeleuchtet_m": 554,
+   "radius_m": 200,
+   "punkte": 9.5,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 2,
+    "Spielplatz": 1,
+    "Haltestelle": 0
+   },
+   "orte": [
+    "Kindertagesstätte Lathusenstraße",
+    "Kindertagesstätte Schweriner Straße",
+    "Mecklenburger Straße"
+   ]
+  }
+ ]
+}

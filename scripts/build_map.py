@@ -1,4 +1,5 @@
-"""Combine fetched data with the template into one self-contained index.html."""
+"""Combine fetched data with the template into one self-contained index.html.
+Entwickelt von MB Saryazdi für den Präventionsrat Buchholz-Kleefeld."""
 import json
 from pathlib import Path
 
@@ -62,6 +63,8 @@ def main():
         "pois": pois,
         "unlit": load("unlit_paths.geojson"),
         "issues": load("issues.json"),
+        "schulwege": load("schulwege.json"),
+        "kennzahlen": load("kennzahlen.json"),
         "basemap": pack_basemap(load("basemap.json")),
     }
     html = (SRC / "map.template.html").read_text()
