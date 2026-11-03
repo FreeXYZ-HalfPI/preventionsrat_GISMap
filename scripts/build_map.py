@@ -60,6 +60,7 @@ def build(slug, cfg, all_cfg):
 
     here = (ROOT / cfg["out"]).parent
     district = {k: cfg[k] for k in ("name", "nr", "home_view", "praeventionsrat", "polizeistation", "has_proposal", "has_kennzahlen")}
+    district["report_api"] = cfg.get("report_api", "")
     district["slug"] = slug
     district["districts"] = [{"slug": k, "name": v["name"], "href": os.path.relpath(ROOT / v["out"], here).replace(os.sep, "/")}
                              for k, v in all_cfg.items()]

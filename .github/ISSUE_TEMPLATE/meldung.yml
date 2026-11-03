@@ -1,7 +1,7 @@
 name: Problem im Stadtteil melden
 description: Ein Problem in Buchholz-Kleefeld an den Präventionsrat melden. Die Meldung erscheint erst nach Prüfung auf der Karte.
 title: "[Meldung] "
-labels: ["meldung"]
+labels: ["meldung", "gemeldet"]
 body:
   - type: markdown
     attributes:
@@ -41,6 +41,22 @@ body:
       description: Wann tritt es auf? Wen betrifft es? Haben Sie eine Idee zur Lösung?
     validations:
       required: true
+  - type: dropdown
+    id: seit_wann
+    attributes:
+      label: Seit wann gibt es das Problem?
+      options:
+        - Seit heute
+        - Seit einigen Tagen
+        - Seit einigen Wochen
+        - Seit einigen Monaten
+        - Schon sehr lange
+        - Weiß ich nicht
+  - type: textarea
+    id: vorschlag
+    attributes:
+      label: Was schlagen Sie vor?
+      description: Freiwillig. Was würde Ihrer Meinung nach helfen?
   - type: checkboxes
     id: datenschutz
     attributes:

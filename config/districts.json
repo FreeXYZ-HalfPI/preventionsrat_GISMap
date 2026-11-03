@@ -5,6 +5,7 @@
     "relation": 1862974, "stadtteile_rel": [3360790, 3360791, 3360792],
     "bbox": "52.355,9.765,52.420,9.850", "lat0": 52.39,
     "home_view": [52.40014, 9.79677],
+    "report_api": "",
     "praeventionsrat": {"status": "aktiv", "text": "Präventionsrat Buchholz-Kleefeld mit den Arbeitsgruppen Wohnen, Demokratie sowie Bildung und Gesundheit (seit 2013).", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Pr%C3%A4ventionsrat-Buchholz-Kleefeld"},
     "polizeistation": "Polizeistation Kleefeld",
     "has_proposal": true, "has_kennzahlen": true

@@ -310,6 +310,63 @@ h1 { font-size: 21px; margin-top: 2px; }
   .report-fab { padding: 8px 12px; font-size: 13.5px; }
   .map-tools .tool { width: 38px; height: 38px; }
 }
+
+/* Problem melden: großes, ruhiges Formular (eine Frage pro Bildschirm) */
+.row2 { display: grid; gap: 8px; }
+.btn.big { font-size: 18px; padding: 14px 18px; min-height: 52px; border-radius: 12px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.wiz { position: absolute; z-index: 1100; left: 16px; bottom: 16px; width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: auto; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,.28); padding: 18px; font-size: 18px; line-height: 1.5; }
+.wiz-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+.wiz h2 { margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 1.15; }
+.wiz h2:focus { outline: none; }
+.wiz-x { font: inherit; font-size: 22px; width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; flex: none; }
+.wiz-prog { height: 8px; border-radius: 99px; background: var(--line); margin-top: 10px; overflow: hidden; }
+.wiz-prog i { display: block; height: 100%; background: var(--accent); }
+.wiz-step { font-size: 15px; color: var(--ink-2); margin: 4px 0 0; }
+.wiz-body { display: grid; gap: 12px; margin: 14px 0; }
+.wiz-body p { margin: 0; }
+.wiz a { color: var(--accent); font-weight: 700; }
+.wiz-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 17px; }
+.wiz-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.wiz-nav .btn { flex: 1 1 140px; }
+.wiz-topics { display: grid; gap: 10px; }
+.topic { font: inherit; font-size: 18px; font-weight: 700; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.topic span { font-size: 26px; width: 34px; text-align: center; }
+.topic[aria-pressed="true"], .chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.wiz-q { font-weight: 700; font-size: 19px; }
+.wiz-q .opt { font-weight: 400; color: var(--ink-2); font-size: 16px; }
+.wiz textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 18px; padding: 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); resize: vertical; }
+.wiz textarea:focus, .topic:focus-visible, .chip:focus-visible, .wiz-x:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wiz-tip, .wiz-help { font-size: 16px; color: var(--ink-2); }
+.wiz-since { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-size: 16.5px; min-height: 46px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.wiz-picked { font-weight: 700; background: var(--paper); border: 2px solid var(--accent); border-radius: 12px; padding: 10px 12px; }
+.wiz-error { color: #b42318; font-weight: 700; }
+:root[data-theme="dark"] .wiz-error { color: #ff8a80; }
+.wiz-sum { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0; font-size: 17px; }
+.wiz-sum dt { font-weight: 700; color: var(--ink-2); }
+.wiz-sum dd { margin: 0; overflow-wrap: anywhere; }
+.wiz-check { display: flex; gap: 12px; align-items: start; font-size: 17px; }
+.wiz-check input { width: 28px; height: 28px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+.wiz-big { font-size: 22px; }
+.pin { width: 34px; height: 34px; background: var(--accent); border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 2px 8px rgba(0,0,0,.45); margin: 0 0 0 0; }
+body.wiz-pin .wiz { max-height: 44vh; }
+.mine-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.mine { border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 6px; background: var(--panel); font-size: 15px; }
+.mine-steps { display: flex; gap: 4px; }
+.mine-steps i { flex: 1; height: 8px; border-radius: 99px; background: var(--line); }
+.mine-steps i.on { background: var(--accent); }
+.mine.st-abgelehnt .mine-steps i.on { background: #b42318; }
+.mine a { color: var(--accent); font-weight: 700; }
+.mine-add label { font-weight: 700; display: block; margin-bottom: 4px; }
+.mine-add input { font: inherit; font-size: 17px; padding: 10px; border-radius: 8px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); width: 8em; }
+@media (max-width: 760px) {
+  .wiz { left: 0; right: 0; bottom: 0; width: auto; max-height: 82vh; border-radius: 16px 16px 0 0; padding: 16px 16px max(16px, env(safe-area-inset-bottom, 0px)); }
+  body.wiz-open .panel, body.wiz-open .report-fab { display: none; }
+  body.wiz-pin .wiz { max-height: 46vh; }
+  .wiz h2 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: no-preference) { .wiz { animation: wizin .2s ease-out; } @keyframes wizin { from { transform: translateY(12px); opacity: 0; } } }
 </style>
 
 <div class="app">
@@ -333,8 +390,8 @@ h1 { font-size: 21px; margin-top: 2px; }
     <div class="panel-body" id="viewThemen" hidden>
       <div class="callout" id="districtNote"></div>
       <div class="summary-row" id="issueSummary"></div>
-      <button class="btn" type="button" id="reportBtn">Problem melden</button>
-      <section class="report" id="reportBox" hidden></section>
+      <div class="row2"><button class="btn big" type="button" id="reportBtn">Problem melden</button><button class="btn ghost big" type="button" id="myReportsBtn">Meine Meldungen</button></div>
+      <section class="report" id="mineBox" hidden aria-live="polite"></section>
       <section>
         <div class="group-label">Status</div>
         <div class="seg" id="statusFilter" role="group" aria-label="Nach Status filtern"></div>
@@ -428,7 +485,7 @@ h1 { font-size: 21px; margin-top: 2px; }
       <button class="tool" type="button" id="homeBtn" title="Ganzer Stadtbezirk" aria-label="Ganzen Stadtbezirk zeigen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
     <div class="where" id="where" aria-live="polite" hidden></div>
-    <div class="pick-hint" id="pickHint" hidden>Tippen Sie auf den Ort des Problems</div>
+    <section class="wiz" id="wiz" role="dialog" aria-modal="false" aria-labelledby="wizTitle" hidden></section>
     <article class="proposal" id="proposal" hidden aria-labelledby="propTitle">
       <div class="proposal-inner">
         <button class="btn ghost close" type="button" id="closeProposal">← Zurück zur Karte</button>
@@ -972,12 +1029,12 @@ function parseIssue(i) {
   const names = i.labels.map(l => l.name);
   const c = /(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/.exec(field(i.body, "Koordinaten"));
   const coords = c ? [+c[1], +c[2]] : null;
-  const desc = field(i.body, "Was ist das Problem\\?");
+  const desc = field(i.body, "Was ist das Problem\\?"), idea = field(i.body, "Was schlagen Sie vor\\?");
   return {
     id: "GH" + i.number, number: i.number, live: true, url: i.html_url, type: "problem",
     status: names.includes("umgesetzt") || i.state === "closed" ? "umgesetzt" : names.includes("in-bearbeitung") ? "in_bearbeitung" : "offen",
     title: i.title.replace(/^\[Meldung\]\s*/, "") || field(i.body, "Ort") || "Meldung",
-    summary: [field(i.body, "Thema"), field(i.body, "Ort"), desc.length > 280 ? desc.slice(0, 277) + "…" : desc].filter(Boolean).join(" · "),
+    summary: [field(i.body, "Thema"), field(i.body, "Ort"), desc.length > 280 ? desc.slice(0, 277) + "…" : desc, idea ? "Vorschlag: " + (idea.length > 160 ? idea.slice(0, 157) + "…" : idea) : ""].filter(Boolean).join(" · "),
     stadtteil: coords ? stadtteilAt(coords[0], coords[1]) : null, outside: !!coords && !inBezirk(coords[0], coords[1]), coords: coords && inBezirk(coords[0], coords[1]) ? coords : null,
     owner: "Präventionsrat", since: new Date(i.created_at).toLocaleDateString("de-DE"), next: "",
   };
@@ -997,61 +1054,211 @@ async function loadLive() {
   }
 }
 
-// report flow
+// ---------- Problem melden: Schritt-für-Schritt-Formular ----------
+// Eine Frage pro Bildschirm, große Schrift, Zurück jederzeit. Die Meldung wird als GitHub-Issue
+// gespeichert (Label "gemeldet"); Einsendung über die Schnittstelle DD.report_api (worker/report-worker.js)
+// oder, solange keine eingerichtet ist, über das vorbefüllte GitHub-Formular.
+const TOPICS = [
+  ["Beleuchtung / dunkle Wege", "💡", "Es ist zu dunkel"],
+  ["Müll / Verschmutzung", "🗑️", "Müll oder Schmutz"],
+  ["Verkehr / Schulweg", "🚸", "Verkehr oder Schulweg"],
+  ["Treffpunkt / Aufenthalt / Grünfläche", "🌳", "Treffpunkt, Park, Grünfläche"],
+  ["Zusammenleben / Konflikte", "🤝", "Streit oder Lärm"],
+  ["Barrierefreiheit", "♿", "Nicht barrierefrei"],
+  ["Sonstiges", "✎", "Etwas anderes"],
+];
+const SINCE = ["Seit heute", "Seit einigen Tagen", "Seit einigen Wochen", "Seit einigen Monaten", "Schon sehr lange", "Weiß ich nicht"];
+// Stand einer Meldung, so wie die Anwohnenden ihn sehen (aus den Labels des Issues abgeleitet)
+const RSTATUS = {
+  gemeldet: ["Gemeldet", "Ihre Meldung ist abgeschickt. Das Stadtbezirksmanagement hat sie noch nicht gelesen.", 1],
+  eingegangen: ["Eingegangen", "Ihre Meldung ist beim Präventionsrat angekommen und wird gelesen.", 2],
+  geprueft: ["Geprüft", "Der Präventionsrat hat Ihre Meldung geprüft. Sie steht jetzt auf der Karte.", 3],
+  umgesetzt: ["Erledigt", "Das Problem ist behoben oder die Maßnahme ist umgesetzt.", 4],
+  abgelehnt: ["Abgelehnt", "Der Präventionsrat kann hier nichts tun. Die Begründung steht in der Meldung.", 4],
+};
+function reportStatus(i) {
+  const n = (i.labels || []).map(l => l.name);
+  return n.includes("abgelehnt") ? "abgelehnt" : n.includes("umgesetzt") || i.state === "closed" ? "umgesetzt"
+    : n.includes("geprueft") || n.includes("in-bearbeitung") ? "geprueft" : n.includes("eingegangen") ? "eingegangen" : "gemeldet";
+}
+const myKey = "pa-meldungen-" + DD.slug;
+const myReports = () => { try { return JSON.parse(localStorage.getItem(myKey)) || []; } catch (e) { return []; } };
+function myReportAdd(number, title) {
+  try { const l = myReports().filter(r => r.number !== number); l.unshift({ number, title }); localStorage.setItem(myKey, JSON.stringify(l.slice(0, 20))); } catch (e) {}
+}
+
 let pickMarker = null;
-function reportStart() {
-  const box = $("reportBox"); box.hidden = false;
-  box.innerHTML = `<h3>Problem melden</h3>
-    <ol>
-      <li><b>Notfall?</b> Polizei 110, Feuerwehr und Rettung 112.</li>
-      <li><b>Straßenlampe defekt?</b> <a href="${URL_LICHT}" target="_blank" rel="noopener">Direkt der Stadt melden</a></li>
+const wiz = { step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null };
+const wizEl = $("wiz");
+const nearestStreet = (lat, lon) => {
+  let best = null, bd = 1e9;
+  for (const s of DATA.streets) { const d = (s[1] - lat) ** 2 + ((s[2] - lon) * 0.62) ** 2; if (d < bd) { bd = d; best = s[0]; } }
+  return bd < 0.0035 ** 2 ? best : "";
+};
+const wizTitle = ["Problem melden", "Worum geht es?", "Wo ist das Problem?", "Erzählen Sie uns mehr", "Bitte prüfen Sie Ihre Meldung", "Vielen Dank"];
+function wizBar(next, nextLabel, nextOk) {
+  return `<div class="wiz-nav">${wiz.step > 0 && wiz.step < 5 ? `<button class="btn ghost big" type="button" data-w="back">← Zurück</button>` : ""}
+    ${next ? `<button class="btn big" type="button" data-w="${next}"${nextOk ? "" : " disabled"}>${nextLabel}</button>` : ""}</div>`;
+}
+function wizRender() {
+  const s = wiz.step; let body = "", nav = "";
+  if (s === 0) {
+    body = `<ul class="wiz-list">
+      <li><b>Notfall?</b> Polizei <a href="tel:110">110</a>, Feuerwehr und Rettung <a href="tel:112">112</a>.</li>
+      <li><b>Straßenlampe aus?</b> <a href="${URL_LICHT}" target="_blank" rel="noopener">Direkt der Stadt melden</a></li>
       <li><b>Schlagloch, Schaden, wilder Müll?</b> <a href="${URL_MAENGEL}" target="_blank" rel="noopener">Mängelhinweiskarte der Stadt</a></li>
-      <li><b>Alles andere</b>, etwa eine dunkle Ecke, ein Ort mit Konflikten, ein gefährlicher Schulweg oder eine Idee: an den Präventionsrat.</li>
-    </ol>
-    <div class="row"><button class="btn" type="button" id="pickBtn">Ort in der Karte wählen</button><button class="btn ghost" type="button" id="cancelReport">Abbrechen</button></div>`;
+      <li><b>Alles andere</b> melden Sie hier: eine dunkle Ecke, Streit, ein gefährlicher Schulweg, eine Idee. Es dauert etwa 3 Minuten.</li></ul>`;
+    nav = `<div class="wiz-nav"><button class="btn big" type="button" data-w="next">Los geht’s</button></div>`;
+  } else if (s === 1) {
+    body = `<div class="wiz-topics">${TOPICS.map(t => `<button type="button" class="topic" data-topic="${esc(t[0])}" aria-pressed="${wiz.thema === t[0]}"><span aria-hidden="true">${t[1]}</span>${esc(t[2])}</button>`).join("")}</div>`;
+    nav = wizBar("next", "Weiter", !!wiz.thema);
+  } else if (s === 2) {
+    const have = wiz.lat != null;
+    body = `<p class="wiz-help">${have ? "Der Punkt ist gesetzt. Sie können ihn verschieben, indem Sie woanders auf die Karte tippen." : "Tippen Sie auf der Karte auf die Stelle, um die es geht. Oder:"}</p>
+      ${have ? `<p class="wiz-picked">📍 ${esc(wiz.ort)}</p>` : ""}
+      <button class="btn ghost big" type="button" data-w="locate">Meinen Standort nehmen</button>
+      <p class="wiz-error" id="wizErr" role="alert" hidden></p>`;
+    nav = wizBar("next", "Weiter", have);
+  } else if (s === 3) {
+    body = `<label class="wiz-q" for="wText">Was ist das Problem?</label>
+      <textarea id="wText" rows="4" maxlength="1500" placeholder="Schreiben Sie in eigenen Worten, was Sie stört oder beunruhigt.">${esc(wiz.beschreibung)}</textarea>
+      <p class="wiz-tip">Tipp: Auf dem Handy können Sie auf der Tastatur das Mikrofon antippen und einfach sprechen.</p>
+      <div class="wiz-q" id="sinceQ">Seit wann gibt es das Problem?</div>
+      <div class="wiz-since" role="group" aria-labelledby="sinceQ">${SINCE.map(x => `<button type="button" class="chip" data-since="${esc(x)}" aria-pressed="${wiz.seit === x}">${esc(x)}</button>`).join("")}</div>
+      <label class="wiz-q" for="wIdea">Was schlagen Sie vor? <span class="opt">(freiwillig)</span></label>
+      <textarea id="wIdea" rows="3" maxlength="1000" placeholder="Was würde Ihrer Meinung nach helfen?">${esc(wiz.vorschlag)}</textarea>`;
+    nav = wizBar("next", "Weiter", wiz.beschreibung.trim().length >= 10);
+  } else if (s === 4) {
+    const api = !!DD.report_api;
+    body = `<dl class="wiz-sum"><dt>Thema</dt><dd>${esc(wiz.thema)}</dd><dt>Ort</dt><dd>${esc(wiz.ort)}</dd>
+      <dt>Problem</dt><dd>${esc(wiz.beschreibung)}</dd>${wiz.seit ? `<dt>Seit wann</dt><dd>${esc(wiz.seit)}</dd>` : ""}${wiz.vorschlag.trim() ? `<dt>Ihr Vorschlag</dt><dd>${esc(wiz.vorschlag)}</dd>` : ""}</dl>
+      <label class="wiz-check"><input type="checkbox" id="wOk"${wiz.ok ? " checked" : ""}> Ich weiß: Die Meldung ist <b>öffentlich lesbar</b>, und sie enthält <b>keine Namen oder Daten anderer Personen</b>.</label>
+      <p class="wiz-error" id="wizErr" role="alert" hidden></p>
+      ${api ? "" : `<p class="note">Zum Absenden öffnet sich GitHub (kostenloses Konto nötig). Ohne Konto können Sie den Text kopieren und dem Stadtbezirksmanagement schicken.</p>`}`;
+    nav = `<div class="wiz-nav"><button class="btn ghost big" type="button" data-w="back">← Zurück</button>
+      <button class="btn big" type="button" data-w="send"${wiz.ok && !wiz.sending ? "" : " disabled"}>${wiz.sending ? "Wird gesendet …" : api ? "Meldung absenden" : "Weiter zu GitHub"}</button></div>
+      ${api ? "" : `<button class="btn ghost" type="button" data-w="copy">Text kopieren</button>`}`;
+  } else {
+    const r = wiz.result || {};
+    body = r.number ? `<p class="wiz-big">Ihre Meldung hat die Nummer <b>#${r.number}</b>.</p>
+      <p>Aktueller Stand: <b>${RSTATUS.gemeldet[0]}</b>. ${RSTATUS.gemeldet[1]}</p>
+      <p>Unter <b>„Meine Meldungen“</b> sehen Sie jederzeit, wie weit es ist.</p>`
+      : `<p class="wiz-big">Ihre Meldung wurde auf GitHub vorbereitet.</p>
+      <p>Bitte dort auf <b>„Submit new issue“</b> klicken. Danach sehen Sie die Nummer Ihrer Meldung. Tragen Sie sie unter <b>„Meine Meldungen“</b> ein, dann können Sie den Stand verfolgen.</p>`;
+    nav = `<div class="wiz-nav"><button class="btn big" type="button" data-w="mine">Meine Meldungen</button><button class="btn ghost big" type="button" data-w="close">Schließen</button></div>`;
+  }
+  const prog = s > 0 && s < 5 ? `<div class="wiz-prog" aria-label="Schritt ${s} von 4"><i style="width:${s * 25}%"></i></div><div class="wiz-step">Schritt ${s} von 4</div>` : "";
+  wizEl.innerHTML = `<div class="wiz-head"><h2 id="wizTitle" tabindex="-1">${wizTitle[s]}</h2>${s < 5 ? `<button class="wiz-x" type="button" data-w="close" aria-label="Abbrechen">✕</button>` : ""}</div>${prog}<div class="wiz-body">${body}</div>${nav}`;
+  wizEl.hidden = false;
+  document.body.classList.toggle("wiz-pin", s === 2); document.body.classList.add("wiz-open");
+  $("wizTitle").focus({ preventScroll: true });
 }
-function reportCancel() {
-  $("reportBox").hidden = true; $("map").classList.remove("picking"); $("pickHint").hidden = true;
-  map.off("click", onPick);
+function wizSetPoint(lat, lng) {
+  if (!inBezirk(lat, lng)) { const e = $("wizErr"); if (e) { e.hidden = false; e.textContent = "Dieser Ort liegt außerhalb von " + DD.name + ". Bitte tippen Sie innerhalb der grünen Grenze."; } return; }
+  wiz.lat = +lat.toFixed(5); wiz.lon = +lng.toFixed(5);
+  const st = stadtteilAt(lat, lng) || DD.name, str = nearestStreet(lat, lng);
+  wiz.ort = (str ? str + ", " : "") + st;
+  if (pickMarker) pickMarker.setLatLng([lat, lng]);
+  else {
+    pickMarker = L.marker([lat, lng], { pane: "issues", draggable: true, keyboard: false, icon: L.divIcon({ className: "", html: '<div class="pin" aria-hidden="true"></div>', iconSize: [34, 44], iconAnchor: [17, 42] }) }).addTo(map);
+    pickMarker.on("dragend", () => { const p = pickMarker.getLatLng(); wizSetPoint(p.lat, p.lng); });
+  }
+  wizRender();
+}
+function wizOnMapClick(e) { if (wiz.step === 2) wizSetPoint(e.latlng.lat, e.latlng.lng); }
+map.on("click", wizOnMapClick);
+function wizSetStep(n) {
+  wiz.step = n;
+  wizRender();
+  if (n === 2) { map.closePopup(); if (matchMedia("(max-width: 760px)").matches) setSheet(false); if (wiz.lat != null) map.panTo([wiz.lat, wiz.lon]); }
+}
+function wizOpen() {
+  Object.assign(wiz, { step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null });
   if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
+  $("mineBox").hidden = true;
+  wizRender();
 }
-function startPick() {
-  $("map").classList.add("picking"); $("pickHint").hidden = false;
-  map.closePopup(); map.off("click", onPick); map.on("click", onPick);
-  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
+function wizClose() {
+  wizEl.hidden = true; document.body.classList.remove("wiz-pin", "wiz-open");
+  if (pickMarker && wiz.step !== 5) { map.removeLayer(pickMarker); pickMarker = null; }
 }
-function onPick(e) {
-  const { lat, lng } = e.latlng;
-  if (!inBezirk(lat, lng)) { $("pickHint").textContent = "Dieser Ort liegt außerhalb des Stadtbezirks. Bitte innerhalb der Grenze tippen."; return; }
-  map.off("click", onPick); $("map").classList.remove("picking"); $("pickHint").hidden = true;
-  $("pickHint").textContent = "Tippen Sie auf den Ort des Problems";
-  const st = stadtteilAt(lat, lng) || DD.name;
-  const ll = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-  if (pickMarker) map.removeLayer(pickMarker);
-  pickMarker = L.marker([lat, lng], { pane: "issues", icon: L.divIcon({ className: "", html: `<div class="imark problem" style="--sc:var(--accent)"></div>`, iconSize: [18, 18], iconAnchor: [9, 9] }) }).addTo(map);
-  const gh = `https://github.com/${REPO}/issues/new?template=meldung.yml&title=${encodeURIComponent("[Meldung] " + st + ": ")}&ort=${encodeURIComponent(st)}&koordinaten=${encodeURIComponent(ll)}`;
-  const osm = `https://www.openstreetmap.org/?mlat=${lat.toFixed(5)}&mlon=${lng.toFixed(5)}#map=18/${lat.toFixed(5)}/${lng.toFixed(5)}`;
-  const text = `Meldung an das Stadtbezirksmanagement ${DD.name}\nStadtteil: ${st}\nKoordinaten: ${ll}\nKarte: ${osm}\n\nThema:\nWas ist das Problem?\n`;
-  $("reportBox").innerHTML = `<h3>Ort gewählt</h3>
-    <p class="picked">${esc(st)} · ${ll}</p>
-    <div class="row"><a class="btn" href="${esc(gh)}" target="_blank" rel="noopener">Meldung auf GitHub schreiben</a><button class="btn ghost" type="button" id="copyReport">Text kopieren</button></div>
-    <p class="note">GitHub braucht ein kostenloses Konto. Ohne Konto: Text kopieren und an das Stadtbezirksmanagement schicken, die Kontaktdaten stehen auf der <a href="${URL_PBK}" target="_blank" rel="noopener">Seite des Stadtbezirks</a>. Bitte keine Namen oder Fotos von Personen.</p>
-    <textarea id="reportText" readonly rows="6" style="width:100%;box-sizing:border-box;font:inherit;font-size:12.5px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px" hidden>${esc(text)}</textarea>
-    <div class="row"><button class="btn small ghost" type="button" id="pickBtn">Anderen Ort wählen</button><button class="btn small ghost" type="button" id="cancelReport">Fertig</button></div>`;
-  if (matchMedia("(max-width: 760px)").matches) setSheet(true);
+const reportStart = wizOpen, reportCancel = wizClose;
+function issueBody() {
+  const osm = `https://www.openstreetmap.org/?mlat=${wiz.lat}&mlon=${wiz.lon}#map=18/${wiz.lat}/${wiz.lon}`;
+  return { osm, text: `Meldung an das Stadtbezirksmanagement ${DD.name}\nThema: ${wiz.thema}\nOrt: ${wiz.ort}\nKoordinaten: ${wiz.lat}, ${wiz.lon}\nKarte: ${osm}\n\nWas ist das Problem?\n${wiz.beschreibung}\n\nSeit wann?\n${wiz.seit || "-"}\n\nVorschlag:\n${wiz.vorschlag || "-"}\n` };
 }
-$("reportBtn").addEventListener("click", reportStart);
-$("reportBox").addEventListener("click", async e => {
+async function wizSend() {
+  const err = $("wizErr");
+  if (!DD.report_api) {
+    const q = new URLSearchParams({ template: "meldung.yml", title: "[Meldung] " + wiz.ort, thema: wiz.thema, ort: wiz.ort, koordinaten: `${wiz.lat}, ${wiz.lon}`, beschreibung: wiz.beschreibung, seit_wann: wiz.seit, vorschlag: wiz.vorschlag });
+    window.open(`https://github.com/${REPO}/issues/new?${q}`, "_blank", "noopener");
+    wiz.result = {}; wizSetStep(5); return;
+  }
+  wiz.sending = true; wizRender();
+  try {
+    const r = await fetch(DD.report_api, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ thema: wiz.thema, ort: wiz.ort, lat: wiz.lat, lon: wiz.lon, beschreibung: wiz.beschreibung, seit_wann: wiz.seit, vorschlag: wiz.vorschlag, website: "" }) });
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    wiz.sending = false; wiz.result = { number: j.number };
+    myReportAdd(j.number, wiz.ort); wizSetStep(5);
+  } catch (e) {
+    wiz.sending = false; wizRender();
+    const x = $("wizErr"); x.hidden = false; x.textContent = "Das Senden hat nicht geklappt. Ihre Eingaben sind noch da. Bitte versuchen Sie es gleich noch einmal oder kopieren Sie den Text.";
+    wizEl.querySelector(".wiz-nav").insertAdjacentHTML("afterend", `<button class="btn ghost" type="button" data-w="copy">Text kopieren</button>`);
+  }
+}
+wizEl.addEventListener("click", async e => {
   const b = e.target.closest("button"); if (!b) return;
-  if (b.id === "pickBtn") startPick();
-  if (b.id === "cancelReport") reportCancel();
-  if (b.id === "copyReport") {
-    const ta = $("reportText");
-    try { await navigator.clipboard.writeText(ta.value); b.textContent = "Kopiert"; }
-    catch (err) { ta.hidden = false; ta.focus(); ta.select(); b.textContent = "Text markiert, bitte kopieren"; }
+  if (b.dataset.topic) { wiz.thema = b.dataset.topic; wizRender(); return; }
+  if (b.dataset.since) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; wiz.seit = wiz.seit === b.dataset.since ? "" : b.dataset.since; wizRender(); return; }
+  const w = b.dataset.w; if (!w) return;
+  if (w === "close") wizClose();
+  else if (w === "back") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step - 1); }
+  else if (w === "next") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step + 1); }
+  else if (w === "locate") { map.once("locationfound", ev => { map.setView(ev.latlng, 18, { animate: false }); wizSetPoint(ev.latlng.lat, ev.latlng.lng); }); map.once("locationerror", () => { const x = $("wizErr"); if (x) { x.hidden = false; x.textContent = "Der Standort ist nicht verfügbar. Bitte tippen Sie stattdessen auf die Karte."; } }); map.locate({ enableHighAccuracy: true, timeout: 12000 }); }
+  else if (w === "send") wizSend();
+  else if (w === "mine") { wizClose(); mineOpen(); }
+  else if (w === "copy") {
+    const t = issueBody().text;
+    try { await navigator.clipboard.writeText(t); b.textContent = "Kopiert"; } catch (err) { b.textContent = "Kopieren nicht möglich"; }
   }
 });
+wizEl.addEventListener("input", e => {
+  if (e.target.id === "wText") { wiz.beschreibung = e.target.value; const nb = wizEl.querySelector('[data-w="next"]'); if (nb) nb.disabled = wiz.beschreibung.trim().length < 10; }
+  if (e.target.id === "wIdea") wiz.vorschlag = e.target.value;
+  if (e.target.id === "wOk") { wiz.ok = e.target.checked; const sb = wizEl.querySelector('[data-w="send"]'); if (sb) sb.disabled = !wiz.ok; }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !wizEl.hidden) wizClose(); });
+$("reportBtn").addEventListener("click", wizOpen);
 
+// ---------- Meine Meldungen: Stand verfolgen ----------
+const mineBox = $("mineBox");
+async function mineOpen() {
+  setView("themen"); setSheet(true); mineBox.hidden = false;
+  const list = myReports();
+  mineBox.innerHTML = `<h3>Meine Meldungen</h3><div id="mineList">${list.length ? "Stand wird abgerufen …" : "<p class='note'>Noch keine Meldung gespeichert.</p>"}</div>
+    <form id="mineAdd" class="mine-add"><label for="mineNr">Meldungsnummer eintragen</label><div class="row"><input id="mineNr" inputmode="numeric" pattern="[0-9]*" placeholder="zum Beispiel 12"><button class="btn" type="submit">Hinzufügen</button></div></form>
+    <div class="row"><button class="btn ghost" type="button" id="mineClose">Schließen</button></div>`;
+  const rows = await Promise.all(list.map(async r => {
+    try {
+      const x = await fetch(`https://api.github.com/repos/${REPO}/issues/${r.number}`, { headers: { Accept: "application/vnd.github+json" } });
+      if (!x.ok) throw new Error(x.status);
+      const i = await x.json(), st = reportStatus(i);
+      const steps = ["gemeldet", "eingegangen", "geprueft", st === "abgelehnt" ? "abgelehnt" : "umgesetzt"];
+      return `<li class="mine st-${st}"><div class="mine-top"><b>#${r.number}</b> ${esc(i.title.replace(/^\[Meldung\]\s*/, "") || r.title || "")}</div>
+        <div class="mine-steps" aria-hidden="true">${steps.map(k => `<i class="${RSTATUS[k][2] <= RSTATUS[st][2] ? "on" : ""}"></i>`).join("")}</div>
+        <div class="mine-st"><b>${RSTATUS[st][0]}</b>: ${RSTATUS[st][1]}</div><a href="${esc(i.html_url)}" target="_blank" rel="noopener">${st === "abgelehnt" ? "Begründung lesen" : "Meldung ansehen"}</a></li>`;
+    } catch (e) { return `<li class="mine"><div class="mine-top"><b>#${r.number}</b> ${esc(r.title || "")}</div><div class="mine-st">Der Stand konnte gerade nicht abgerufen werden.</div></li>`; }
+  }));
+  if (list.length) $("mineList").innerHTML = `<ul class="mine-list">${rows.join("")}</ul>`;
+}
+mineBox.addEventListener("click", e => { if (e.target.id === "mineClose") mineBox.hidden = true; });
+mineBox.addEventListener("submit", e => {
+  e.preventDefault(); const n = parseInt($("mineNr").value, 10);
+  if (n > 0) { myReportAdd(n, ""); mineOpen(); }
+});
+$("myReportsBtn").addEventListener("click", mineOpen);
 
 
 // ---------- Orientierung: Straßennamen, Standort, Kartenmitte ----------
@@ -1101,7 +1308,7 @@ map.on("locationfound", e => {
 });
 map.on("locationerror", () => showWhere("Standort nicht verfügbar. Bitte Ortungsfreigabe im Browser erlauben.", 8000));
 $("homeBtn").addEventListener("click", () => { whereMsgUntil = 0; map.flyToBounds(bounds, { padding: [10, 10], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.5 }); });
-$("fabReport").addEventListener("click", () => { setView("themen"); setSheet(true); reportStart(); });
+$("fabReport").addEventListener("click", () => wizOpen());
 
 // ---------- Schulwege & Licht ----------
 const SW = DATA.schulwege, KZ = DATA.kennzahlen;
@@ -1381,7 +1588,7 @@ $("proposal").addEventListener("click", e => {
   if (b.id === "closeProposal" || b.hasAttribute("data-close")) closeProposal();
   const go = b.dataset.go; if (!go) return;
   closeProposal();
-  if (go === "report") { setView("themen"); setSheet(true); reportStart(); }
+  if (go === "report") wizOpen();
   if (go === "unlit") showUnlit();
   if (go === "schulweg") { setView("schulweg"); setSheet(true); }
   if (go === "roderbruch") map.setView([52.39296, 9.81052], 16, { animate: false });

@@ -36,6 +36,8 @@ Drei Tabs ergänzen die Orte-Karte:
 - **Zahlen**: Kennzahlen aus Statistischen Profilen 2022, Sozialbericht 2023 und Sicherheitsbericht 2025 je Stadtteil, auf der Karte einfärbbar (Kinderanteil, Transferleistungen, Unfälle, Radanteil), mit Einordnung für die AGs.
 - **Vorschlag**: neuer Abschnitt zu Ansätzen aus Hannover und Niedersachsen (mobile Sicherheitskonferenz, Communities That Care, AK Schulwegsicherheit im Kreispräventionsrat Heidekreis, Elternhaltestelle, Mängelhinweiskarte).
 
+- **Problem melden**: Formular in 4 Schritten mit Ortswahl auf der Karte, Status (Gemeldet, Eingegangen, Geprüft, Erledigt, Abgelehnt) und „Meine Meldungen“. Details und Einrichtung: [docs/problem-melden.md](docs/problem-melden.md).
+
 ## Mehrere Stadtbezirke
 
 > **Derzeit öffentlich nur Buchholz-Kleefeld.** Bothfeld-Vahrenheide ist vorbereitet, aber in `config/districts.json` mit `"enabled": false` abgeschaltet; Menü und Seite werden nicht gebaut. Zum Testen: `DISTRICT=bothfeld-vahrenheide python3 scripts/build_map.py`. Zum Freischalten `enabled` entfernen und neu bauen.
