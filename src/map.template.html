@@ -54,6 +54,10 @@
 }
 
 [hidden] { display: none !important; }
+.skip-link { position: absolute; left: 8px; top: -80px; z-index: 3000; background: var(--accent); color: var(--accent-ink); padding: 12px 16px; border-radius: 8px; font-weight: 700; text-decoration: none; min-height: 44px; }
+.skip-link:focus { top: 8px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+#panel:focus { outline: none; }
 html, body { height: 100%; }
 body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
 .app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
@@ -208,7 +212,7 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
 .results .empty { list-style: none; padding: 12px; border: 1px dashed var(--line); border-radius: 10px; display: grid; gap: 8px; }
 
 @media (max-width: 760px) {
-  .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; }
   .mapwrap { grid-row: 1; }
   .panel { grid-row: 2; border-right: 0; border-top: 1px solid var(--line); max-height: 58vh; }
   .panel.collapsed .panel-body, .panel.collapsed .lede { display: none; }
@@ -379,10 +383,25 @@ body.wiz-pin .wiz { max-height: 44vh; }
   .wiz h2 { font-size: 23px; }
 }
 @media (prefers-reduced-motion: no-preference) { .wiz { animation: wizin .2s ease-out; } @keyframes wizin { from { transform: translateY(12px); opacity: 0; } } }
+
+/* Handy: ein Spalte, nie breiter als das Fenster (die Desktop-Regel .app { 372px 1fr } steht weiter oben im Quelltext und würde sonst gewinnen) */
+@media (max-width: 760px) { .app { grid-template-columns: minmax(0, 1fr); } }
+/* sehr schmale Fenster (kleine Handys, 400 % Zoom): nichts darf über den Rand ragen */
+@media (max-width: 400px) {
+  .panel-head { grid-template-columns: minmax(0, 1fr) auto; }
+  .panel-head > * { min-width: 0; }
+  .head-actions { flex-wrap: wrap; justify-content: flex-end; }
+  .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-inline: 0; padding-inline: 0; }
+  .tabs button { min-width: 0; padding-inline: 0; font-size: 13px; letter-spacing: 0; }
+  .wiz-head h2 { overflow-wrap: anywhere; }
+}
 </style>
 
+<script>try { var _t = localStorage.getItem("pa-theme"); if (_t === "light" || _t === "dark") document.documentElement.setAttribute("data-theme", _t); } catch (e) {}</script>
+<a class="skip-link" href="#panel">Zum Inhalt springen</a>
+<a class="skip-link" href="#map">Zur Karte springen</a>
 <div class="app">
-  <aside class="panel" id="panel">
+  <aside class="panel" id="panel" tabindex="-1" aria-label="Orte, Themen, Schulwege und Zahlen">
     <div class="panel-head">
       <div class="titles">
         <div class="eyebrow">Stadtbezirk <span id="bezNr"></span></div>
@@ -490,9 +509,11 @@ body.wiz-pin .wiz { max-height: 44vh; }
     </div>
   </aside>
   <div class="mapwrap">
-    <div id="map" role="region" aria-label="Karte des Stadtbezirks"></div>
+    <div id="map" role="region" tabindex="-1" aria-label="Karte des Stadtbezirks" aria-describedby="mapHelp"></div>
+    <p class="sr-only" id="mapHelp">Alle Orte finden Sie auch als Liste im Bereich Orte. Mit den Pfeiltasten verschieben Sie die Karte, mit Plus und Minus zoomen Sie.</p>
     <div class="map-tools" role="group" aria-label="Kartenwerkzeuge">
       <button class="btn report-fab" type="button" id="fabReport"><span aria-hidden="true">＋</span> Problem melden</button>
+      <button class="tool" type="button" id="themeBtn" title="Darstellung wechseln" aria-label="Darstellung wechseln: automatisch, hell oder dunkel"><span aria-hidden="true" id="themeIcon">◐</span></button>
       <button class="tool" type="button" id="locateBtn" title="Mein Standort" aria-label="Mein Standort anzeigen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg></button>
       <button class="tool" type="button" id="homeBtn" title="Ganzer Stadtbezirk" aria-label="Ganzen Stadtbezirk zeigen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
@@ -705,6 +726,19 @@ for (const [name, L0] of Object.entries(DATA.basemap)) {
 }
 
 const DD = DATA.district;
+// Darstellung: automatisch (Gerät), hell oder dunkel; die Karte zeichnet sich über den data-theme-Beobachter neu
+const THEMES = [["auto", "Automatisch", "◐"], ["light", "Hell", "☀"], ["dark", "Dunkel", "☾"]];
+let themeNow = "auto"; try { themeNow = localStorage.getItem("pa-theme") || "auto"; } catch (e) {}
+if (!THEMES.some(t => t[0] === themeNow)) themeNow = "auto";
+function applyTheme(t, say) {
+  themeNow = t;
+  if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+  try { t === "auto" ? localStorage.removeItem("pa-theme") : localStorage.setItem("pa-theme", t); } catch (e) {}
+  const m = THEMES.find(x => x[0] === t);
+  $("themeIcon").textContent = m[2];
+  $("themeBtn").title = "Darstellung: " + m[1];
+  if (say) showWhere("Darstellung: <b>" + m[1] + "</b>", 2500);
+}
 const IS_BK = DD.slug === "buchholz-kleefeld";
 document.title = "Präventionsatlas " + DD.name;
 const CATS = [
@@ -1194,6 +1228,7 @@ function wizRender() {
       <dt>Problem</dt><dd>${esc(wiz.beschreibung)}</dd>${wiz.seit ? `<dt>Seit wann</dt><dd>${esc(wiz.seit)}</dd>` : ""}${wiz.vorschlag.trim() ? `<dt>Ihr Vorschlag</dt><dd>${esc(wiz.vorschlag)}</dd>` : ""}</dl>
       <label class="wiz-check"><input type="checkbox" id="wOk"${wiz.ok ? " checked" : ""}> Ich weiß: Die Meldung ist <b>öffentlich lesbar</b>, und sie enthält <b>keine Namen oder Daten anderer Personen</b>.</label>
       <p class="wiz-error" id="wizErr" role="alert" hidden></p>
+      <p class="note">Ihre Meldung lesen die Betreuenden dieses Atlas im Auftrag des Präventionsrats Buchholz-Kleefeld. ${DD.kontakt ? `Löschen lassen können Sie sie jederzeit: Schreiben Sie an <a href="mailto:${esc(DD.kontakt)}">${esc(DD.kontakt)}</a> und nennen Sie die Meldungsnummer.` : ""} Mehr dazu in der <a href="${LEGAL_ROOT}datenschutz.html">Datenschutzerklärung</a>.</p>
       ${api || PROTO ? "" : `<p class="note">Zum Absenden öffnet sich GitHub (kostenloses Konto nötig). Ohne Konto können Sie den Text kopieren und dem Stadtbezirksmanagement schicken.</p>`}`;
     nav = `<div class="wiz-nav"><button class="btn ghost big" type="button" data-w="back">← Zurück</button>
       <button class="btn big" type="button" data-w="send"${wiz.sending ? " disabled" : ""}>${wiz.sending ? "Wird gesendet …" : PROTO ? "Fertig (Vorschau)" : api ? "Meldung absenden" : "Weiter zu GitHub"}</button></div>
@@ -1377,6 +1412,8 @@ function centerWhere() {
 }
 map.on("moveend", centerWhere);
 let meLayer = null;
+applyTheme(themeNow, false);
+$("themeBtn").addEventListener("click", () => applyTheme(THEMES[(THEMES.findIndex(t => t[0] === themeNow) + 1) % THEMES.length][0], true));
 $("locateBtn").addEventListener("click", () => {
   showWhere("Standort wird gesucht …", 4000);
   map.locate({ enableHighAccuracy: true, timeout: 12000 });

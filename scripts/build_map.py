@@ -61,6 +61,8 @@ def build(slug, cfg, all_cfg):
     here = (ROOT / cfg["out"]).parent
     district = {k: cfg[k] for k in ("name", "nr", "home_view", "praeventionsrat", "polizeistation", "has_proposal", "has_kennzahlen")}
     district["report_api"] = cfg.get("report_api", "")
+    legal = json.loads((ROOT / "config" / "legal.json").read_text())
+    district["kontakt"] = legal["email"] if "@" in legal["email"] and not legal["email"].startswith("[") else ""
     district["report_mode"] = cfg.get("report_mode", "")
     district["slug"] = slug
     district["districts"] = [{"slug": k, "name": v["name"], "href": os.path.relpath(ROOT / v["out"], here).replace(os.sep, "/")}
