@@ -1,6 +1,6 @@
 # Präventionsatlas Buchholz-Kleefeld
 
-**Entwickelt von MB Saryazdi**
+**Entwickelt von Mohammad B. Saryazdi**
 
 **Karte online:** https://freexyz-halfpi.github.io/preventionsrat_GISMap/
 
@@ -103,4 +103,4 @@ Webserver veröffentlicht werden.
 
 ## Entwicklung
 
-MB Saryazdi
+Mohammad B. Saryazdi

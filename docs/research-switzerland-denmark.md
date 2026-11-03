@@ -1,6 +1,6 @@
 # Research: how Switzerland and Denmark involve residents and manage safety in cities
 
-Prepared for the Präventionsatlas Buchholz-Kleefeld (developer: MB Saryazdi). Research date: 2 November 2026.
+Prepared for the Präventionsatlas Buchholz-Kleefeld (developer: Mohammad B. Saryazdi). Research date: 2 November 2026.
 Searches were run in German (Switzerland) and Danish (Denmark). Original terms are in *italics*.
 
 **How to read this:** every point below comes from a search result or fetched page listed under "Sources". Where a source was old, partial or unreadable, that is stated. Nothing here was checked against the original documents beyond what the search tool returned, so treat figures as leads to verify before quoting them publicly.

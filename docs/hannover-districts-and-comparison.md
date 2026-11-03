@@ -1,6 +1,6 @@
 # Hannover districts, Stadtbezirksrat Bothfeld-Vahrenheide, and how our solution compares
 
-Prepared for the Präventionsatlas Buchholz-Kleefeld (developer: MB Saryazdi). Research date: 2 November 2026.
+Prepared for the Präventionsatlas Buchholz-Kleefeld (developer: Mohammad B. Saryazdi). Research date: 2 November 2026.
 Companion to `research-switzerland-denmark.md`.
 
 **Reading note:** facts come from search results and fetched city pages (linked at the end). Where a page could not be read or a number could not be found, it says so. The Stadtbezirksrat pages were last updated before the Kommunalwahl of 13 September 2026, so people and seat numbers may have changed.

@@ -46,7 +46,7 @@ def build():
 <h2>Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</h2>
 {who}
 <h2>Über dieses Angebot</h2>
-<p>Der Präventionsatlas Buchholz-Kleefeld ist ein Prototyp. Er wurde von MB Saryazdi für den Präventionsrat Buchholz-Kleefeld entwickelt, um Orte, Schulwege und Meldungen im Stadtbezirk sichtbar zu machen. Es ist <b>keine amtliche Seite der Landeshauptstadt Hannover</b>. Auskünfte der Stadt und ihre offiziellen Meldewege finden Sie unter <a href="https://www.hannover.de/" rel="noopener">hannover.de</a>.</p>
+<p>Der Präventionsatlas Buchholz-Kleefeld ist ein Prototyp. Er wurde von Mohammad B. Saryazdi für den Präventionsrat Buchholz-Kleefeld entwickelt, um Orte, Schulwege und Meldungen im Stadtbezirk sichtbar zu machen. Es ist <b>keine amtliche Seite der Landeshauptstadt Hannover</b>. Auskünfte der Stadt und ihre offiziellen Meldewege finden Sie unter <a href="https://www.hannover.de/" rel="noopener">hannover.de</a>.</p>
 <h2>Inhalte und Quellen</h2>
 <p>Die Inhalte beruhen auf den im jeweiligen Eintrag genannten Quellen (Berichte der Stadt, Sitzungsunterlagen) und auf Daten von OpenStreetMap. Trotz sorgfältiger Prüfung kann keine Gewähr für Richtigkeit, Vollständigkeit und Aktualität übernommen werden. Der angezeigte „Prüfbedarf“ an Schulwegen ist ein Hinweis, wo sich eine Begehung lohnt, und keine Unfallanalyse.</p>
 <h2>Haftung für Links</h2>
