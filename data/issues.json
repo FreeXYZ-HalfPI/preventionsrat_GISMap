@@ -1,8 +1,8 @@
 {
-  "_comment": "Themen und Maßnahmen des Praeventionsrats. Gepflegt von Hand. type: problem | massnahme. status: offen | in_bearbeitung | umgesetzt. coords [lat, lon] oder null (betrifft den ganzen Stadtbezirk). Nur belegte Einträge mit Quelle aufnehmen, keine personenbezogenen Daten.",
+  "_comment": "Themen und Maßnahmen des Präventionsrats. Gepflegt von Hand. type: problem | massnahme. status: offen | in_bearbeitung | umgesetzt. coords [lat, lon] oder null (betrifft den ganzen Stadtbezirk). Nur belegte Einträge mit Quelle aufnehmen, keine personenbezogenen Daten.",
   "updated": "2026-11-01",
   "sources": {
-    "pbk2026": {"title": "Tätigkeitsbericht des Praeventionsrates, Stadtbezirksrat 03.09.2026", "url": "https://www.hannover.de/content/download/1080489/file/T%C3%A4tigkeitsbericht%20des%20Pr%C3%A4ventionsrates%202026.pdf"},
+    "pbk2026": {"title": "Tätigkeitsbericht des Präventionsrates, Stadtbezirksrat 03.09.2026", "url": "https://www.hannover.de/content/download/1080489/file/T%C3%A4tigkeitsbericht%20des%20Pr%C3%A4ventionsrates%202026.pdf"},
     "pbk2025": {"title": "Tätigkeitsbericht PBK, Stadtbezirksrat 13.11.2025", "url": "https://www.hannover.de/content/download/1054440/file/251119%20T%C3%A4tigkeitsbericht%20PBK%20f%C3%BCr%20BezR%20zusammengefasst.pdf"},
     "pbk2024": {"title": "Präsentation PBK, Stadtbezirksrat 14.11.2024", "url": "https://hannover.de/content/download/1027775/file/241114%20Pr%C3%A4sentation%20PBK%20f%C3%BCr%20BezR%20Zusammengefasst.pdf"},
     "lichtLHH": {"title": "hannover.de: Neue Beleuchtung im Vahrenwalder Park (Programm Sicherheit und Ordnung im öffentlichen Raum)", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Wirtschaft-und-Umwelt/Fachbereich-Umwelt-und-Stadtgrün/Aktuelle-Informationen-aus-dem-Fachbereich/Archiv/Neue-Beleuchtung-im-Vahrenwalder-Park-in-Betrieb"},
@@ -87,7 +87,7 @@
       "title": "Zweite Rote Bank im Heideviertel",
       "stadtteil": "Heideviertel", "coords": null,
       "summary": "Eingeweiht am 24.03.2025. Der genaue Standort fehlt noch in der Karte.",
-      "owner": "Praeventionsrat", "since": "03/2025",
+      "owner": "Präventionsrat", "since": "03/2025",
       "next": "Standort ergänzen.",
       "sources": ["pbk2025"]
     },
@@ -123,7 +123,7 @@
       "title": "Europäischer Nachbarschaftstag an acht Orten",
       "stadtteil": null, "coords": null,
       "summary": "23.05.2025 unter anderem an der Schillerschule, in den Spielarkaden, der Kleiderkammer, im ZeitRaum und beim Spar- und Bauverein.",
-      "owner": "Praeventionsrat", "since": "05/2025",
+      "owner": "Präventionsrat", "since": "05/2025",
       "next": "",
       "sources": ["pbk2025"]
     },

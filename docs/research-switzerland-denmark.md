@@ -36,7 +36,7 @@ Searches were run in German (Switzerland) and Danish (Denmark). Original terms a
 **Winterthur**
 - Only old or thin results (a 2007 inquiry about *Quartier- und Ortsteilkommissionen*; a *Quartierentwicklungsleitbild* developed with ZHAW and residents). No current evidence found, so no conclusions drawn.
 
-**Relevance for us:** the Praeventionsrat is a volunteer body. The Swiss pattern that stands out is a *small, permanent, paid contact point* plus a *small project budget residents can apply for with a one-page form*. This matches the "Nachbarschafts-Oasen" idea in the existing Vienna-based proposal.
+**Relevance for us:** the Präventionsrat is a volunteer body. The Swiss pattern that stands out is a *small, permanent, paid contact point* plus a *small project budget residents can apply for with a one-page form*. This matches the "Nachbarschafts-Oasen" idea in the existing Vienna-based proposal.
 
 ### 1.3 School-route safety (*Schulwegsicherheit*)
 - *Pedibus*: a walking group for children, accompanied by adults and organised by parents. Well established in French- and Italian-speaking Switzerland, much less in German-speaking Switzerland (VCS school-route study 2026).
@@ -90,7 +90,7 @@ Searches were run in German (Switzerland) and Danish (Denmark). Original terms a
 
 | Question | Switzerland | Denmark | Hannover (today) |
 |---|---|---|---|
-| How do residents voice ideas? | Assemblies, initiatives, neighbourhood associations, paid contact points | Local committees, resident proposals, annual perception survey | Stadtbezirksrat, Praeventionsrat AGs, Mängelhinweiskarte, mobile Sicherheitskonferenz |
+| How do residents voice ideas? | Assemblies, initiatives, neighbourhood associations, paid contact points | Local committees, resident proposals, annual perception survey | Stadtbezirksrat, Präventionsrat AGs, Mängelhinweiskarte, mobile Sicherheitskonferenz |
 | Who is the permanent contact? | Paid staff in meeting points or secretariats (Basel, Zürich) | Municipal staff for local committees; police and municipality in SSP | Stadtbezirksmanagement; volunteers in the AGs |
 | Small project money for residents? | Yes (Basel *Projektkredit*) | Participatory-budget experiments proposed | Zuwendungsmittel of the Stadtbezirksrat (not residents' direct tool) |
 | Lighting and unease | not found in this research | Annual survey, *Mørkekort*, quality of light | Sicherheitsbefragung 2023 (stops), Sicherheitskonferenz routes |

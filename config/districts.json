@@ -7,7 +7,7 @@
     "home_view": [52.40014, 9.79677],
     "report_api": "",
     "report_mode": "prototype",
-    "praeventionsrat": {"status": "aktiv", "text": "Praeventionsrat Buchholz-Kleefeld mit den Arbeitsgruppen Wohnen, Demokratie sowie Bildung und Gesundheit (seit 2013).", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Pr%C3%A4ventionsrat-Buchholz-Kleefeld"},
+    "praeventionsrat": {"status": "aktiv", "text": "Präventionsrat Buchholz-Kleefeld mit den Arbeitsgruppen Wohnen, Demokratie sowie Bildung und Gesundheit (seit 2013).", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Buchholz-Kleefeld/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Pr%C3%A4ventionsrat-Buchholz-Kleefeld"},
     "polizeistation": "Polizeistation Kleefeld",
     "has_proposal": true, "has_kennzahlen": true
   },
@@ -17,7 +17,7 @@
     "relation": 1863265, "stadtteile_rel": [80137, 3357529, 3357530, 3357531, 3357532],
     "bbox": "52.395,9.715,52.462,9.900", "lat0": 52.43,
     "home_view": [52.4175, 9.7700],
-    "praeventionsrat": {"status": "keiner", "text": "Für diesen Stadtbezirk ist kein eigener Praeventionsrat bekannt. Themen kommen über Anträge im Stadtbezirksrat und das Stadtbezirksmanagement.", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Bothfeld-Vahrenheide/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Stadtbezirksrat-Bothfeld-Vahrenheide"},
+    "praeventionsrat": {"status": "keiner", "text": "Für diesen Stadtbezirk ist kein eigener Präventionsrat bekannt. Themen kommen über Anträge im Stadtbezirksrat und das Stadtbezirksmanagement.", "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/Stadtbezirksportale-Hannover/Stadtbezirk-Bothfeld-Vahrenheide/Den-Stadtbezirk-mitgestalten/Gremien-im-Stadtbezirk/Stadtbezirksrat-Bothfeld-Vahrenheide"},
     "polizeistation": "Polizeistation Sahlkamp/Vahrenheide",
     "has_proposal": false, "has_kennzahlen": false
   }
