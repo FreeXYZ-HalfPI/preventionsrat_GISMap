@@ -386,6 +386,43 @@ body.wiz-pin .wiz { max-height: 44vh; }
 
 /* Handy: ein Spalte, nie breiter als das Fenster (die Desktop-Regel .app { 372px 1fr } steht weiter oben im Quelltext und würde sonst gewinnen) */
 @media (max-width: 760px) { .app { grid-template-columns: minmax(0, 1fr); } }
+
+/* Orte: Kategorien in vier Gruppen, Orte klappen unter ihrer Kategorie auf */
+.orte-top { position: sticky; top: -12px; z-index: 5; background: var(--panel); margin: -12px 0 0; padding: 12px 0 8px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.orte-sum { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; }
+.orte-sum button { font: inherit; font-size: 14px; font-weight: 400; color: var(--accent); background: none; border: 0; padding: 6px 0; min-height: 44px; cursor: pointer; text-decoration: underline; }
+.cats { display: grid; gap: 10px; }
+@media (max-width: 760px) { #districts { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; min-height: 50px; align-items: center; } #districts button { flex: none; } }
+.fam { display: grid; gap: 4px; }
+.fam-h { margin: 0; font-family: var(--font-display); font-size: 15px; }
+.fam-h button { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; font: inherit; min-height: 52px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.fam.open .fam-h button { border-color: var(--accent); }
+.fam-t { flex: 1; font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.2; }
+.fam-t small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
+.fam-h .ct { font-variant-numeric: tabular-nums; font-weight: 700; }
+.fam-h .chev { font-size: 14px; transition: transform .15s; }
+.fam.open .fam-h .chev { transform: rotate(180deg); }
+.cat2 { border-radius: 10px; }
+.cat2.open { background: var(--paper); }
+.fam > .cat2, .fam > .cat.line { margin-left: 4px; }
+.cat2-head { display: grid; grid-template-columns: 1fr auto; align-items: center; }
+.cat2-head .cat { grid-template-columns: 18px 1fr; padding: 10px 8px; min-height: 48px; }
+.cat2-head .cat .nm { font-size: 16px; font-weight: 700; }
+.cat2-head .cat .nm small { font-weight: 400; }
+.cat-open { font: inherit; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 12px; background: none; border: 0; color: var(--ink-2); cursor: pointer; border-radius: 10px; }
+.cat-open[disabled] { opacity: .45; cursor: default; }
+.cat-open .ct { font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 700; color: var(--ink); }
+.cat-open .chev { transition: transform .15s; font-size: 14px; }
+.cat2.open .chev { transform: rotate(180deg); }
+.cat2-sub { font-size: 14px; color: var(--ink-2); padding: 0 8px 8px 36px; margin-top: -6px; }
+.places { list-style: none; margin: 0; padding: 0 8px 8px 36px; display: grid; gap: 2px; }
+.places li button { width: 100%; text-align: left; font: inherit; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 8px 10px; min-height: 44px; cursor: pointer; }
+.places li button:hover { border-color: var(--cc); }
+.places .t { font-size: 15px; overflow-wrap: anywhere; }
+.places .t small { display: block; font-size: 13.5px; color: var(--ink-2); }
+.places .more-btn { color: var(--accent); font-weight: 700; text-align: center; border-style: dashed; }
+.cats > .empty { padding: 12px; border: 1px dashed var(--line); border-radius: 10px; display: grid; gap: 8px; }
+
 /* sehr schmale Fenster (kleine Handys, 400 % Zoom): nichts darf über den Rand ragen */
 @media (max-width: 400px) {
   .panel-head { grid-template-columns: minmax(0, 1fr) auto; }
@@ -483,24 +520,13 @@ body.wiz-pin .wiz { max-height: 44vh; }
       
     </div>
     <div class="panel-body" id="panelBody">
-      <section>
-        <input class="search" id="q" type="search" placeholder="Suchen: Jugendzentrum, Schule, Straße …" aria-label="Orte suchen" autocomplete="off">
-      </section>
-      <section>
-        <div class="group-label">Stadtteil</div>
-        <div class="seg" id="districts" role="group" aria-label="Stadtteil wählen"></div>
-      </section>
-      <section class="stats" id="stats" aria-live="polite"></section>
-      <section>
-        <div class="group-label"><span>Ebenen</span><button id="toggleAll" type="button">Alle aus</button></div>
-        <div class="cats" id="cats"></div>
-      </section>
-      <section>
-        <div class="group-label"><span id="resTitle">Orte</span></div>
-        <p class="note" id="zoomNote" hidden>Spielplätze, Haltestellen, Sportorte und Grünflächen erscheinen beim Heranzoomen.</p>
-        <ul class="results" id="results"></ul>
-        <p class="more" id="more" hidden></p>
-      </section>
+      <div class="orte-top">
+        <input class="search" id="q" type="search" placeholder="Suchen: Schule, Jugendzentrum, Straße …" aria-label="Orte suchen" autocomplete="off">
+        <div class="orte-sum"><span id="resTitle">Orte</span><button id="toggleAll" type="button">Alle aus</button></div>
+      </div>
+      <div class="seg" id="districts" role="group" aria-label="Stadtteil wählen"></div>
+      <div class="cats" id="cats"></div>
+      <p class="note" id="zoomNote" hidden>Spielplätze, Haltestellen, Sportorte und Grünflächen erscheinen auf der Karte erst beim Heranzoomen.</p>
       <footer class="foot">
         Daten: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-Mitwirkende</a> (ODbL), Stand <span id="asof"></span>.
         Fehlt ein Ort oder stimmt etwas nicht? Einträge lassen sich direkt in OpenStreetMap ergänzen, beim nächsten Datenabruf erscheinen sie hier.
@@ -905,14 +931,69 @@ $("districts").addEventListener("click", e => {
   map.flyToBounds(L.geoJSON(f).getBounds(), { padding: [20, 20], duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.6 });
 });
 
-function countBy(cat) {
-  return markers.filter(m => m.feature.properties.category === cat && (state.district === "alle" || m.feature.properties.stadtteil === state.district)).length;
+const FAMILIES = [
+  ["Kinder, Bildung & Soziales", ["jugend", "bildung", "soziales", "religion"]],
+  ["Sicherheit & Gesundheit", ["sicherheit", "gesundheit"]],
+  ["Freizeit & Natur", ["spielplatz", "sport", "gruen"]],
+  ["Alltag & Verkehr", ["oepnv", "nachtleben", "infra"]],
+];
+state.open = new Set(); state.full = new Set(); state.fam = new Set(matchMedia("(max-width: 760px)").matches ? [] : [FAMILIES[0][0]]);   // Handy: erst alle vier Gruppen im Überblick
+const PLACES_SHOWN = 8;
+// Orte der Auswahl (Stadtteil, Suche) je Kategorie, unabhängig davon, ob die Ebene auf der Karte an ist
+function inScope(m) {
+  const p = m.feature.properties;
+  if (state.district !== "alle" && p.stadtteil !== state.district) return false;
+  const q = state.q.trim().toLowerCase();
+  return !q || p._search.includes(q);
+}
+function placeRow(m) {
+  const p = m.feature.properties;
+  const sub = [p.name ? typeOf(p) : null, addr(p).split(",")[0], state.district === "alle" ? p.stadtteil : null].filter(Boolean).join(" · ");
+  return `<li><button type="button" data-i="${markers.indexOf(m)}"><span class="t">${esc(titleOf(p))}${sub ? `<small>${esc(sub)}</small>` : ""}</span></button></li>`;
 }
 function renderCats() {
-  $("cats").innerHTML = CATS.map(([k, n, s]) => `<label class="cat" style="--cc:var(--c-${k})"><input type="checkbox" id="cat-${k}" data-k="${k}" ${state.on.has(k) ? "checked" : ""}><span class="sw"></span><span class="nm">${n}${s ? `<small>${s}</small>` : ""}</span><span class="ct">${countBy(k)}</span></label>`).join("")
-    + `<label class="cat line" style="--cc:var(--map-unlit)"><input type="checkbox" id="cat-unlit" data-k="unlit" ${state.unlit ? "checked" : ""}><span class="sw"></span><span class="nm">Unbeleuchtete Wege<small>Fuß- und Radwege ohne Beleuchtung</small></span><span class="ct">${DATA.unlit.features.length}</span></label>`;
-  $("toggleAll").textContent = state.on.size ? "Alle aus" : "Alle an";
+  const q = state.q.trim() !== "";
+  const scoped = markers.filter(inScope);
+  const by = {}; scoped.forEach(m => (by[m.feature.properties.category] ||= []).push(m));
+  const catRow = ([k, n, s]) => {
+    const list = (by[k] || []).slice().sort((a, b) => titleOf(a.feature.properties).localeCompare(titleOf(b.feature.properties), "de"));
+    const open = q ? list.length > 0 : state.open.has(k), full = state.full.has(k);
+    const shown = full ? list : list.slice(0, PLACES_SHOWN);
+    return `<div class="cat2${open ? " open" : ""}" style="--cc:var(--c-${k})">
+      <div class="cat2-head">
+        <label class="cat" title="${esc(s || n)}"><input type="checkbox" id="cat-${k}" data-k="${k}" ${state.on.has(k) ? "checked" : ""}><span class="sw"></span><span class="nm">${n}${s ? `<small>${s}</small>` : ""}</span></label>
+        <button type="button" class="cat-open" id="open-${k}" data-open="${k}" aria-expanded="${open}" aria-controls="places-${k}"${list.length ? "" : " disabled"}><span class="ct">${list.length}</span><span class="chev" aria-hidden="true">▾</span><span class="sr-only"> Orte anzeigen: ${n}</span></button>
+      </div>
+      <ul class="places" id="places-${k}"${open ? "" : " hidden"}>${shown.map(placeRow).join("")}${list.length > PLACES_SHOWN ? `<li><button type="button" class="more-btn" data-full="${k}">${full ? "Weniger zeigen" : `Alle ${list.length} zeigen`}</button></li>` : ""}</ul>
+    </div>`;
+  };
+  const html = FAMILIES.map(([title, keys]) => {
+    const rows = keys.map(k => CATS.find(c => c[0] === k)).filter(Boolean);
+    const total = rows.reduce((n, [k]) => n + (by[k] || []).length, 0);
+    if (q && !total) return "";
+    const open = q || state.fam.has(title), onCount = rows.filter(([k]) => state.on.has(k)).length;
+    return `<section class="fam${open ? " open" : ""}"><h3 class="fam-h"><button type="button" data-fam="${esc(title)}" aria-expanded="${!!open}"><span class="fam-t">${title}<small>${onCount} von ${rows.length} auf der Karte</small></span><span class="ct">${total}</span><span class="chev" aria-hidden="true">▾</span></button></h3>${open ? rows.map(catRow).join("") : ""}</section>`;
+  }).join("");
+  const extra = `<section class="fam"><h3 class="fam-h"><span>Zusätzlich auf der Karte</span></h3>
+    <label class="cat line" style="--cc:var(--map-unlit)"><input type="checkbox" id="cat-unlit" data-k="unlit" ${state.unlit ? "checked" : ""}><span class="sw"></span><span class="nm">Unbeleuchtete Wege<small>Fuß- und Radwege ohne Beleuchtung</small></span><span class="ct">${DATA.unlit.features.length}</span></label></section>`;
+  const active = document.activeElement && document.activeElement.id;
+  $("cats").innerHTML = (q && !scoped.length
+    ? `<div class="empty"><b>Keine Treffer.</b> Prüfen Sie die Schreibweise oder suchen Sie nach einem Teil des Namens.<div class="row"><button class="btn small" type="button" id="resetSearch">Suche und Filter zurücksetzen</button></div></div>`
+    : html) + extra;
+  if (active && $("cats").contains(document.getElementById(active) || document.body)) document.getElementById(active)?.focus({ preventScroll: true });
+  $("toggleAll").textContent = state.on.size ? "Alle auf der Karte aus" : "Alle auf der Karte an";
+  $("resTitle").textContent = q || state.district !== "alle" ? `${scoped.length} Orte gefunden` : `${scoped.length} Orte im Bezirk`;
 }
+$("cats").addEventListener("click", e => {
+  const o = e.target.closest("[data-open]"), f = e.target.closest("[data-full]"), g = e.target.closest("[data-fam]");
+  if (g) { const k = g.dataset.fam; state.fam.has(k) ? state.fam.delete(k) : state.fam.add(k); renderCats(); }
+  else if (o) { const k = o.dataset.open; state.open.has(k) ? state.open.delete(k) : state.open.add(k); renderCats(); }
+  else if (f) { const k = f.dataset.full; state.full.has(k) ? state.full.delete(k) : state.full.add(k); renderCats(); }
+  else if (e.target.id === "resetSearch") { state.q = ""; $("q").value = ""; state.district = "alle"; state.on = new Set(DEFAULT_ON); save(); render(); }
+  else { const b = e.target.closest("button[data-i]"); if (!b) return;
+    const m = markers[+b.dataset.i]; map.setView(m.getLatLng(), Math.max(map.getZoom(), 17)); m.openPopup();
+    if (matchMedia("(max-width: 760px)").matches) setSheet(false); }
+});
 $("cats").addEventListener("change", e => {
   const k = e.target.dataset.k; if (!k) return;
   if (k === "unlit") { state.unlit = e.target.checked; drawUnlit(); }
@@ -924,20 +1005,7 @@ $("toggleAll").addEventListener("click", () => {
 });
 let qT; $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { state.q = e.target.value; render(); }, 120); });
 
-function renderStats() {
-  const inD = f => state.district === "alle" || f.properties.stadtteil === state.district;
-  const pois = DATA.pois.features.filter(inD);
-  const n = c => pois.filter(f => f.properties.category === c).length;
-  const st = state.district === "alle" ? null : stadtteile.find(s => s.properties.name === state.district);
-  const pop = st ? st.properties.population : bezirk.properties.population;
-  $("stats").innerHTML = [
-    [n("jugend") + n("soziales"), "Jugend-, Sozial- und Beratungsorte"],
-    [n("bildung"), "Schulen, Kitas, Bibliotheken"],
-    [n("spielplatz"), "Spielplätze"],
-  ].map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
-}
 
-const LIST_MAX = 150;
 // Wenig Zoom: Spielplätze, Haltestellen, Sport und Grün erst beim Heranzoomen zeigen und Punkte verkleinern, sonst deckt ein Punkthaufen die Karte zu
 const LOW_PRIO = new Set(["spielplatz", "oepnv", "sport", "gruen"]);
 let lastVis = [];
@@ -950,28 +1018,9 @@ function drawPois() {
 map.on("zoomend", drawPois);
 function render() {
   document.querySelectorAll("#districts button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === state.district));
-  renderCats(); renderStats();
-  const vis = visible();
-  lastVis = vis; drawPois();
-  const sorted = vis.slice().sort((a, b) => (a.feature.properties.category === "oepnv") - (b.feature.properties.category === "oepnv") || titleOf(a.feature.properties).localeCompare(titleOf(b.feature.properties), "de"));
-  $("resTitle").textContent = `${vis.length} Orte`;
-  $("results").innerHTML = sorted.slice(0, LIST_MAX).map((m, i) => {
-    const p = m.feature.properties;
-    const sub = [p.name ? typeOf(p) : null, addr(p).split(",")[0], state.district === "alle" ? p.stadtteil : null].filter(Boolean).join(" · ");
-    return `<li><button type="button" data-i="${markers.indexOf(m)}" style="--cc:var(--c-${p.category})"><span class="dot"></span><span class="t">${esc(titleOf(p))}${sub ? `<small>${esc(sub)}</small>` : ""}</span></button></li>`;
-  }).join("");
-  if (!vis.length) $("results").innerHTML = `<li class="empty"><b>Keine Treffer.</b> ${state.q ? `Prüfen Sie die Schreibweise oder suchen Sie nach einem Teil des Namens.` : "Es sind keine Ebenen eingeschaltet."}<div class="row"><button class="btn small" type="button" id="resetSearch">Suche und Filter zurücksetzen</button></div></li>`;
-  $("more").hidden = vis.length <= LIST_MAX;
-  $("more").textContent = `… und ${vis.length - LIST_MAX} weitere. Suche oder Ebenen eingrenzen, um mehr zu sehen.`;
+  renderCats();
+  lastVis = visible(); drawPois();
 }
-$("results").addEventListener("click", e => {
-  if (e.target.id === "resetSearch") { state.q = ""; $("q").value = ""; state.district = "alle"; state.on = new Set(DEFAULT_ON); save(); render(); return; }
-  const b = e.target.closest("button"); if (!b) return;
-  const m = markers[+b.dataset.i];
-  map.setView(m.getLatLng(), Math.max(map.getZoom(), 17));
-  m.openPopup();
-  if (matchMedia("(max-width: 760px)").matches) setSheet(false);
-});
 
 function setSheet(open) {
   $("panel").classList.toggle("collapsed", !open);
