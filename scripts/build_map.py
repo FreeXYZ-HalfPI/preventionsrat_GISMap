@@ -78,7 +78,12 @@ def build(slug, cfg, all_cfg):
         "basemap": pack_basemap(load("basemap.json")),
     }
     html = (SRC / "map.template.html").read_text()
+    root = os.path.relpath(ROOT, (ROOT / cfg["out"]).parent).replace(os.sep, "/")
+    root = "" if root == "." else root + "/"
     html = html.replace("/*__LEAFLET_CSS__*/", (SRC / "leaflet-1.9.4.css").read_text())
+    html = html.replace("/*__FONTS_CSS__*/", (SRC / "fonts.css").read_text().replace("__ROOT__", root))
+    html = html.replace("/*__LEAFLET_JS__*/", (SRC / "leaflet-1.9.4.min.js").read_text())
+    html = html.replace("__ROOT__", root)
     html = html.replace("/*__DATA__*/null", json.dumps(data, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/"))
     if slug == "buchholz-kleefeld":
         # Fragment for claude.ai Artifacts (they add the document skeleton themselves)
@@ -108,6 +113,9 @@ def main():
             print(f"skip {slug}: data incomplete")
             continue
         build(slug, c, cfg)
+    if not only:
+        import build_legal
+        build_legal.build()
 
 
 if __name__ == "__main__":

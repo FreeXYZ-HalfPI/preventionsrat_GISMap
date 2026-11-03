@@ -1,8 +1,6 @@
 <title>Präventionsatlas Buchholz-Kleefeld</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@500;600;700&display=swap">
+<style>/*__FONTS_CSS__*/</style>
 <style>/*__LEAFLET_CSS__*/</style>
 <style>
 /* Layout: full-height map, docked side panel (desktop) / pull-up sheet (phone). Palette: cool indigo on blue-grey paper, category hues tuned for both themes. */
@@ -694,7 +692,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>/*__LEAFLET_JS__*/</script>
 <script>
 const DATA = /*__DATA__*/null;
 // basemap is shipped delta-encoded; expand to GeoJSON once
@@ -951,6 +949,7 @@ $("sheetToggle").addEventListener("click", () => setSheet($("panel").classList.c
 if (matchMedia("(max-width: 760px)").matches) setSheet(false);
 
 // ---------- Themen, Meldungen, Vorschlag ----------
+const LEGAL_ROOT = "__ROOT__";
 const REPO = "FreeXYZ-HalfPI/preventionsrat_GISMap";
 const URL_LICHT = "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Tiefbau/Service/St%C3%B6rungen-der-Stra%C3%9Fenbeleuchtung-melden";
 const URL_MAENGEL = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/B%C3%BCrger-Service-in-der-Landeshauptstadt-Hannover/Ideen-und-Beschwerden/M%C3%A4ngelhinweiskarte";
@@ -1350,6 +1349,7 @@ $("myReportsBtn").hidden = PROTO;
 map.createPane("labels"); map.getPane("labels").style.zIndex = 475; map.getPane("labels").style.pointerEvents = "none";
 const labelGroup = L.layerGroup().addTo(map);
 L.control.scale({ imperial: false, position: "bottomleft" }).addTo(map);
+map.attributionControl.addAttribution(`<a href="${LEGAL_ROOT}impressum.html">Impressum</a> · <a href="${LEGAL_ROOT}datenschutz.html">Datenschutz</a>`);
 function drawLabels() {
   labelGroup.clearLayers();
   const z = map.getZoom(); if (z < 14.5) return;

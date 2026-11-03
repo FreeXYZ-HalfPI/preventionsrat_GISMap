@@ -38,6 +38,10 @@ Drei Tabs ergänzen die Orte-Karte:
 
 - **Problem melden**: Formular in 4 Schritten mit Ortswahl auf der Karte, Status (Gemeldet, Eingegangen, Geprüft, Erledigt, Abgelehnt) und „Meine Meldungen“. Details und Einrichtung: [docs/problem-melden.md](docs/problem-melden.md).
 
+## Impressum und Datenschutz
+
+`impressum.html` und `datenschutz.html` werden aus `config/legal.json` erzeugt (`python3 scripts/build_map.py`). Vor der Veröffentlichung dort Name, Anschrift und E-Mail der verantwortlichen Person eintragen; unausgefüllte Felder erscheinen gelb markiert. Die Karte lädt nichts von fremden Servern außer den öffentlichen Meldungen von `api.github.com`: Schriften (`fonts/`) und Leaflet liegen im Projekt. Die Texte sind eine Vorlage und sollten vom Datenschutz der Stadt oder einer fachkundigen Person geprüft werden.
+
 ## Mehrere Stadtbezirke
 
 > **Derzeit öffentlich nur Buchholz-Kleefeld.** Bothfeld-Vahrenheide ist vorbereitet, aber in `config/districts.json` mit `"enabled": false` abgeschaltet; Menü und Seite werden nicht gebaut. Zum Testen: `DISTRICT=bothfeld-vahrenheide python3 scripts/build_map.py`. Zum Freischalten `enabled` entfernen und neu bauen.
