@@ -1,5 +1,7 @@
 # Problem melden: Formular, Status und Ausbaustufen
 
+> **Stand: Prototyp.** In `config/districts.json` steht `"report_mode": "prototype"`. Das Formular ist komplett bedienbar, sendet aber nichts, zeigt „Prototyp“ und blendet „Meine Meldungen“ aus. Status, Worker, Konto-freies Absenden und Spracheingabe sind vorbereitet und kommen später. Zum Scharfschalten `report_mode` auf `""` setzen (und `report_api` eintragen), dann neu bauen.
+
 ## Was Anwohnende sehen
 Ein Formular mit einer Frage pro Bildschirm (4 Schritte, große Schrift, Zurück jederzeit, Fortschrittsbalken):
 1. **Worum geht es?** Große Auswahlfelder mit Symbol (Beleuchtung, Müll, Verkehr/Schulweg, Treffpunkt, Zusammenleben, Barrierefreiheit, Sonstiges).
