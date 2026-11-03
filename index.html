@@ -1830,7 +1830,8 @@ function wizRender() {
     nav = wizBar("next", "Weiter", have);
   } else if (s === 3) {
     body = `<label class="wiz-q" for="wText">Was ist das Problem?</label>
-      <textarea id="wText" rows="4" maxlength="1500" placeholder="Schreiben Sie in eigenen Worten, was Sie stört oder beunruhigt.">${esc(wiz.beschreibung)}</textarea>
+      <p class="wiz-help" id="wTextHint">Bitte beschreiben Sie das Problem mit mindestens 10 Zeichen.</p>
+      <textarea id="wText" aria-describedby="wTextHint" rows="4" maxlength="1500" placeholder="Schreiben Sie in eigenen Worten, was Sie stört oder beunruhigt.">${esc(wiz.beschreibung)}</textarea>
       <p class="wiz-tip">Tipp: Auf dem Handy können Sie auf der Tastatur das Mikrofon antippen und einfach sprechen.</p>
       <div class="wiz-q" id="sinceQ">Seit wann gibt es das Problem?</div>
       <div class="wiz-since" role="group" aria-labelledby="sinceQ">${SINCE.map(x => `<button type="button" class="chip" data-since="${esc(x)}" aria-pressed="${wiz.seit === x}">${esc(x)}</button>`).join("")}</div>
