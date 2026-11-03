@@ -1009,6 +1009,8 @@ h1 { font-size: 21px; margin-top: 2px; }
 .wiz-tip, .wiz-help { font-size: 16px; color: var(--ink-2); }
 .wiz-since { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { font: inherit; font-size: 16.5px; min-height: 46px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.wiz-where { display: grid; gap: 10px; }
+.wiz-instr { background: var(--paper); border: 2px dashed var(--accent); border-radius: 12px; padding: 10px 12px; color: var(--ink); font-size: 17px; }
 .wiz-picked { font-weight: 700; background: var(--paper); border: 2px solid var(--accent); border-radius: 12px; padding: 10px 12px; }
 .wiz-error { color: #b42318; font-weight: 700; }
 :root[data-theme="dark"] .wiz-error { color: #ff8a80; }
@@ -1774,7 +1776,7 @@ function myReportAdd(number, title) {
 
 let pickMarker = null;
 const PROTO = DD.report_mode === "prototype";   // Prototyp: nichts wird gesendet, Status/„Meine Meldungen“ ruhen bis zum Start
-const wiz = { step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null };
+const wiz = { mode: "", step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null };
 const wizEl = $("wiz");
 const nearestStreet = (lat, lon) => {
   let best = null, bd = 1e9;
@@ -1787,6 +1789,7 @@ function wizBar(next, nextLabel, nextOk) {
     ${next ? `<button class="btn big" type="button" data-w="${next}"${nextOk ? "" : " disabled"}>${nextLabel}</button>` : ""}</div>`;
 }
 function wizRender() {
+  $("map").classList.toggle("picking", wiz.step === 2 && !wizEl.hidden && (wiz.mode === "map" || wiz.lat != null));
   const s = wiz.step; let body = "", nav = "";
   if (s === 0) {
     body = `<ul class="wiz-list">
@@ -1799,10 +1802,14 @@ function wizRender() {
     body = `<div class="wiz-topics">${TOPICS.map(t => `<button type="button" class="topic" data-topic="${esc(t[0])}" aria-pressed="${wiz.thema === t[0]}"><span aria-hidden="true">${t[1]}</span>${esc(t[2])}</button>`).join("")}</div>`;
     nav = wizBar("next", "Weiter", !!wiz.thema);
   } else if (s === 2) {
-    const have = wiz.lat != null;
-    body = `<p class="wiz-help">${have ? "Der Punkt ist gesetzt. Sie können ihn verschieben, indem Sie woanders auf die Karte tippen." : "Tippen Sie auf der Karte auf die Stelle, um die es geht. Oder:"}</p>
-      ${have ? `<p class="wiz-picked">📍 ${esc(wiz.ort)}</p>` : ""}
-      <button class="btn ghost big" type="button" data-w="locate">Meinen Standort nehmen</button>
+    const have = wiz.lat != null, manual = wiz.mode === "map";
+    body = `${have ? `<p class="wiz-picked">📍 ${esc(wiz.ort)}</p><p class="wiz-help">Stimmt der Ort nicht? Tippen Sie auf die Karte, um den Punkt zu verschieben, oder wählen Sie neu:</p>`
+      : manual ? `<p class="wiz-help wiz-instr">👆 Tippen Sie jetzt auf der Karte auf die Stelle, um die es geht. Sie können die Karte vorher verschieben und vergrößern.</p>`
+      : `<p class="wiz-help">Wie möchten Sie den Ort angeben?</p>`}
+      <div class="wiz-where">
+        <button class="btn${have || manual ? " ghost" : ""} big" type="button" data-w="locate"><span aria-hidden="true">📍</span> Meinen Standort nehmen</button>
+        <button class="btn${have || !manual ? " ghost" : ""} big" type="button" data-w="pinmode"><span aria-hidden="true">🗺️</span> Auf der Karte markieren</button>
+      </div>
       <p class="wiz-error" id="wizErr" role="alert" hidden></p>`;
     nav = wizBar("next", "Weiter", have);
   } else if (s === 3) {
@@ -1854,7 +1861,7 @@ function wizSetPoint(lat, lng, acc) {
   }
   wizRender();
 }
-function wizOnMapClick(e) { if (wiz.step === 2) wizSetPoint(e.latlng.lat, e.latlng.lng); }
+function wizOnMapClick(e) { if (wiz.step === 2 && (wiz.mode === "map" || wiz.lat != null)) wizSetPoint(e.latlng.lat, e.latlng.lng); }
 map.on("click", wizOnMapClick);
 function wizSetStep(n) {
   wiz.step = n;
@@ -1862,13 +1869,13 @@ function wizSetStep(n) {
   if (n === 2) { map.closePopup(); if (matchMedia("(max-width: 760px)").matches) setSheet(false); if (wiz.lat != null) map.panTo([wiz.lat, wiz.lon]); }
 }
 function wizOpen() {
-  Object.assign(wiz, { step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null });
+  Object.assign(wiz, { mode: "", step: 0, thema: "", lat: null, lon: null, ort: "", beschreibung: "", seit: "", vorschlag: "", ok: false, sending: false, result: null });
   if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
   $("mineBox").hidden = true;
   wizRender();
 }
 function wizClose() {
-  wizEl.hidden = true; document.body.classList.remove("wiz-pin", "wiz-open");
+  wizEl.hidden = true; document.body.classList.remove("wiz-pin", "wiz-open"); $("map").classList.remove("picking");
   if (pickMarker && wiz.step !== 5) { map.removeLayer(pickMarker); pickMarker = null; }
 }
 const reportStart = wizOpen, reportCancel = wizClose;
@@ -1906,7 +1913,8 @@ wizEl.addEventListener("click", async e => {
   if (w === "close") wizClose();
   else if (w === "back") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step - 1); }
   else if (w === "next") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step + 1); }
-  else if (w === "locate") { map.once("locationfound", ev => { map.setView(ev.latlng, 18, { animate: false }); wizSetPoint(ev.latlng.lat, ev.latlng.lng, ev.accuracy); const x = $("wizErr"); if (x && !x.hidden) x.textContent = ev.accuracy > 300 ? `Ihr Gerät kann den Standort nur grob bestimmen (±${Math.round(ev.accuracy)} m). Bitte tippen Sie den Ort auf der Karte an.` : x.textContent + " Ihr Standort ist ungefähr, bitte tippen Sie sonst den Ort auf der Karte an."; }); map.once("locationerror", () => { const x = $("wizErr"); if (x) { x.hidden = false; x.textContent = "Der Standort ist nicht verfügbar. Bitte tippen Sie stattdessen auf die Karte."; } }); map.locate({ enableHighAccuracy: true, timeout: 12000 }); }
+  else if (w === "locate") { wiz.mode = "map"; map.once("locationfound", ev => { map.setView(ev.latlng, 18, { animate: false }); wizSetPoint(ev.latlng.lat, ev.latlng.lng, ev.accuracy); const x = $("wizErr"); if (x && !x.hidden) x.textContent = ev.accuracy > 300 ? `Ihr Gerät kann den Standort nur grob bestimmen (±${Math.round(ev.accuracy)} m). Bitte tippen Sie den Ort auf der Karte an.` : x.textContent + " Ihr Standort ist ungefähr, bitte tippen Sie sonst den Ort auf der Karte an."; }); map.once("locationerror", () => { const x = $("wizErr"); if (x) { x.hidden = false; x.textContent = "Der Standort ist nicht verfügbar. Bitte tippen Sie stattdessen auf die Karte."; } }); map.locate({ enableHighAccuracy: true, timeout: 12000 }); }
+  else if (w === "pinmode") { wiz.mode = "map"; wizRender(); if (matchMedia("(max-width: 760px)").matches) setSheet(false); }
   else if (w === "send") wizSend();
   else if (w === "mine") { wizClose(); mineOpen(); }
   else if (w === "copy") {
