@@ -1,5 +1,5 @@
 """Combine fetched data with the template into one self-contained index.html.
-Entwickelt von Mohammad B. Saryazdi für den Präventionsrat Buchholz-Kleefeld."""
+Entwickelt von Mohammad B. Saryazdi für den Praeventionsrat Buchholz-Kleefeld."""
 import json, os
 from pathlib import Path
 

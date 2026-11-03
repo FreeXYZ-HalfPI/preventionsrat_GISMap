@@ -15,14 +15,14 @@ Vorher steht die Weiche: Notfall (110/112), defekte Lampe und Schäden gehen dir
 | Anzeige | Label am GitHub-Issue | Bedeutung für Anwohnende |
 |---|---|---|
 | Gemeldet | `gemeldet` (automatisch) | Abgeschickt, noch nicht gelesen |
-| Eingegangen | `eingegangen` | Beim Präventionsrat angekommen |
+| Eingegangen | `eingegangen` | Beim Praeventionsrat angekommen |
 | Geprüft | `geprueft` (oder `in-bearbeitung`) | Geprüft, erscheint auf der Karte |
 | Erledigt | `umgesetzt` oder Issue geschlossen | Behoben / umgesetzt |
 | Abgelehnt | `abgelehnt` | Nichts zu tun; Begründung steht als Kommentar im Issue |
 
 Unter **„Meine Meldungen“** sehen Anwohnende den Stand ihrer Meldungen (die Nummern merkt sich der Browser, oder sie tragen eine Nummer ein). Auf der öffentlichen Karte erscheinen nur geprüfte Meldungen.
 
-Der Präventionsrat ändert den Status, indem er das Label am Issue setzt (GitHub-Oberfläche oder `gh issue edit 12 --add-label eingegangen`).
+Der Praeventionsrat ändert den Status, indem er das Label am Issue setzt (GitHub-Oberfläche oder `gh issue edit 12 --add-label eingegangen`).
 
 ## Einrichtung (einmalig)
 **Labels anlegen:**

@@ -4,7 +4,7 @@
 
 **Karte online:** https://freexyz-halfpi.github.io/preventionsrat_GISMap/
 
-Interaktive GIS-Karte des Präventionsrats für den Stadtbezirk Buchholz-Kleefeld in Hannover
+Interaktive GIS-Karte des Praeventionsrats für den Stadtbezirk Buchholz-Kleefeld in Hannover
 (Stadtteile Groß-Buchholz, Kleefeld und Heideviertel).
 
 Die Karte zeigt öffentlich zugängliche Orte, die für Prävention und Sicherheit im Stadtteil wichtig sind:

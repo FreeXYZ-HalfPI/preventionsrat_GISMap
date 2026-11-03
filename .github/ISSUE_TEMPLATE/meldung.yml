@@ -1,5 +1,5 @@
 name: Problem im Stadtteil melden
-description: Ein Problem in Buchholz-Kleefeld an den Präventionsrat melden. Die Meldung erscheint erst nach Prüfung auf der Karte.
+description: Ein Problem in Buchholz-Kleefeld an den Praeventionsrat melden. Die Meldung erscheint erst nach Prüfung auf der Karte.
 title: "[Meldung] "
 labels: ["meldung", "gemeldet"]
 body:
