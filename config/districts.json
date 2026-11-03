@@ -10,6 +10,7 @@
     "has_proposal": true, "has_kennzahlen": true
   },
   "bothfeld-vahrenheide": {
+    "enabled": false,
     "name": "Bothfeld-Vahrenheide", "nr": "03", "out": "bezirke/bothfeld-vahrenheide.html", "data_dir": "data/bothfeld-vahrenheide",
     "relation": 1863265, "stadtteile_rel": [80137, 3357529, 3357530, 3357531, 3357532],
     "bbox": "52.395,9.715,52.462,9.900", "lat0": 52.43,

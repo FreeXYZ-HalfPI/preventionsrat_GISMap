@@ -272,6 +272,7 @@ h1 { font-size: 21px; margin-top: 2px; }
 .panel { min-width: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .dswitch { appearance: none; -webkit-appearance: none; font: inherit; font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.1; color: var(--ink); background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23888' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 10px center; border: 1px solid var(--line); border-radius: 10px; padding: 6px 32px 6px 10px; max-width: 100%; cursor: pointer; }
+.dtitle { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.1; color: var(--ink); }
 .dswitch:hover { border-color: var(--accent); }
 .dswitch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .app { grid-template-columns: 372px 1fr; }
@@ -299,6 +300,7 @@ h1 { font-size: 21px; margin-top: 2px; }
   .panel-head > :not(.titles):not(.head-actions) { grid-column: 1 / -1; }
   .panel-head .eyebrow { font-size: 11px; }
   h1 { font-size: 18px; }
+  .dtitle { font-size: 17px; }
   .dswitch { font-size: 17px; padding-block: 4px; }
   .tabs button { padding-block: 5px 4px; font-size: 12.5px; }
   .tabs .ti { font-size: 13px; }
@@ -1388,8 +1390,13 @@ $("proposal").addEventListener("click", e => {
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("proposal").hidden) closeProposal(); });
 
 $("bezNr").textContent = DD.nr;
+if (DD.districts.length < 2) {
+  // single public district: plain title instead of the switcher (switcher code stays for later)
+  $("districtSwitch").outerHTML = `<span class="dtitle">${esc(DD.name)}</span>`;
+} else {
 $("districtSwitch").innerHTML = DD.districts.map(d => `<option value="${esc(d.href)}"${d.slug === DD.slug ? " selected" : ""}>${esc(d.name)}</option>`).join("");
 $("districtSwitch").addEventListener("change", e => { location.href = e.target.value + (location.hash || ""); });
+}
 $("openProposal").hidden = !DD.has_proposal;
 $("districtNote").innerHTML = `<b>Präventionsgremium:</b> ${esc(DD.praeventionsrat.text)} <a href="${esc(DD.praeventionsrat.url)}" target="_blank" rel="noopener">Seite der Stadt</a>`;
 $("issuesAsof").textContent = new Date(ISS.updated).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });

@@ -38,6 +38,8 @@ Drei Tabs ergänzen die Orte-Karte:
 
 ## Mehrere Stadtbezirke
 
+> **Derzeit öffentlich nur Buchholz-Kleefeld.** Bothfeld-Vahrenheide ist vorbereitet, aber in `config/districts.json` mit `"enabled": false` abgeschaltet; Menü und Seite werden nicht gebaut. Zum Testen: `DISTRICT=bothfeld-vahrenheide python3 scripts/build_map.py`. Zum Freischalten `enabled` entfernen und neu bauen.
+
 Oben links wählt ein Menü den Stadtbezirk. Jeder Bezirk ist eine eigene, eigenständige Seite, die aus derselben Vorlage gebaut wird:
 
 | Bezirk | Seite |

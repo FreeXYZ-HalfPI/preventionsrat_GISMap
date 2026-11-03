@@ -96,6 +96,9 @@ def main():
     cfg = json.loads((ROOT / "config" / "districts.json").read_text())
     cfg = {k: v for k, v in cfg.items() if not k.startswith("_")}
     only = os.environ.get("DISTRICT")
+    # "enabled": false in config/districts.json hides a district from the public build;
+    # name it explicitly (DISTRICT=<slug>) to build it for local work.
+    cfg = {k: v for k, v in cfg.items() if v.get("enabled", True) or k == only}
     for slug, c in cfg.items():
         if only and slug != only:
             continue
