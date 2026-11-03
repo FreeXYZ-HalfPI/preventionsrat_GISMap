@@ -730,7 +730,7 @@ body { background: var(--paper); color: var(--ink); font-family: var(--font-body
 .app { display: grid; grid-template-columns: 360px 1fr; height: 100%; }
 .panel { background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
 .panel-head { padding-block: 18px 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
-.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
 h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 25px; line-height: 1.05; text-wrap: balance; }
 .lede { margin: 0; color: var(--ink-2); font-size: 14px; }
 .panel-body { overflow-y: auto; min-height: 0; flex: 1; padding-block: 12px 24px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; display: grid; gap: 18px; align-content: start; }
@@ -874,7 +874,9 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
 .src-list { font-size: 14px; color: var(--ink-2); display: grid; gap: 4px; padding-left: 18px; margin: 0; }
 .src-list a { color: var(--accent); overflow-wrap: anywhere; }
 
+.leaflet-control-attribution { font-size: 13px; }
 .sheet-toggle { display: none; }
+.results .empty { list-style: none; padding: 12px; border: 1px dashed var(--line); border-radius: 10px; display: grid; gap: 8px; }
 
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
@@ -885,6 +887,12 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
     .panel-body { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
   h1 { font-size: 22px; }
   .sheet-toggle { display: inline-block; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+}
+@media (max-width: 760px), (pointer: coarse) {
+  .btn, .sheet-toggle, .report-fab, .seg button, .chip, .tabs button { min-height: 44px; }
+  .btn.small { min-height: 44px; padding-inline: 12px; }
+  .map-tools button.tool { width: 44px; height: 44px; }
+  .leaflet-touch .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { .leaflet-zoom-anim .leaflet-zoom-animated { transition: none !important; } }
 
@@ -915,9 +923,11 @@ details.meas a { color: var(--accent); overflow-wrap: anywhere; }
 .pop .meas-list b { display: block; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); }
 .smark { width: 26px; height: 26px; box-sizing: border-box; border-radius: 6px; border: 2.5px solid var(--panel); background: var(--rc); color: #fff; font: 700 14px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
 .lmark { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; min-width: 26px; height: 26px; padding: 0 5px; box-sizing: border-box; border-radius: 13px; border: 2.5px solid var(--panel); background: var(--map-unlit); color: #fff; font: 700 11px/21px var(--font-display); text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
-table.zt { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+table.zt { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
 table.zt th, table.zt td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--line); }
-table.zt th:first-child, table.zt td:first-child { text-align: left; }
+table.zt th:first-child, table.zt td:first-child { text-align: left; position: sticky; left: 0; background: var(--panel); }
+table.zt td, table.zt th { white-space: nowrap; }
+.panel-body > *, .panel-body section { min-width: 0; }
 table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--ink-2); }
 .pbadge { position: absolute; transform: translate(-50%, 24px); white-space: nowrap; font: 700 11px/1 var(--font-body); color: #fff; background: var(--pc); padding: 3px 7px; border-radius: 999px; border: 1.5px solid var(--panel); box-shadow: 0 1px 4px rgba(0,0,0,.4); pointer-events: none; }
 .credit { font-size: 13px; color: var(--ink-2); }
@@ -977,7 +987,6 @@ h1 { font-size: 21px; margin-top: 2px; }
   .map-tools { top: 8px; right: 8px; }
   .where { bottom: 36px; left: 8px; font-size: 14px; }
   .report-fab { padding: 8px 12px; font-size: 14px; }
-  .map-tools .tool { width: 38px; height: 38px; }
 }
 
 /* Problem melden: großes, ruhiges Formular (eine Frage pro Bildschirm) */
@@ -1021,7 +1030,7 @@ h1 { font-size: 21px; margin-top: 2px; }
 .wiz-check { display: flex; gap: 12px; align-items: start; font-size: 17px; }
 .wiz-check input { width: 28px; height: 28px; flex: none; margin-top: 2px; accent-color: var(--accent); }
 .wiz-big { font-size: 22px; }
-.proto-tag { font: 700 12px var(--font-body); letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; padding: 3px 8px; border-radius: 99px; background: var(--c-spielplatz); color: #1a1400; }
+.proto-tag { font: 700 13px var(--font-body); letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; padding: 3px 8px; border-radius: 99px; background: var(--c-spielplatz); color: #1a1400; }
 .wiz-proto { background: var(--paper); border: 2px dashed var(--c-spielplatz); border-radius: 12px; padding: 10px 12px; font-size: 16.5px; }
 .pin { width: 34px; height: 34px; background: var(--accent); border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 2px 8px rgba(0,0,0,.45); margin: 0 0 0 0; }
 body.wiz-pin .wiz { max-height: 44vh; }
@@ -1079,7 +1088,6 @@ body.wiz-pin .wiz { max-height: 44vh; }
       <p class="note" id="localNote"></p>
       <footer class="foot">
         Themen und Maßnahmen stammen aus den im Eintrag genannten Quellen (Tätigkeitsberichte, Sitzungsunterlagen des Stadtbezirksrats), Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
-        <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
       </footer>
     </div>
     <div class="panel-body" id="viewSchulweg" hidden>
@@ -1105,7 +1113,6 @@ body.wiz-pin .wiz { max-height: 44vh; }
       </section>
       <footer class="foot">
         Grundlage: OpenStreetMap-Daten (Schulen, Haltestellen, Wege, Hauptstraßen, Querungen), Stand <span id="swAsof"></span>. Kennzahlen zu Unfällen und Bevölkerung im Tab „Zahlen“.
-        <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
       </footer>
     </div>
     <div class="panel-body" id="viewZahlen" hidden>
@@ -1125,7 +1132,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
         <div class="group-label">Quellen</div>
         <ol class="src-list" id="zSrc"></ol>
       </section>
-      <footer class="foot"><div class="credit">Entwickelt von <b>MB Saryazdi</b></div></footer>
+      
     </div>
     <div class="panel-body" id="panelBody">
       <section>
@@ -1142,6 +1149,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       </section>
       <section>
         <div class="group-label"><span id="resTitle">Orte</span></div>
+        <p class="note" id="zoomNote" hidden>Spielplätze, Haltestellen, Sportorte und Grünflächen erscheinen beim Heranzoomen.</p>
         <ul class="results" id="results"></ul>
         <p class="more" id="more" hidden></p>
       </section>
@@ -1165,7 +1173,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       <div class="proposal-inner">
         <button class="btn ghost close" type="button" id="closeProposal">← Zurück zur Karte</button>
         <header>
-          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026 · Entwickelt von MB Saryazdi</div>
+          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026</div>
           <h2 id="propTitle">Vom Gremium zur Anlaufstelle: was Buchholz-Kleefeld von Wien lernen kann</h2>
           <p>Der Präventionsrat überprüft 2026 gemeinsam mit dem Landespräventionsrat seine Struktur und Handlungsfelder, auch um attraktiver für neue Mitglieder zu werden. Dieser Vorschlag zeigt sechs Bausteine, mit denen der Rat sichtbarer wird, Probleme der Nachbarschaft schneller aufnimmt und mehr Menschen beteiligt. Alle Bausteine nutzen, was es im Stadtbezirk schon gibt.</p>
         </header>
@@ -1342,7 +1350,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
             <li><a href="https://www.hannover.de/Service/Presse-Medien/Landeshauptstadt-Hannover/Aktuelle-Meldungen-und-Veranstaltungen/Mobile-Sicherheitskonferenz-in-Ricklingen" target="_blank" rel="noopener">Stadt Hannover: Mobile Sicherheitskonferenz in Ricklingen</a></li>
             <li><a href="https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf" target="_blank" rel="noopener">Sicherheitsbericht 2025</a> (Polizeidirektion, Stadt, aha), Kap. Verkehrsunfallprävention, ÖPNV-Sicherheitspartnerschaft, Communities That Care, Ordnungsdienst</li>
             <li>Statistische Profile der Stadtteile und Stadtbezirke 2022, Stadtbezirk 04, und Sozialbericht 2023 der Landeshauptstadt Hannover</li>
-            <li><a href="https://lpr.niedersachsen.de/" target="_blank" rel="noopener">Landespräventionsrat Niedersachsen</a>, <a href="https://lpr.niedersachsen.de/fileadmin/user_upload/redaktion_lpr/Dateien_zur_KoStLP__Lilit_/Foerderaufruf_Praxistransfer_Rad-Praev.pdf" target="_blank" rel="noopener">Förderaufruf Praxistransfer</a></li>
+            <li><a href="https://lpr.niedersachsen.de/" target="_blank" rel="noopener">Landespräventionsrat Niedersachsen</a></li>
             <li><a href="https://www.heidekreis.de/_Resources/Persistent/0/e/c/3/0ec384139561d8f0e6317cbe6fad077ef262f7d0/Flyer_AK_Schulwegsicherheit_im_KPR.pdf" target="_blank" rel="noopener">Heidekreis: Flyer AK Schulwegsicherheit im Kreispräventionsrat</a></li>
             <li><a href="https://www.landesverkehrswacht.de/fileadmin/user_upload/LVW/Presse/2025/MI_PI_069_Innenministerin_Daniela_Behrens_Sicherer_Schulweg.pdf" target="_blank" rel="noopener">Innenministerium Niedersachsen: Elternhaltestelle Salzweg (Pressemitteilung 069/2025)</a></li>
             <li><a href="https://www.umweltbundesamt.de/themen/verkehrswende-endlich-mehr-spielraeume-fuer-staedte" target="_blank" rel="noopener">Umweltbundesamt: StVO-Novelle 2024 und Tempo 30</a></li>
@@ -1567,11 +1575,21 @@ function renderStats() {
 }
 
 const LIST_MAX = 150;
+// Wenig Zoom: Spielplätze, Haltestellen, Sport und Grün erst beim Heranzoomen zeigen und Punkte verkleinern, sonst deckt ein Punkthaufen die Karte zu
+const LOW_PRIO = new Set(["spielplatz", "oepnv", "sport", "gruen"]);
+let lastVis = [];
+function drawPois() {
+  const far = map.getZoom() < 14.5, hidden = far ? lastVis.filter(m => LOW_PRIO.has(m.feature.properties.category)) : [];
+  poiGroup.clearLayers();
+  for (const m of lastVis) { if (far && LOW_PRIO.has(m.feature.properties.category)) continue; m.setRadius(far ? 5 : 6); poiGroup.addLayer(m); }
+  $("zoomNote").hidden = !hidden.length;
+}
+map.on("zoomend", drawPois);
 function render() {
   document.querySelectorAll("#districts button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === state.district));
   renderCats(); renderStats();
   const vis = visible();
-  poiGroup.clearLayers(); vis.forEach(m => poiGroup.addLayer(m));
+  lastVis = vis; drawPois();
   const sorted = vis.slice().sort((a, b) => (a.feature.properties.category === "oepnv") - (b.feature.properties.category === "oepnv") || titleOf(a.feature.properties).localeCompare(titleOf(b.feature.properties), "de"));
   $("resTitle").textContent = `${vis.length} Orte`;
   $("results").innerHTML = sorted.slice(0, LIST_MAX).map((m, i) => {
@@ -1579,10 +1597,12 @@ function render() {
     const sub = [p.name ? typeOf(p) : null, addr(p).split(",")[0], state.district === "alle" ? p.stadtteil : null].filter(Boolean).join(" · ");
     return `<li><button type="button" data-i="${markers.indexOf(m)}" style="--cc:var(--c-${p.category})"><span class="dot"></span><span class="t">${esc(titleOf(p))}${sub ? `<small>${esc(sub)}</small>` : ""}</span></button></li>`;
   }).join("");
+  if (!vis.length) $("results").innerHTML = `<li class="empty"><b>Keine Treffer.</b> ${state.q ? `Prüfen Sie die Schreibweise oder suchen Sie nach einem Teil des Namens.` : "Es sind keine Ebenen eingeschaltet."}<div class="row"><button class="btn small" type="button" id="resetSearch">Suche und Filter zurücksetzen</button></div></li>`;
   $("more").hidden = vis.length <= LIST_MAX;
   $("more").textContent = `… und ${vis.length - LIST_MAX} weitere. Suche oder Ebenen eingrenzen, um mehr zu sehen.`;
 }
 $("results").addEventListener("click", e => {
+  if (e.target.id === "resetSearch") { state.q = ""; $("q").value = ""; state.district = "alle"; state.on = new Set(DEFAULT_ON); save(); render(); return; }
   const b = e.target.closest("button"); if (!b) return;
   const m = markers[+b.dataset.i];
   map.setView(m.getLatLng(), Math.max(map.getZoom(), 17));
