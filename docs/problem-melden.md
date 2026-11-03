@@ -41,6 +41,9 @@ Solange `report_api` leer ist, öffnet „Weiter zu GitHub“ das vorbefüllte G
 - Missbrauchsschutz ist einfach (Honeypot, Prüfung der Felder). Bei Spam kommt eine Ratenbegrenzung hinzu.
 - Noch nicht mit Menschen von 60 bis 70 Jahren getestet. Das sollte vor dem Start mit 3 bis 5 Personen passieren.
 
+## Neue Meldungen auf der Karte
+Im Prototyp wird jede abgeschickte Meldung im Browser des Geräts gespeichert (`localStorage`, Schlüssel `pa-lokal-<bezirk>`) und sofort als „Neu gemeldet“ auf der Karte und in der Liste unter Themen gezeigt. Sichtbar ist sie nur auf diesem Gerät; Löschen geht über „Meine Test-Meldungen löschen“. Mit dem Server (Worker oder eigene Datenbank) sehen alle Besuchenden dieselben Meldungen.
+
 ## Ausbaustufe: Sprache zu Text
 Anwohnende tippen nur den Ort an und sprechen die Antworten auf „Was ist das Problem?“, „Seit wann?“ und „Was schlagen Sie vor?“.
 - Heute schon: Handy-Tastaturen haben ein Mikrofon-Symbol (im Formular als Tipp genannt).

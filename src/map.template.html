@@ -130,9 +130,9 @@ h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 2
 .tabs button:focus-visible, .btn:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* status + issues */
-:root { --st-offen: #c2410c; --st-bearb: #b7791f; --st-umgesetzt: #2f855a; --st-neu: #6b7280; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #a8b0bc; } }
-:root[data-theme="dark"] { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #a8b0bc; }
+:root { --st-offen: #c2410c; --st-bearb: #b7791f; --st-umgesetzt: #2f855a; --st-neu: #0891b2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #22d3ee; } }
+:root[data-theme="dark"] { --st-offen: #fb923c; --st-bearb: #f6c453; --st-umgesetzt: #68d391; --st-neu: #22d3ee; }
 .pill { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--sc); white-space: nowrap; }
 .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sc); }
 .pill.problem::before { border-radius: 1px; transform: rotate(45deg); }
@@ -407,6 +407,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       </section>
       <ul class="issues" id="issueList"></ul>
       <p class="note" id="liveNote"></p>
+      <p class="note" id="localNote"></p>
       <footer class="foot">
         Themen und Maßnahmen stammen aus den im Eintrag genannten Quellen (Tätigkeitsberichte, Sitzungsunterlagen des Stadtbezirksrats), Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
         <div class="credit" style="margin-top:8px">Entwickelt von <b>MB Saryazdi</b></div>
@@ -934,10 +935,17 @@ const REPO = "FreeXYZ-HalfPI/preventionsrat_GISMap";
 const URL_LICHT = "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Tiefbau/Service/St%C3%B6rungen-der-Stra%C3%9Fenbeleuchtung-melden";
 const URL_MAENGEL = "https://www.hannover.de/Leben-in-der-Region-Hannover/B%C3%BCrger-Service/B%C3%BCrger-Service-in-der-Landeshauptstadt-Hannover/Ideen-und-Beschwerden/M%C3%A4ngelhinweiskarte";
 const URL_PBK = DD.praeventionsrat.url;
-const STATUS = { offen: ["Offen", "--st-offen"], in_bearbeitung: ["In Bearbeitung", "--st-bearb"], umgesetzt: ["Umgesetzt", "--st-umgesetzt"] };
+const STATUS = { neu: ["Neu gemeldet", "--st-neu"], offen: ["Offen", "--st-offen"], in_bearbeitung: ["In Bearbeitung", "--st-bearb"], umgesetzt: ["Umgesetzt", "--st-umgesetzt"] };
 const ISS = DATA.issues;
 const iState = { status: "alle", type: "alle" };
 let liveIssues = [];
+// Neue Meldungen aus dem Formular. Prototyp: nur im Browser dieses Geräts gespeichert; mit Server später für alle sichtbar.
+const LOCAL_KEY = "pa-lokal-" + DD.slug;
+const loadLocal = () => { try { return JSON.parse(localStorage.getItem(LOCAL_KEY)) || []; } catch (e) { return []; } };
+const localToIssue = r => ({ id: r.id, local: true, live: true, type: "problem", status: "neu", title: r.ort,
+  summary: [r.thema, r.beschreibung, r.seit ? "Seit wann: " + r.seit : "", r.vorschlag ? "Vorschlag: " + r.vorschlag : ""].filter(Boolean).join(" · "),
+  stadtteil: r.stadtteil, coords: [r.lat, r.lon], owner: "Noch nicht zugeordnet", since: new Date(r.ts).toLocaleDateString("de-DE"), next: "Wird vom Präventionsrat gelesen und geprüft." });
+let localIssues = loadLocal().map(localToIssue);
 
 function inRing(x, y, ring) {
   let inside = false;
@@ -964,7 +972,7 @@ const nearestStadtteil = (lat, lon) => stadtteilAt(lat, lon) || (stadtteile.map(
 // GPS liegt oft ein paar Dutzend Meter daneben: Punkte bis zur Genauigkeit des Geräts (höchstens 300 m) am Rand zählen noch als drin
 const gpsInside = (lat, lon, acc) => distToBezirk(lat, lon) <= Math.min(Math.max(acc || 0, 30), 300);
 
-const allIssues = () => [...ISS.items, ...liveIssues];
+const allIssues = () => [...ISS.items, ...liveIssues, ...localIssues];
 function filteredIssues() {
   return allIssues().filter(it =>
     (iState.status === "alle" || it.status === iState.status) &&
@@ -972,7 +980,7 @@ function filteredIssues() {
     (state.district === "alle" || !it.stadtteil || it.stadtteil === state.district));
 }
 const pill = it => `<span class="pill ${it.type}" style="--sc:var(${STATUS[it.status][1]})">${it.type === "problem" ? (it.live ? "Meldung" : "Problem") : "Maßnahme"} · ${STATUS[it.status][0]}</span>`;
-const srcLinks = it => it.live
+const srcLinks = it => it.local ? "Neue Meldung, noch nicht geprüft. Im Prototyp nur auf diesem Gerät gespeichert." : it.live
   ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">Meldung #${esc(it.number)} auf GitHub</a>`
   : (it.sources || []).map(k => ISS.sources[k]).filter(Boolean).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(" · ");
 
@@ -1001,13 +1009,14 @@ function renderIssueFilters() {
   const seg = (el, opts, key) => {
     $(el).innerHTML = opts.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${iState[key] === v}">${l}</button>`).join("");
   };
-  seg("statusFilter", [["alle", "Alle"], ["offen", `Offen (${cnt(i => i.status === "offen")})`], ["in_bearbeitung", `In Bearbeitung (${cnt(i => i.status === "in_bearbeitung")})`], ["umgesetzt", `Umgesetzt (${cnt(i => i.status === "umgesetzt")})`]], "status");
+  seg("statusFilter", [["alle", "Alle"], ...(cnt(i => i.status === "neu") ? [["neu", `Neu gemeldet (${cnt(i => i.status === "neu")})`]] : []), ["offen", `Offen (${cnt(i => i.status === "offen")})`], ["in_bearbeitung", `In Bearbeitung (${cnt(i => i.status === "in_bearbeitung")})`], ["umgesetzt", `Umgesetzt (${cnt(i => i.status === "umgesetzt")})`]], "status");
   seg("typeFilter", [["alle", "Alle"], ["problem", "Probleme"], ["massnahme", "Maßnahmen"]], "type");
-  $("issueSummary").innerHTML = `<span><b>${cnt(i => i.type === "problem" && !i.live)}</b> Themen</span><span><b>${cnt(i => i.type === "massnahme")}</b> Maßnahmen</span><span><b>${liveIssues.length}</b> geprüfte Meldungen</span>`;
+  $("issueSummary").innerHTML = `<span><b>${cnt(i => i.type === "problem" && !i.live && !i.local)}</b> Themen</span><span><b>${cnt(i => i.type === "massnahme")}</b> Maßnahmen</span><span><b>${liveIssues.length}</b> geprüfte Meldungen</span>${localIssues.length ? `<span><b>${localIssues.length}</b> neu gemeldet</span>` : ""}`;
+  $("localNote").innerHTML = localIssues.length ? `Neu gemeldete Probleme sind auf der Karte sichtbar. Im Prototyp nur auf diesem Gerät. <button class="btn small ghost" type="button" id="localClear">Meine Test-Meldungen löschen</button>` : "";
 }
 function renderIssues() {
   renderIssueFilters();
-  const order = { offen: 0, in_bearbeitung: 1, umgesetzt: 2 };
+  const order = { neu: -1, offen: 0, in_bearbeitung: 1, umgesetzt: 2 };
   const list = filteredIssues().sort((a, b) => order[a.status] - order[b.status] || (a.type > b.type ? 1 : -1));
   $("issueList").innerHTML = list.map(it => `<li class="issue" style="--sc:var(${STATUS[it.status][1]})">
       ${pill(it)}<h3>${esc(it.title)}</h3>
@@ -1018,6 +1027,11 @@ function renderIssues() {
     </li>`).join("") || `<li class="note">Keine Einträge für diese Auswahl.</li>`;
   drawIssues();
 }
+$("localNote").addEventListener("click", e => {
+  if (e.target.id !== "localClear" || !confirm("Alle auf diesem Gerät gespeicherten Test-Meldungen löschen?")) return;
+  try { localStorage.removeItem(LOCAL_KEY); } catch (err) {}
+  localIssues = []; if (iState.status === "neu") iState.status = "alle"; renderIssues();
+});
 $("statusFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { iState.status = b.dataset.v; renderIssues(); } });
 $("typeFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { iState.type = b.dataset.v; renderIssues(); } });
 $("issueList").addEventListener("click", e => {
@@ -1166,15 +1180,16 @@ function wizRender() {
       ${api && !PROTO ? "" : `<button class="btn ghost" type="button" data-w="copy">Text kopieren</button>`}`;
   } else {
     const r = wiz.result || {};
-    body = PROTO ? `<p class="wiz-big">Das war die Vorschau.</p>
-      <p>Es wurde <b>nichts gesendet</b>. Wenn der Dienst startet, bekommen Sie hier eine Meldungsnummer und können den Stand verfolgen: Gemeldet, Eingegangen, Geprüft, Erledigt oder Abgelehnt.</p>
+    body = PROTO ? `<p class="wiz-big">Ihre Meldung steht jetzt auf der Karte.</p>
+      <p>Sie ist als <b>„Neu gemeldet“</b> sichtbar und in der Liste unter „Themen“ eingetragen. So sehen alle, dass das Problem schon gemeldet ist.</p>
+      <p class="wiz-proto"><b>Prototyp:</b> Die Meldung ist nur auf diesem Gerät gespeichert und wurde nicht gesendet. Mit dem Server später sehen sie alle, und Sie können den Stand verfolgen: Gemeldet, Eingegangen, Geprüft, Erledigt oder Abgelehnt.</p>
       <p>Haben Sie Ideen oder Wünsche zum Formular? Schreiben Sie uns über die Seite des Stadtbezirks.</p>`
       : r.number ? `<p class="wiz-big">Ihre Meldung hat die Nummer <b>#${r.number}</b>.</p>
       <p>Aktueller Stand: <b>${RSTATUS.gemeldet[0]}</b>. ${RSTATUS.gemeldet[1]}</p>
       <p>Unter <b>„Meine Meldungen“</b> sehen Sie jederzeit, wie weit es ist.</p>`
       : `<p class="wiz-big">Ihre Meldung wurde auf GitHub vorbereitet.</p>
       <p>Bitte dort auf <b>„Submit new issue“</b> klicken. Danach sehen Sie die Nummer Ihrer Meldung. Tragen Sie sie unter <b>„Meine Meldungen“</b> ein, dann können Sie den Stand verfolgen.</p>`;
-    nav = `<div class="wiz-nav">${PROTO ? "" : `<button class="btn big" type="button" data-w="mine">Meine Meldungen</button>`}<button class="btn${PROTO ? "" : " ghost"} big" type="button" data-w="close">Schließen</button></div>`;
+    nav = `<div class="wiz-nav">${PROTO ? `<button class="btn big" type="button" data-w="show">Auf der Karte zeigen</button>` : `<button class="btn big" type="button" data-w="mine">Meine Meldungen</button>`}<button class="btn ghost big" type="button" data-w="close">Schließen</button></div>`;
   }
   const prog = s > 0 && s < 5 ? `<div class="wiz-prog" aria-label="Schritt ${s} von 4"><i style="width:${s * 25}%"></i></div><div class="wiz-step">Schritt ${s} von 4</div>` : "";
   wizEl.innerHTML = `<div class="wiz-head"><h2 id="wizTitle" tabindex="-1">${wizTitle[s]}${PROTO ? ` <span class="proto-tag">Prototyp</span>` : ""}</h2>${s < 5 ? `<button class="wiz-x" type="button" data-w="close" aria-label="Abbrechen">✕</button>` : ""}</div>${prog}<div class="wiz-body">${body}</div>${nav}`;
@@ -1216,9 +1231,18 @@ function issueBody() {
   const osm = `https://www.openstreetmap.org/?mlat=${wiz.lat}&mlon=${wiz.lon}#map=18/${wiz.lat}/${wiz.lon}`;
   return { osm, text: `Meldung an das Stadtbezirksmanagement ${DD.name}\nThema: ${wiz.thema}\nOrt: ${wiz.ort}\nKoordinaten: ${wiz.lat}, ${wiz.lon}\nKarte: ${osm}\n\nWas ist das Problem?\n${wiz.beschreibung}\n\nSeit wann?\n${wiz.seit || "-"}\n\nVorschlag:\n${wiz.vorschlag || "-"}\n` };
 }
+function wizSaveLocal() {
+  const r = { id: "LOK" + Date.now(), ts: Date.now(), thema: wiz.thema, ort: wiz.ort, lat: wiz.lat, lon: wiz.lon, stadtteil: nearestStadtteil(wiz.lat, wiz.lon), beschreibung: wiz.beschreibung.trim(), seit: wiz.seit, vorschlag: wiz.vorschlag.trim() };
+  try { const l = loadLocal(); l.unshift(r); localStorage.setItem(LOCAL_KEY, JSON.stringify(l.slice(0, 50))); } catch (e) {}
+  localIssues.unshift(localToIssue(r));
+  if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
+  iState.status = "alle"; iState.type = "alle"; state.district = "alle";
+  renderIssues();
+  return r.id;
+}
 async function wizSend() {
   const err = $("wizErr");
-  if (PROTO) { wiz.result = {}; wizSetStep(5); return; }
+  if (PROTO) { wiz.result = { id: wizSaveLocal() }; wizSetStep(5); return; }
   if (!DD.report_api) {
     const q = new URLSearchParams({ template: "meldung.yml", title: "[Meldung] " + wiz.ort, thema: wiz.thema, ort: wiz.ort, koordinaten: `${wiz.lat}, ${wiz.lon}`, beschreibung: wiz.beschreibung, seit_wann: wiz.seit, vorschlag: wiz.vorschlag });
     window.open(`https://github.com/${REPO}/issues/new?${q}`, "_blank", "noopener");
@@ -1256,6 +1280,7 @@ wizEl.addEventListener("click", async e => {
   else if (w === "locate") { wiz.mode = "map"; map.once("locationfound", ev => { map.setView(ev.latlng, 18, { animate: false }); wizSetPoint(ev.latlng.lat, ev.latlng.lng, ev.accuracy); const x = $("wizErr"); if (x && !x.hidden) x.textContent = ev.accuracy > 300 ? `Ihr Gerät kann den Standort nur grob bestimmen (±${Math.round(ev.accuracy)} m). Bitte tippen Sie den Ort auf der Karte an.` : x.textContent + " Ihr Standort ist ungefähr, bitte tippen Sie sonst den Ort auf der Karte an."; }); map.once("locationerror", () => { const x = $("wizErr"); if (x) { x.hidden = false; x.textContent = "Der Standort ist nicht verfügbar. Bitte tippen Sie stattdessen auf die Karte."; } }); map.locate({ enableHighAccuracy: true, timeout: 12000 }); }
   else if (w === "pinmode") { wiz.mode = "map"; wizRender(); if (matchMedia("(max-width: 760px)").matches) setSheet(false); }
   else if (w === "send") { if (!wiz.ok) { const m = $("wizErr"); m.hidden = false; m.textContent = "Bitte setzen Sie oben den Haken, damit wir wissen, dass Sie einverstanden sind."; } else wizSend(); }
+  else if (w === "show") { const id = wiz.result && wiz.result.id; wizClose(); setView("themen"); if (id) { showIssue(id); } }
   else if (w === "mine") { wizClose(); mineOpen(); }
   else if (w === "copy") {
     const t = issueBody().text;
