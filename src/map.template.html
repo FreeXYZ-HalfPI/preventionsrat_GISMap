@@ -314,6 +314,7 @@ h1 { font-size: 21px; margin-top: 2px; }
 /* Problem melden: großes, ruhiges Formular (eine Frage pro Bildschirm) */
 .row2 { display: grid; gap: 8px; }
 .btn.big { font-size: 18px; padding: 14px 18px; min-height: 52px; border-radius: 12px; }
+.btn.off { opacity: .55; }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
 .wiz { position: absolute; z-index: 1100; left: 16px; bottom: 16px; width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: auto; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,.28); padding: 18px; font-size: 18px; line-height: 1.5; }
 .wiz-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
@@ -1117,7 +1118,8 @@ const nearestStreet = (lat, lon) => {
 const wizTitle = ["Problem melden", "Worum geht es?", "Wo ist das Problem?", "Erzählen Sie uns mehr", "Bitte prüfen Sie Ihre Meldung", "Vielen Dank"];
 function wizBar(next, nextLabel, nextOk) {
   return `<div class="wiz-nav">${wiz.step > 0 && wiz.step < 5 ? `<button class="btn ghost big" type="button" data-w="back">← Zurück</button>` : ""}
-    ${next ? `<button class="btn big" type="button" data-w="${next}"${nextOk ? "" : " disabled"}>${nextLabel}</button>` : ""}</div>`;
+    ${next ? `<button class="btn big${nextOk ? "" : " off"}" type="button" data-w="${next}" aria-disabled="${!nextOk}">${nextLabel}</button>` : ""}</div>
+    <p class="wiz-error" id="wizMsg" role="alert" hidden></p>`;
 }
 function wizRender() {
   $("map").classList.toggle("picking", wiz.step === 2 && !wizEl.hidden && (wiz.mode === "map" || wiz.lat != null));
@@ -1160,7 +1162,7 @@ function wizRender() {
       <p class="wiz-error" id="wizErr" role="alert" hidden></p>
       ${api || PROTO ? "" : `<p class="note">Zum Absenden öffnet sich GitHub (kostenloses Konto nötig). Ohne Konto können Sie den Text kopieren und dem Stadtbezirksmanagement schicken.</p>`}`;
     nav = `<div class="wiz-nav"><button class="btn ghost big" type="button" data-w="back">← Zurück</button>
-      <button class="btn big" type="button" data-w="send"${wiz.ok && !wiz.sending ? "" : " disabled"}>${wiz.sending ? "Wird gesendet …" : PROTO ? "Fertig (Vorschau)" : api ? "Meldung absenden" : "Weiter zu GitHub"}</button></div>
+      <button class="btn big" type="button" data-w="send"${wiz.sending ? " disabled" : ""}>${wiz.sending ? "Wird gesendet …" : PROTO ? "Fertig (Vorschau)" : api ? "Meldung absenden" : "Weiter zu GitHub"}</button></div>
       ${api && !PROTO ? "" : `<button class="btn ghost" type="button" data-w="copy">Text kopieren</button>`}`;
   } else {
     const r = wiz.result || {};
@@ -1243,10 +1245,17 @@ wizEl.addEventListener("click", async e => {
   const w = b.dataset.w; if (!w) return;
   if (w === "close") wizClose();
   else if (w === "back") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step - 1); }
-  else if (w === "next") { if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; } wizSetStep(wiz.step + 1); }
+  else if (w === "next") {
+    if (wiz.step === 3) { wiz.beschreibung = $("wText").value; wiz.vorschlag = $("wIdea").value; }
+    const why = wiz.step === 1 && !wiz.thema ? "Bitte wählen Sie oben ein Thema aus."
+      : wiz.step === 2 && wiz.lat == null ? "Bitte setzen Sie zuerst den Ort: mit Ihrem Standort oder per Tipp auf die Karte."
+      : wiz.step === 3 && wiz.beschreibung.trim().length < 10 ? "Bitte beschreiben Sie das Problem mit ein paar Worten (mindestens 10 Zeichen)." : "";
+    if (why) { const m = $("wizMsg"); m.textContent = why; m.hidden = false; if (wiz.step === 3) $("wText").focus(); }
+    else wizSetStep(wiz.step + 1);
+  }
   else if (w === "locate") { wiz.mode = "map"; map.once("locationfound", ev => { map.setView(ev.latlng, 18, { animate: false }); wizSetPoint(ev.latlng.lat, ev.latlng.lng, ev.accuracy); const x = $("wizErr"); if (x && !x.hidden) x.textContent = ev.accuracy > 300 ? `Ihr Gerät kann den Standort nur grob bestimmen (±${Math.round(ev.accuracy)} m). Bitte tippen Sie den Ort auf der Karte an.` : x.textContent + " Ihr Standort ist ungefähr, bitte tippen Sie sonst den Ort auf der Karte an."; }); map.once("locationerror", () => { const x = $("wizErr"); if (x) { x.hidden = false; x.textContent = "Der Standort ist nicht verfügbar. Bitte tippen Sie stattdessen auf die Karte."; } }); map.locate({ enableHighAccuracy: true, timeout: 12000 }); }
   else if (w === "pinmode") { wiz.mode = "map"; wizRender(); if (matchMedia("(max-width: 760px)").matches) setSheet(false); }
-  else if (w === "send") wizSend();
+  else if (w === "send") { if (!wiz.ok) { const m = $("wizErr"); m.hidden = false; m.textContent = "Bitte setzen Sie oben den Haken, damit wir wissen, dass Sie einverstanden sind."; } else wizSend(); }
   else if (w === "mine") { wizClose(); mineOpen(); }
   else if (w === "copy") {
     const t = issueBody().text;
@@ -1254,9 +1263,9 @@ wizEl.addEventListener("click", async e => {
   }
 });
 wizEl.addEventListener("input", e => {
-  if (e.target.id === "wText") { wiz.beschreibung = e.target.value; const nb = wizEl.querySelector('[data-w="next"]'); if (nb) nb.disabled = wiz.beschreibung.trim().length < 10; }
+  if (e.target.id === "wText") { wiz.beschreibung = e.target.value; const nb = wizEl.querySelector('[data-w="next"]'); if (nb) { const ok = wiz.beschreibung.trim().length >= 10; nb.classList.toggle("off", !ok); nb.setAttribute("aria-disabled", !ok); if (ok) $("wizMsg").hidden = true; } }
   if (e.target.id === "wIdea") wiz.vorschlag = e.target.value;
-  if (e.target.id === "wOk") { wiz.ok = e.target.checked; const sb = wizEl.querySelector('[data-w="send"]'); if (sb) sb.disabled = !wiz.ok; }
+  if (e.target.id === "wOk") { wiz.ok = e.target.checked; if (wiz.ok) $("wizErr").hidden = true; }
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !wizEl.hidden) wizClose(); });
 $("reportBtn").addEventListener("click", wizOpen);
