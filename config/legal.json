@@ -1,9 +1,9 @@
 {
   "_comment": "Angaben für Impressum und Datenschutzerklärung. Felder mit „[…]“ bitte ausfüllen, dann python3 scripts/build_map.py. Leer lassen geht nicht: unausgefüllte Felder erscheinen auf der Seite gelb markiert.",
   "name": "Mohammad Baghaei Saryazdi",
-  "strasse": "Großbuchholz-kleefeld",
+  "strasse": "Kolbeweg 22",
   "plz_ort": "30655 Hannover",
   "email": "mbaghaeisaryazdi@gmail.com",
   "telefon": "",
-  "stand": "3. November 2026"
+  "stand": "4. November 2026"
 }

@@ -6,8 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Bitte keine Namen, Kennzeichen oder Fotos von Personen.** Diese Meldung ist öffentlich.
-        Defekte Straßenlampen, Schlaglöcher oder wilden Müll bitte direkt der Stadt melden (Links in der Karte unter „Problem melden“). In Notfällen: 110.
+        **Demo: Dies ist ein Vorschlag, keine offizielle Meldestelle.** Bitte keine Namen, Kennzeichen oder Fotos von Personen und keine Meldungen über Nachbarn oder bestimmte Personen. Diese Meldung ist öffentlich.
+        Defekte Straßenlampen, Schlaglöcher oder wilden Müll bitte direkt der Stadt melden, zum Beispiel über hannover-hinweis.de. In Notfällen: 110.
   - type: dropdown
     id: thema
     attributes:
@@ -17,7 +17,6 @@ body:
         - Müll / Verschmutzung
         - Verkehr / Schulweg
         - Treffpunkt / Aufenthalt / Grünfläche
-        - Zusammenleben / Konflikte
         - Barrierefreiheit
         - Sonstiges
     validations:

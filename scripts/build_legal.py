@@ -30,7 +30,7 @@ def val(legal, key, optional=False):
 
 def page(title, body):
     return (f'<!doctype html>\n<html lang="de">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            f'<meta name="robots" content="noindex">\n<title>{title} · Präventionsatlas Buchholz-Kleefeld</title>\n<style>{CSS}</style>\n</head>\n<body>\n<main>\n'
+            f'<meta name="robots" content="noindex">\n<title>{title} · Präventionsatlas Buchholz-Kleefeld (Entwurf, nicht offiziell)</title>\n<style>{CSS}</style>\n</head>\n<body>\n<main>\n'
             f'<a class="back" href="index.html">← Zurück zur Karte</a>\n{body}\n'
             f'<nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutzerklärung</a><a href="index.html">Zur Karte</a></nav>\n</main>\n</body>\n</html>\n')
 
@@ -46,7 +46,7 @@ def build():
 <h2>Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</h2>
 {who}
 <h2>Über dieses Angebot</h2>
-<p>Der Präventionsatlas Buchholz-Kleefeld ist ein Prototyp. Er wurde von Mohammad B. Saryazdi für den Präventionsrat Buchholz-Kleefeld entwickelt, um Orte, Schulwege und Meldungen im Stadtbezirk sichtbar zu machen. Es ist <b>keine amtliche Seite der Landeshauptstadt Hannover</b>. Auskünfte der Stadt und ihre offiziellen Meldewege finden Sie unter <a href="https://www.hannover.de/" rel="noopener">hannover.de</a>.</p>
+<p>Der Präventionsatlas Buchholz-Kleefeld ist ein Entwurf und eine Demo. Mohammad B. Saryazdi hat ihn als Vorschlag für den Präventionsrat Buchholz-Kleefeld entwickelt, um Orte, Schulwege und Themen im Stadtbezirk sichtbar zu machen. Er wird <b>nicht vom Präventionsrat und nicht von der Landeshauptstadt Hannover herausgegeben</b> und ist keine amtliche Seite. Auskünfte der Stadt und ihre offiziellen Meldewege finden Sie unter <a href="https://www.hannover.de/" rel="noopener">hannover.de</a>.</p>
 <h2>Inhalte und Quellen</h2>
 <p>Die Inhalte beruhen auf den im jeweiligen Eintrag genannten Quellen (Berichte der Stadt, Sitzungsunterlagen) und auf Daten von OpenStreetMap. Trotz sorgfältiger Prüfung kann keine Gewähr für Richtigkeit, Vollständigkeit und Aktualität übernommen werden. Der angezeigte „Prüfbedarf“ an Schulwegen ist ein Hinweis, wo sich eine Begehung lohnt, und keine Unfallanalyse.</p>
 <h2>Haftung für Links</h2>
@@ -69,14 +69,14 @@ def build():
 <p>Die Seite setzt keine Cookies. Sie speichert in Ihrem Browser (Local Storage) nur Einstellungen, die Sie selbst wählen, etwa eingeschaltete Ebenen, sowie im Prototyp die Meldungen, die Sie im Formular eingeben, damit sie auf Ihrem Gerät auf der Karte stehen bleiben. Diese Daten verlassen Ihr Gerät nicht. Sie können sie jederzeit über „Meine Test-Meldungen löschen“ oder in den Browser-Einstellungen entfernen. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG, weil die Speicherung für den von Ihnen gewünschten Dienst erforderlich ist.</p>
 <h2>6. Standort</h2>
 <p>Wenn Sie „Meinen Standort nehmen“ oder die Ortungstaste wählen, fragt Ihr Browser Sie um Erlaubnis. Der Standort wird nur in Ihrem Browser verwendet, um die Karte zu zentrieren und einen Punkt zu setzen. Er wird nicht an uns oder Dritte gesendet und nicht gespeichert (Art. 6 Abs. 1 lit. a DSGVO, Ihre Einwilligung über die Browserabfrage).</p>
-<h2>7. Meldeformular</h2>
-<p><b>Im jetzigen Prototyp wird nichts gesendet.</b> Was Sie eingeben, bleibt auf Ihrem Gerät (siehe Punkt 5). Sobald das Formular Meldungen übermittelt, wird diese Erklärung vorher ergänzt. Geplant ist: Meldungen werden als öffentlich lesbarer Eintrag bei GitHub gespeichert und vom Präventionsrat geprüft. Bitte schreiben Sie darin keine Namen, Kennzeichen oder Fotos von Personen. Kontaktdaten werden nicht abgefragt.</p>
+<h2>7. Meldeformular (Demo)</h2>
+<p><b>Das Meldeformular ist eine Demo. Es sendet nichts.</b> Was Sie eingeben, bleibt auf Ihrem Gerät (siehe Punkt 5). Das Formular zeigt nur, wie eine Meldefunktion aussehen könnte. Bevor es Meldungen übermittelt, wird diese Erklärung ergänzt: Verantwortlicher, eingesetzte Dienste (zum Beispiel Cloudflare als Auftragsverarbeiter und GitHub), Speicherdauer und Löschung. Das setzt eine Abstimmung mit dem Präventionsrat voraus. Bitte schreiben Sie auch in der Demo keine Namen, Kennzeichen oder Fotos von Personen und keine Angaben über Nachbarn. Kontaktdaten werden nicht abgefragt.</p>
 <h2>8. Wer liest Meldungen, und wie werden sie gelöscht?</h2>
-<p>Meldungen und Einschätzungen lesen die Betreuenden dieses Atlas im Auftrag des Präventionsrats Buchholz-Kleefeld. Auf der Karte erscheinen nur geprüfte Meldungen. Sie können jederzeit die Löschung Ihrer Meldung verlangen: Schreiben Sie an {mail} und nennen Sie die Meldungsnummer. Wir löschen oder anonymisieren sie dann bei GitHub. Weil Meldungen öffentlich waren, können Kopien bei Dritten (zum Beispiel Suchmaschinen oder Archiven) zeitweise bestehen bleiben, worauf wir keinen Einfluss haben. Geben Sie deshalb nie Namen, Kennzeichen oder Fotos von Personen an.</p>
+<p>Was Sie über die Links zu GitHub absenden (Punkt 9), lesen die Betreuenden dieses Atlas. Der Präventionsrat ist daran bisher nicht beteiligt. Auf der Karte erscheinen nur geprüfte Meldungen. Sie können jederzeit die Löschung Ihrer Meldung verlangen: Schreiben Sie an {mail} und nennen Sie die Meldungsnummer. Wir löschen oder anonymisieren sie dann bei GitHub. Weil Meldungen öffentlich waren, können Kopien bei Dritten (zum Beispiel Suchmaschinen oder Archiven) zeitweise bestehen bleiben, worauf wir keinen Einfluss haben. Geben Sie deshalb nie Namen, Kennzeichen oder Fotos von Personen an.</p>
 <h2>9. Einschätzungen und Meldungen über GitHub</h2>
-<p>Wer heute über die Links zu GitHub eine Meldung oder Einschätzung abgibt, benötigt dort ein Konto. Der Inhalt ist dann öffentlich lesbar, und GitHub verarbeitet Ihre Kontodaten nach seiner eigenen Datenschutzerklärung. Auf der Karte erscheinen Einschätzungen nur als Zahlen pro Ort und erst ab drei geprüften Antworten.</p>
+<p>Die Einschätzung „Wie fühlt sich dieser Ort abends an?“ öffnet auf Wunsch ein GitHub-Formular. Das ist die einzige Stelle der Demo, an der etwas übermittelt werden kann, und nur, wenn Sie dort selbst auf „Submit new issue“ klicken. Bitte nutzen Sie sie nur zum Ausprobieren. Wer dort etwas abgibt, benötigt ein Konto. Der Inhalt ist dann öffentlich lesbar, und GitHub verarbeitet Ihre Kontodaten nach seiner eigenen Datenschutzerklärung. Auf der Karte erscheinen Einschätzungen nur als Zahlen pro Ort und erst ab drei geprüften Antworten.</p>
 <h2>10. Externe Links</h2>
-<p>Wenn Sie einen Link zu einer anderen Seite anklicken (zum Beispiel hannover.de oder OpenStreetMap), gilt dort die Datenschutzerklärung der jeweiligen Seite.</p>
+<p>Wenn Sie einen Link zu einer anderen Seite anklicken (zum Beispiel hannover.de, hannover-hinweis.de oder OpenStreetMap), gilt dort die Datenschutzerklärung der jeweiligen Seite.</p>
 <h2>11. Ihre Rechte</h2>
 <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Wenden Sie sich dafür an die oben genannte Adresse. Sie können sich außerdem bei einer Aufsichtsbehörde beschweren, zum Beispiel bei der Landesbeauftragten für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover.</p>
 <p class="note">Stand: {stand}</p>"""

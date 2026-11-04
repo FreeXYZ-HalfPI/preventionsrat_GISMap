@@ -4,7 +4,7 @@
 
 ## Was Anwohnende sehen
 Ein Formular mit einer Frage pro Bildschirm (4 Schritte, große Schrift, Zurück jederzeit, Fortschrittsbalken):
-1. **Worum geht es?** Große Auswahlfelder mit Symbol (Beleuchtung, Müll, Verkehr/Schulweg, Treffpunkt, Zusammenleben, Barrierefreiheit, Sonstiges).
+1. **Worum geht es?** Große Auswahlfelder mit Symbol (Beleuchtung, Müll, Verkehr/Schulweg, Treffpunkt, Barrierefreiheit, Sonstiges).
 2. **Wo?** Auf die Karte tippen, den Punkt verschieben oder „Meinen Standort nehmen“. Angezeigt wird die nächste Straße und der Stadtteil.
 3. **Erzählen Sie uns mehr:** „Was ist das Problem?“, „Seit wann?“ (Auswahl), „Was schlagen Sie vor?“ (freiwillig).
 4. **Prüfen und absenden.** Der Hinweis, dass die Meldung öffentlich lesbar ist, muss bestätigt werden.

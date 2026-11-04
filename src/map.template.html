@@ -1,4 +1,4 @@
-<title>Präventionsatlas Buchholz-Kleefeld</title>
+<title>Präventionsatlas Buchholz-Kleefeld · Entwurf, nicht offiziell</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>/*__FONTS_CSS__*/</style>
 <style>/*__LEAFLET_CSS__*/</style>
@@ -277,7 +277,7 @@ table.zt th { font-family: var(--font-display); font-weight: 600; font-size: 13p
 .panel-head .tabs { grid-column: 1 / -1; }
 h1 { font-size: 21px; margin-top: 2px; }
 .head-actions { display: flex; gap: 6px; align-items: center; }
-.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; overflow: visible; margin: 0 -16px; padding: 0 8px; }
+.tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; overflow: visible; margin: 0 -16px; padding: 0 8px; }
 .tabs button { display: grid; justify-items: center; gap: 1px; padding: 7px 2px 6px; font-size: 14px; border-bottom-width: 3px; }
 .tabs .ti { font-size: 16px; line-height: 1; opacity: .75; }
 .tabs button[aria-selected="true"] .ti { color: var(--accent); opacity: 1; }
@@ -428,10 +428,22 @@ body.wiz-pin .wiz { max-height: 44vh; }
   .panel-head { grid-template-columns: minmax(0, 1fr) auto; }
   .panel-head > * { min-width: 0; }
   .head-actions { flex-wrap: wrap; justify-content: flex-end; }
-  .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-inline: 0; padding-inline: 0; }
+  .tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); margin-inline: 0; padding-inline: 0; }
   .tabs button { min-width: 0; padding-inline: 0; font-size: 13px; letter-spacing: 0; }
   .wiz-head h2 { overflow-wrap: anywhere; }
 }
+
+/* Entwurf/Demo-Hinweise */
+.demo-line { grid-column: 1 / -1; margin: 0; font-size: 13px; line-height: 1.35; font-weight: 700; color: var(--ink); background: var(--paper); border: 1px dashed var(--c-spielplatz); border-radius: 8px; padding: 5px 9px; }
+.demo-badge { position: absolute; z-index: 800; left: 56px; top: 12px; max-width: calc(100% - 130px); pointer-events: none; font: 700 12.5px/1.3 var(--font-body); background: var(--panel); color: var(--ink); border: 1px solid var(--c-spielplatz); border-radius: 8px; padding: 4px 9px; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.stigma { font-weight: 700; color: var(--ink); }
+@media (max-width: 760px) { .demo-badge { top: 62px; } }
+.about h3 { font-family: var(--font-display); font-size: 17px; margin: 14px 0 4px; }
+.about ul { margin: 4px 0; padding-left: 20px; display: grid; gap: 4px; font-size: 15px; }
+.about p { font-size: 15px; margin: 4px 0; }
+.about table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.about td { padding: 5px 4px; border-top: 1px solid var(--line); vertical-align: top; }
+.about td:last-child { white-space: nowrap; color: var(--ink-2); }
 </style>
 
 <script>try { var _t = localStorage.getItem("pa-theme"); if (_t === "light" || _t === "dark") document.documentElement.setAttribute("data-theme", _t); } catch (e) {}</script>
@@ -448,16 +460,19 @@ body.wiz-pin .wiz { max-height: 44vh; }
         <button class="btn small ghost" type="button" id="openProposal" hidden>Vorschlag</button>
         <button class="sheet-toggle" id="sheetToggle" aria-expanded="true" aria-controls="panelBody">Filter</button>
       </div>
+      <p class="demo-line"><b>Entwurf/Vorschlag</b> für den Präventionsrat Buchholz-Kleefeld – nicht offiziell. Demo.</p>
       <div class="tabs" role="tablist" aria-label="Ansicht">
         <button type="button" role="tab" id="tab-orte" data-view="orte" aria-selected="true"><span class="ti" aria-hidden="true">◉</span>Orte</button>
         <button type="button" role="tab" id="tab-themen" data-view="themen" aria-selected="false"><span class="ti" aria-hidden="true">◆</span>Themen</button>
         <button type="button" role="tab" id="tab-schulweg" data-view="schulweg" aria-selected="false"><span class="ti" aria-hidden="true">▣</span>Schulwege</button>
         <button type="button" role="tab" id="tab-zahlen" data-view="zahlen" aria-selected="false"><span class="ti" aria-hidden="true">▤</span>Zahlen</button>
+        <button type="button" role="tab" id="tab-ueber" data-view="ueber" aria-selected="false"><span class="ti" aria-hidden="true">ⓘ</span>Über</button>
       </div>
     </div>
     <div class="panel-body" id="viewThemen" hidden>
       <div class="callout" id="districtNote"></div>
       <div class="summary-row" id="issueSummary"></div>
+      <div class="callout"><b>Idee, noch keine Meldestelle.</b> Die Meldefunktion zeigt, wie es funktionieren könnte: Anwohnende beschreiben ein Thema und setzen einen Punkt, der Präventionsrat prüft die Meldung, erst danach erscheint sie mit Status auf der Karte. Defekte, Müll und Verkehr gehören zur Stadt, dafür könnte die Karte auf <a href="https://www.hannover-hinweis.de/" target="_blank" rel="noopener">hannover-hinweis.de</a> weiterleiten. In dieser Demo wird nichts gesendet.</div>
       <div class="row2"><button class="btn big" type="button" id="reportBtn">Problem melden</button><button class="btn ghost big" type="button" id="myReportsBtn">Meine Meldungen</button></div>
       <section class="report" id="mineBox" hidden aria-live="polite"></section>
       <section>
@@ -472,7 +487,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       <p class="note" id="liveNote"></p>
       <p class="note" id="localNote"></p>
       <footer class="foot">
-        Themen und Maßnahmen stammen aus den im Eintrag genannten Quellen (Tätigkeitsberichte, Sitzungsunterlagen des Stadtbezirksrats), Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat.
+        Themen und Maßnahmen stammen aus den im Eintrag genannten Quellen (Tätigkeitsberichte, Sitzungsunterlagen des Stadtbezirksrats), Stand <span id="issuesAsof"></span>. Jeder Eintrag nennt seine Quelle. Idee für später: Meldungen von Anwohnenden erscheinen erst, nachdem der Präventionsrat sie geprüft hat (Ablauf mit dem Präventionsrat abzustimmen).
       </footer>
     </div>
     <div class="panel-body" id="viewSchulweg" hidden>
@@ -482,6 +497,8 @@ body.wiz-pin .wiz { max-height: 44vh; }
         <div class="group-label">Ebenen</div>
         <div class="cats" id="swLayers"></div>
         <div class="legend" id="swLegend"></div>
+        <p class="note" id="swStand"></p>
+        <p class="note stigma">Hinweise für Begehungen, kein Ranking von Stadtteilen.</p>
       </section>
       <section>
         <div class="group-label"><span>Schulen nach Prüfbedarf</span></div>
@@ -502,6 +519,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
     </div>
     <div class="panel-body" id="viewZahlen" hidden>
       <div class="callout"><b>Zahlen aus den Berichten der Stadt.</b> Statistische Profile 2022, Sozialbericht 2023 und Sicherheitsbericht 2025. Wählen Sie einen Wert, dann färbt sich die Karte nach Stadtteil.</div>
+      <p class="note stigma">Hinweise für Begehungen, kein Ranking von Stadtteilen.</p>
       <section>
         <div class="group-label">Auf der Karte einfärben</div>
         <div class="seg" id="choroSel" role="group" aria-label="Kennzahl wählen"></div>
@@ -519,6 +537,39 @@ body.wiz-pin .wiz { max-height: 44vh; }
       </section>
       
     </div>
+    <div class="panel-body about" id="viewUeber" hidden>
+      <div class="callout"><b>Über diese Karte.</b> Ein Entwurf/Vorschlag für den Präventionsrat Buchholz-Kleefeld. Nicht offiziell, nicht von der Stadt oder dem Präventionsrat herausgegeben.</div>
+      <h3>Wofür ist die Karte?</h3>
+      <ul>
+        <li>Orte im Stadtbezirk auf einen Blick: Schulen, Jugendzentren, Spielplätze, Haltestellen.</li>
+        <li>Themen und Maßnahmen aus öffentlichen Unterlagen, jeweils mit Quelle.</li>
+        <li>Schulwege und unbeleuchtete Wege als Hinweis, wo sich eine Begehung lohnt.</li>
+        <li>Kennzahlen aus Berichten der Stadt als Gesprächsgrundlage für die Arbeitsgruppen.</li>
+      </ul>
+      <h3>Was sie nicht ist</h3>
+      <ul>
+        <li>Keine amtliche Seite und keine Meldestelle. Notfälle: 110 / 112. Defekte, Müll und Schäden gehören zur Stadt (<a href="https://www.hannover-hinweis.de/" target="_blank" rel="noopener">hannover-hinweis.de</a>).</li>
+        <li>Kein Ranking von Stadtteilen und keine Kriminalitätskarte. Die Zahlen sind Hinweise für Begehungen.</li>
+        <li>Keine Unfallanalyse. Der „Prüfbedarf“ an Schulen beruht auf OpenStreetMap-Daten und einfachen Punkten.</li>
+        <li>Keine Daten über Personen, keine Meldungen über Nachbarn. Die Meldefunktion ist eine Demo und sendet nichts.</li>
+      </ul>
+      <h3>Datenquellen und Stand</h3>
+      <table><tbody>
+        <tr><td>Orte, Wege, Schulwege (OpenStreetMap)</td><td>Stand <span id="ueOsm"></span></td></tr>
+        <tr><td>Themen und Maßnahmen (Sitzungsunterlagen, Berichte)</td><td>Stand <span id="ueIss"></span></td></tr>
+        <tr><td>Statistische Profile der Stadtteile</td><td>2022 (Unfälle 2020)</td></tr>
+        <tr><td>Sozialbericht der Stadt</td><td>2023</td></tr>
+        <tr><td>Sicherheitsbericht (Ordnungsdienst)</td><td>2025</td></tr>
+      </tbody></table>
+      <h3>Was wir vom Präventionsrat brauchen</h3>
+      <ul>
+        <li>Eine Rückmeldung, ob der Ansatz für den Rat nützlich ist, und fachliche Hinweise zu Themen und Zahlen.</li>
+        <li>Eine Entscheidung, ob es eine Meldefunktion geben soll, und wer sie prüft (Moderation, Zuständigkeit, Haftung).</li>
+        <li>Abstimmung zum Datenschutz: Verantwortliche Stelle, Speicherdauer, eingesetzte Dienste.</li>
+        <li>Eine Ansprechperson und einen Termin, um die Verbindung zu hannover-hinweis.de und zum Stadtbezirksmanagement zu klären.</li>
+      </ul>
+      <p class="note">Kontakt: <span id="ueMail"></span> · <a href="__ROOT__impressum.html">Impressum</a> · <a href="__ROOT__datenschutz.html">Datenschutz</a></p>
+    </div>
     <div class="panel-body" id="panelBody">
       <div class="orte-top">
         <input class="search" id="q" type="search" placeholder="Suchen: Schule, Jugendzentrum, Straße …" aria-label="Orte suchen" autocomplete="off">
@@ -530,6 +581,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       <footer class="foot">
         Daten: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap-Mitwirkende</a> (ODbL), Stand <span id="asof"></span>.
         Fehlt ein Ort oder stimmt etwas nicht? Einträge lassen sich direkt in OpenStreetMap ergänzen, beim nächsten Datenabruf erscheinen sie hier.
+        <div style="margin-top:8px"><b>Entwurf/Vorschlag für den Präventionsrat Buchholz-Kleefeld – nicht offiziell.</b></div>
         <div class="credit" style="margin-top:8px">Entwickelt von <b>Mohammad B. Saryazdi</b></div>
       </footer>
     </div>
@@ -537,6 +589,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
   <div class="mapwrap">
     <div id="map" role="region" tabindex="-1" aria-label="Karte des Stadtbezirks" aria-describedby="mapHelp"></div>
     <p class="sr-only" id="mapHelp">Alle Orte finden Sie auch als Liste im Bereich Orte. Mit den Pfeiltasten verschieben Sie die Karte, mit Plus und Minus zoomen Sie.</p>
+ <div class="demo-badge" aria-hidden="true">Entwurf – nicht offiziell · Demo</div>
     <div class="map-tools" role="group" aria-label="Kartenwerkzeuge">
       <button class="btn report-fab" type="button" id="fabReport"><span aria-hidden="true">＋</span> Problem melden</button>
       <button class="tool" type="button" id="themeBtn" title="Darstellung wechseln" aria-label="Darstellung wechseln: automatisch, hell oder dunkel"><span aria-hidden="true" id="themeIcon">◐</span></button>
@@ -549,7 +602,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       <div class="proposal-inner">
         <button class="btn ghost close" type="button" id="closeProposal">← Zurück zur Karte</button>
         <header>
-          <div class="eyebrow">Vorschlag · Präventionsrat Buchholz-Kleefeld · November 2026</div>
+          <div class="eyebrow">Entwurf/Vorschlag für den Präventionsrat Buchholz-Kleefeld – nicht offiziell · November 2026</div>
           <h2 id="propTitle">Vom Gremium zur Anlaufstelle: was Buchholz-Kleefeld von Wien lernen kann</h2>
           <p>Der Präventionsrat überprüft 2026 gemeinsam mit dem Landespräventionsrat seine Struktur und Handlungsfelder, auch um attraktiver für neue Mitglieder zu werden. Dieser Vorschlag zeigt sechs Bausteine, mit denen der Rat sichtbarer wird, Probleme der Nachbarschaft schneller aufnimmt und mehr Menschen beteiligt. Alle Bausteine nutzen, was es im Stadtbezirk schon gibt.</p>
         </header>
@@ -1185,7 +1238,7 @@ async function loadLive() {
     $("liveNote").textContent = pending ? `${pending} neue Meldung${pending > 1 ? "en werden" : " wird"} gerade geprüft.` : "";
     renderIssues();
   } catch (e) {
-    $("liveNote").textContent = "Geprüfte Meldungen von Anwohnenden erscheinen in der öffentlichen Version der Karte.";
+    $("liveNote").textContent = "Demo: Geprüfte Meldungen könnten später hier erscheinen.";
   }
 }
 
@@ -1198,7 +1251,6 @@ const TOPICS = [
   ["Müll / Verschmutzung", "🗑️", "Müll oder Schmutz"],
   ["Verkehr / Schulweg", "🚸", "Verkehr oder Schulweg"],
   ["Treffpunkt / Aufenthalt / Grünfläche", "🌳", "Treffpunkt, Park, Grünfläche"],
-  ["Zusammenleben / Konflikte", "🤝", "Streit oder Lärm"],
   ["Barrierefreiheit", "♿", "Nicht barrierefrei"],
   ["Sonstiges", "✎", "Etwas anderes"],
 ];
@@ -1241,14 +1293,17 @@ function wizRender() {
   $("map").classList.toggle("picking", wiz.step === 2 && !wizEl.hidden && (wiz.mode === "map" || wiz.lat != null));
   const s = wiz.step; let body = "", nav = "";
   if (s === 0) {
-    body = `<ul class="wiz-list">
+    body = `<p class="wiz-proto"><b>Idee und Demo.</b> So könnte eine Meldefunktion aussehen. Es wird nichts gesendet. Später: Meldung, Prüfung durch den Präventionsrat, dann erst Anzeige auf der Karte mit Status.</p><ul class="wiz-list">
       <li><b>Notfall?</b> Polizei <a href="tel:110">110</a>, Feuerwehr und Rettung <a href="tel:112">112</a>.</li>
+      <li><b>Städtische Anliegen</b> (Lampe, Müll, Verkehr): <a href="https://www.hannover-hinweis.de/" target="_blank" rel="noopener">hannover-hinweis.de</a>. <i>Möglichkeit: Die Karte könnte von hier direkt dorthin weiterleiten.</i></li>
       <li><b>Straßenlampe aus?</b> <a href="${URL_LICHT}" target="_blank" rel="noopener">Direkt der Stadt melden</a></li>
       <li><b>Schlagloch, Schaden, wilder Müll?</b> <a href="${URL_MAENGEL}" target="_blank" rel="noopener">Mängelhinweiskarte der Stadt</a></li>
-      <li><b>Alles andere</b> melden Sie hier: eine dunkle Ecke, Streit, ein gefährlicher Schulweg, eine Idee. Es dauert etwa 3 Minuten.</li></ul>`;
+      <li><b>Alles andere</b> (eine dunkle Ecke, ein gefährlicher Schulweg, eine Idee) könnten Sie hier melden, ohne Personen zu nennen. Es dauert etwa 3 Minuten.</li></ul>`;
     nav = `<div class="wiz-nav"><button class="btn big" type="button" data-w="next">Los geht’s</button></div>`;
   } else if (s === 1) {
     body = `<div class="wiz-topics">${TOPICS.map(t => `<button type="button" class="topic" data-topic="${esc(t[0])}" aria-pressed="${wiz.thema === t[0]}"><span aria-hidden="true">${t[1]}</span>${esc(t[2])}</button>`).join("")}</div>`;
+    body += /Beleuchtung|Müll|Verkehr/.test(wiz.thema) ? `<p class="wiz-help">Hinweis: Defekte, Müll und Verkehrsmängel gehören zur Stadt. Möglicher Weg: <a href="https://www.hannover-hinweis.de/" target="_blank" rel="noopener">hannover-hinweis.de</a>.</p>` : "";
+    body += `<p class="wiz-help">Bitte nennen Sie keine Personen und keine Nachbarn, es geht um Orte.</p>`;
     nav = wizBar("next", "Weiter", !!wiz.thema);
   } else if (s === 2) {
     const have = wiz.lat != null, manual = wiz.mode === "map";
@@ -1277,7 +1332,7 @@ function wizRender() {
       <dt>Problem</dt><dd>${esc(wiz.beschreibung)}</dd>${wiz.seit ? `<dt>Seit wann</dt><dd>${esc(wiz.seit)}</dd>` : ""}${wiz.vorschlag.trim() ? `<dt>Ihr Vorschlag</dt><dd>${esc(wiz.vorschlag)}</dd>` : ""}</dl>
       <label class="wiz-check"><input type="checkbox" id="wOk"${wiz.ok ? " checked" : ""}> Ich weiß: Die Meldung ist <b>öffentlich lesbar</b>, und sie enthält <b>keine Namen oder Daten anderer Personen</b>.</label>
       <p class="wiz-error" id="wizErr" role="alert" hidden></p>
-      <p class="note">Ihre Meldung lesen die Betreuenden dieses Atlas im Auftrag des Präventionsrats Buchholz-Kleefeld. ${DD.kontakt ? `Löschen lassen können Sie sie jederzeit: Schreiben Sie an <a href="mailto:${esc(DD.kontakt)}">${esc(DD.kontakt)}</a> und nennen Sie die Meldungsnummer.` : ""} Mehr dazu in der <a href="${LEGAL_ROOT}datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p class="note">Dies ist eine Demo. Ein späterer Betrieb würde vorher mit dem Präventionsrat abgestimmt. ${!PROTO && DD.kontakt ? `Löschen lassen können Sie sie jederzeit: Schreiben Sie an <a href="mailto:${esc(DD.kontakt)}">${esc(DD.kontakt)}</a> und nennen Sie die Meldungsnummer.` : ""} Mehr dazu in der <a href="${LEGAL_ROOT}datenschutz.html">Datenschutzerklärung</a>.</p>
       ${api || PROTO ? "" : `<p class="note">Zum Absenden öffnet sich GitHub (kostenloses Konto nötig). Ohne Konto können Sie den Text kopieren und dem Stadtbezirksmanagement schicken.</p>`}`;
     nav = `<div class="wiz-nav"><button class="btn ghost big" type="button" data-w="back">← Zurück</button>
       <button class="btn big" type="button" data-w="send"${wiz.sending ? " disabled" : ""}>${wiz.sending ? "Wird gesendet …" : PROTO ? "Fertig (Vorschau)" : api ? "Meldung absenden" : "Weiter zu GitHub"}</button></div>
@@ -1502,6 +1557,7 @@ const SRC = {
   msk: ["Stadt Hannover: Mobile Sicherheitskonferenz", "https://www.hannover.de/Service/Presse-Medien/Landeshauptstadt-Hannover/Aktuelle-Meldungen-und-Veranstaltungen/Mobile-Sicherheitskonferenz-in-Ricklingen"],
   maengel: ["Stadt Hannover: Mängelhinweiskarte", URL_MAENGEL],
   licht: ["Stadt Hannover: Störung Straßenbeleuchtung melden", URL_LICHT],
+  hinweis: ["Stadt Hannover: hannover-hinweis.de", "https://www.hannover-hinweis.de/"],
 };
 const MEAS = {
   schulwegplan: ["Schulwegplan prüfen", "Der Schulwegplan markiert gefährliche Stellen auf dem Weg zur Grundschule und soll jede Familie erhalten. Die Stadt Hannover stellt Pläne für Grundschulen bereit. Bei dieser Schule prüfen, ob es einen aktuellen Plan gibt und ob die Stellen aus der Karte darin stehen.", ["plan", "lvw"]],
@@ -1574,6 +1630,7 @@ function renderPerception() {
     ${ready ? `<div><div class="group-label">3. Tageszeit</div>${seg("zeit", ["Dämmerung", "Abend", "Nacht"], percForm.zeit)}</div>
     <div class="row"><a class="btn" href="${esc(gh)}" target="_blank" rel="noopener">Antwort auf GitHub abgeben</a><button class="btn ghost" type="button" id="copyPerc">Text kopieren</button></div>
     <textarea id="percText" readonly rows="5" style="width:100%;box-sizing:border-box;font:inherit;font-size: 14px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px" hidden>${esc(text)}</textarea>` : ""}
+    <p class="note"><b>Idee und Demo:</b> So könnte eine Befragung zum Sicherheitsgefühl funktionieren. Bitte nur zum Ausprobieren: Was Sie auf GitHub absenden, wäre öffentlich sichtbar. Ergebnisse sind Hinweise für Begehungen, kein Ranking von Stadtteilen.</p>
     <p class="note">Nur Zahlen pro Ort erscheinen auf der Karte, und erst ab ${PERC_MIN} geprüften Antworten. Keine Namen, keine Fotos von Personen. GitHub braucht ein kostenloses Konto. Ohne Konto: Text kopieren und an das Stadtbezirksmanagement schicken.</p>
     <div class="row"><button class="btn small ghost" type="button" id="cancelPerc">Schließen</button></div>`;
 }
@@ -1649,7 +1706,7 @@ const schoolMarkers = {}, hotMarkers = {};
 function renderSw() {
   $("swLayers").innerHTML = `<label class="cat" style="--cc:var(--zone)"><input type="checkbox" data-sw="zones" ${swState.zones ? "checked" : ""}><span class="sw"></span><span class="nm">Schulzonen<small>Kernzone 100 m und Umfeld 300 m</small></span><span class="ct">${SW.schools.length}</span></label>
     <label class="cat" style="--cc:var(--map-unlit)"><input type="checkbox" data-sw="hot" ${swState.hot ? "checked" : ""}><span class="sw"></span><span class="nm">Beleuchtungs-Schwerpunkte<small>viel unbeleuchteter Weg nahe Schulen, Kitas, Spielplätzen</small></span><span class="ct">${SW.hotspots.length}</span></label>
-    <label class="cat" style="--cc:var(--risk-hoch)"><input type="checkbox" data-sw="perc" ${swState.perc ? "checked" : ""}><span class="sw"></span><span class="nm">Wahrnehmung (Antworten)<small>Anteil „abends eher unsicher“, ab ${PERC_MIN} Antworten</small></span><span class="ct">${percTotal}</span></label>
+    <label class="cat" style="--cc:var(--risk-hoch)"><input type="checkbox" data-sw="perc" ${swState.perc ? "checked" : ""}><span class="sw"></span><span class="nm">Wahrnehmung (Antworten)<small>Anteil „abends eher unsicher“, ab ${PERC_MIN} Antworten. Hinweise für Begehungen, kein Ranking von Stadtteilen.</small></span><span class="ct">${percTotal}</span></label>
     <label class="cat line" style="--cc:var(--map-unlit)"><input type="checkbox" data-sw="unlit" ${state.unlit ? "checked" : ""}><span class="sw"></span><span class="nm">Unbeleuchtete Wege<small>alle in OSM erfassten Abschnitte</small></span><span class="ct">${DATA.unlit.features.length}</span></label>`;
   $("swLegend").innerHTML = Object.keys(RISK).map(k => `<span><i style="--rc:${rcol(k)}"></i>${RISK[k][0]}</span>`).join("");
   const dist = s => state.district === "alle" || s.stadtteil === state.district;
@@ -1667,6 +1724,7 @@ function renderSw() {
       <div class="acts"><button class="btn small ghost" type="button" data-hot="${esc(h.id)}">Auf Karte</button><button class="btn small" type="button" data-perc="${esc(h.id)}" data-label="${esc(h.id)}">Einschätzung abgeben</button></div></li>`).join("");
   $("measList").innerHTML = Object.entries(MEAS).map(([k, [t, d, s]]) => `<details class="meas"><summary>${esc(t)}</summary><p>${esc(d)}</p><p class="note">Quelle: ${mLinks(s)}</p></details>`).join("");
   $("swAsof").textContent = new Date(SW.updated).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  $("swStand").textContent = `Datenstand: Schulzonen, Beleuchtung und unbeleuchtete Wege aus OpenStreetMap, Stand ${$("swAsof").textContent}. Wahrnehmung: laufende Antworten, erst ab ${PERC_MIN} Antworten sichtbar.`;
 }
 $("swLayers").addEventListener("change", e => {
   const k = e.target.dataset.sw; if (!k) return;
@@ -1704,6 +1762,8 @@ function choroStats() {
   const vs = Object.values(val).filter(v => v != null);
   return { val, min: Math.min(...vs), max: Math.max(...vs), fmt: c[2] };
 }
+const SRC_STAND = { stat22: "Stand 2022, Unfälle 2020", sozial23: "Stand 2023", sich25: "Stand 2025" };
+const srcList = () => Object.entries(KZ.sources).map(([k, s]) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>${SRC_STAND[k] ? ` <span class="meta">(${SRC_STAND[k]})</span>` : ""}</li>`).join("");
 function renderZahlen() {
   if (!DD.has_kennzahlen) { renderZahlenPartial(); return; }
   $("choroSel").innerHTML = Object.entries(CHORO).map(([k, c]) => `<button type="button" data-k="${k}" aria-pressed="${choroKey === k}">${c[0]}</button>`).join("");
@@ -1729,7 +1789,7 @@ function renderZahlen() {
     <div><b>AG Wohnen:</b> 8 von 10 Unfallbeteiligten sind Auto oder Fahrrad, in Kleefeld fast die Hälfte Radfahrende. Das spricht für sichere Radrouten und Tempo 30 am Schulumfeld. Parken und Verkehr sind laut Sicherheitsbericht der Schwerpunkt des Ordnungsdienstes.</div>
     <div><b>AG Bildung und Gesundheit:</b> ${n0(B.unter18)} Kinder und Jugendliche leben im Bezirk, ${n0(KZ.stadtteile["Groß-Buchholz"].unter18)} davon in Groß-Buchholz. Dort beziehen auch 17,8 % Transferleistungen: Angebote wie „Sport im Park“ und der Mittagstisch erreichen diese Gruppe.</div>
     <div><b>AG Demokratie:</b> Mehr als 4 von 10 Einwohner*innen haben einen Migrationshintergrund (42,1 %). Das Schulkonzept sollte mehrsprachig denken: häufigste Alltagssprachen nach Deutsch sind Arabisch (5,5 %), Polnisch (3,1 %), Russisch (2,7 %).</div></div>`;
-  $("zSrc").innerHTML = Object.values(KZ.sources).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("");
+  $("zSrc").innerHTML = srcList();
 }
 function renderZahlenPartial() {
   document.querySelector("#viewZahlen > .callout").innerHTML = "<b>Zahlen aus den Berichten der Stadt.</b> Für diesen Bezirk bisher nur der Ordnungsdienst aus dem Sicherheitsbericht 2025."; $("choroSel").parentElement.hidden = true; $("zTable").parentElement.hidden = true; $("zMeaning").hidden = true;
@@ -1737,7 +1797,7 @@ function renderZahlenPartial() {
   const L = { verkehrsordnungswidrigkeiten: "Verkehrsordnungswidrigkeiten", abschleppmassnahmen: "Abschleppmaßnahmen", kontrollen: "Kontrollen", platzverweise: "Platzverweise" };
   $("zOrd").innerHTML = (O ? `<div class="group-label">Ordnungsdienst 2025 (Vorjahr → 2025)</div><table class="zt"><tbody>${Object.entries(L).filter(([k]) => O[k]).map(([k, l]) => `<tr><td>${l}</td><td>${n0(O[k]["2024"])} → ${n0(O[k]["2025"])}</td></tr>`).join("")}</tbody></table><p class="note" style="margin-top:6px">${esc(O.einordnung || "")}</p>` : "")
     + `<div class="callout" style="margin-top:12px">Stadtteil-Kennzahlen (Bevölkerung, Kinder, Transferleistungen, Unfälle) sind für ${esc(DD.name)} noch nicht eingepflegt. Sie stehen in den Statistischen Profilen der Stadt, siehe Quellen.</div>`;
-  $("zSrc").innerHTML = Object.values(KZ.sources).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("");
+  $("zSrc").innerHTML = srcList();
 }
 $("choroSel").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; choroKey = b.dataset.k; renderZahlen(); drawBounds(); });
 
@@ -1748,6 +1808,7 @@ function setView(v) {
   $("viewThemen").hidden = v !== "themen";
   $("viewSchulweg").hidden = v !== "schulweg";
   $("viewZahlen").hidden = v !== "zahlen";
+  $("viewUeber").hidden = v !== "ueber";
   if (v !== "themen") reportCancel();
   // each view shows only its own layers, so they don't drown among the places
   v === "orte" ? poiGroup.addTo(map) : map.removeLayer(poiGroup);
@@ -1788,8 +1849,11 @@ $("issuesAsof").textContent = new Date(ISS.updated).toLocaleDateString("de-DE", 
 const startHash = location.hash.slice(1);
 if (startHash === "themen") setView("themen");
 if (startHash === "vorschlag") openProposal();
-if (startHash === "schulweg" || startHash === "zahlen") setView(startHash);
+if (startHash === "schulweg" || startHash === "zahlen" || startHash === "ueber") setView(startHash);
 
+$("ueMail").innerHTML = DD.kontakt ? `<a href="mailto:${esc(DD.kontakt)}">${esc(DD.kontakt)}</a>` : "siehe Impressum";
+$("ueIss").textContent = $("issuesAsof").textContent;
+$("ueOsm").textContent = new Date(DATA.meta.fetched).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
 $("asof").textContent = new Date(DATA.meta.fetched).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
 
 function restyle() { drawBase(); drawBounds(); drawUnlit(); styleMarkers(); if (!$("viewSchulweg").hidden) drawSw(); }

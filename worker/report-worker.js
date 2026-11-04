@@ -2,7 +2,7 @@
 // damit Anwohnende kein GitHub-Konto brauchen. Kostenlos im Free-Plan.
 // Secrets/Variablen (wrangler secret put GH_TOKEN): GH_TOKEN = Fine-grained Token, nur dieses Repo, nur "Issues: Read and write".
 // Variablen: REPO ("FreeXYZ-HalfPI/preventionsrat_GISMap"), ORIGIN ("https://freexyz-halfpi.github.io")
-const THEMEN = ["Beleuchtung / dunkle Wege", "Müll / Verschmutzung", "Verkehr / Schulweg", "Treffpunkt / Aufenthalt / Grünfläche", "Zusammenleben / Konflikte", "Barrierefreiheit", "Sonstiges"];
+const THEMEN = ["Beleuchtung / dunkle Wege", "Müll / Verschmutzung", "Verkehr / Schulweg", "Treffpunkt / Aufenthalt / Grünfläche", "Barrierefreiheit", "Sonstiges"];
 const SEIT = ["", "Seit heute", "Seit einigen Tagen", "Seit einigen Wochen", "Seit einigen Monaten", "Schon sehr lange", "Weiß ich nicht"];
 const clip = (v, n) => String(v ?? "").replace(/\r/g, "").trim().slice(0, n);
 
