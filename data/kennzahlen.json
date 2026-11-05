@@ -1,35 +1,112 @@
 {
-  "_comment": "Kennzahlen aus den Berichten der Landeshauptstadt Hannover. Von Hand aus den PDFs übernommen, jede Zahl mit Berichtsseite. Unter-18-Anteil = Summe der Altersgruppen unter 3, 3-6, 6-10 und 10-18 Jahre, selbst berechnet.",
+  "_comment": "Kennzahlen aus den Berichten der Landeshauptstadt Hannover. Von Hand aus den PDFs übernommen. Strukturdaten 2026 (Stand Juli 2026): Einwohner und Alter 31.12.2025 (S. 11), Migrationshintergrund 31.12.2025 (S. 30), Transferleistungen 31.12.2024 (S. 109), Verkehrsunfälle mit Personenschaden 2024 ohne Autobahnen/Schnellwege/Bundesstraßen (S. 138-139). Grundschulalter (6-9 Jahre) nur aus den Statistischen Profilen 2022. Unfallanteile = Anteil der Unfälle mit mindestens einer Person auf Rad bzw. zu Fuß (Doppelzählungen möglich).",
   "sources": {
-    "stat22": {"title": "Statistische Profile der Stadtteile und Stadtbezirke 2022, Stadtbezirk 04 Buchholz-Kleefeld (S. 75-94)", "url": "https://www.statistikprofile-hannover.de"},
-    "sozial23": {"title": "Sozialbericht 2023, Landeshauptstadt Hannover (Kap. 2 Bevölkerung & Zusammenleben)", "url": "https://www.hannover.de"},
-    "sich25": {"title": "Sicherheitsbericht 2025, Polizeidirektion Hannover, Landeshauptstadt Hannover, aha (S. 11-12, 22, 29-30, 40)", "url": "https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf"}
+    "strukt26": {
+      "title": "Strukturdaten der Stadtteile und Stadtbezirke 2026, Landeshauptstadt Hannover, Sachgebiet Wahlen und Statistik",
+      "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/Politik/Wahlen-Statistik/Statistikstellen-von-Stadt-und-Region/Statistikstelle-der-Landeshauptstadt-Hannover/Strukturdaten-der-Stadtteile-und-Stadtbezirke"
+    },
+    "stat22": {
+      "title": "Statistische Profile der Stadtteile und Stadtbezirke 2022, Stadtbezirk 04 Buchholz-Kleefeld (nur Kinder im Grundschulalter)",
+      "url": "https://www.statistikprofile-hannover.de"
+    },
+    "sozial23": {
+      "title": "Sozialbericht 2023, Landeshauptstadt Hannover (Kap. 2 Bevölkerung & Zusammenleben)",
+      "url": "https://www.hannover.de"
+    },
+    "sich25": {
+      "title": "Sicherheitsbericht 2025, Polizeidirektion Hannover, Landeshauptstadt Hannover, aha (S. 11-12, 22, 29-30, 40)",
+      "url": "https://www.hannover.de/content/download/1071587/file/Sicherheitsbericht%202025.pdf"
+    }
   },
   "bezirk": {
-    "name": "Buchholz-Kleefeld", "einwohner": 46290, "flaeche_ha": 1396,
-    "unter18": 7675, "unter18_pct": 16.6, "ueber65_pct": 22.3, "migration_pct": 42.1,
-    "transfer_pct": 15.4, "arbeitslose_pct": 7.1, "alleinerziehende_hh": 965,
-    "unfaelle_personenschaden_2020": 135, "unfall_beteiligte": 203, "beteiligte_pkw": 94, "beteiligte_rad": 74, "beteiligte_fuss": 16,
-    "pkw_je_1000": 403
+    "name": "Buchholz-Kleefeld",
+    "einwohner": 48495,
+    "flaeche_ha": 1396,
+    "unter18": 8043,
+    "unter18_pct": 16.6,
+    "migration_pct": 46.5,
+    "transfer_pct": 15.1,
+    "unfaelle": 136,
+    "unfall_rad": 58,
+    "unfall_rad_pct": 42.6,
+    "unfall_fuss": 22,
+    "unfall_fuss_pct": 16.2
   },
   "stadtteile": {
-    "Groß-Buchholz": {"einwohner": 28628, "flaeche_ha": 784, "unter18": 5018, "unter18_pct": 17.5, "migration_pct": 47.8, "transfer_pct": 17.8, "unfaelle": 74, "beteiligte_rad_pct": 29.9, "beteiligte_fuss_pct": 10.3, "grundschulalter": 1099},
-    "Kleefeld": {"einwohner": 12718, "flaeche_ha": 464, "unter18": 1914, "unter18_pct": 15.0, "migration_pct": 34.9, "transfer_pct": 13.1, "unfaelle": 44, "beteiligte_rad_pct": 47.1, "beteiligte_fuss_pct": 4.4, "grundschulalter": 382},
-    "Heideviertel": {"einwohner": 4944, "flaeche_ha": 148, "unter18": 743, "unter18_pct": 15.0, "migration_pct": null, "transfer_pct": 7.5, "unfaelle": 17, "beteiligte_rad_pct": 35.7, "beteiligte_fuss_pct": 7.1, "grundschulalter": 175}
+    "Groß-Buchholz": {
+      "einwohner": 29894,
+      "flaeche_ha": 784,
+      "unter18": 5200,
+      "unter18_pct": 17.4,
+      "migration_pct": 51.5,
+      "transfer_pct": 17.1,
+      "unfaelle": 90,
+      "grundschulalter": 1099,
+      "unfall_rad": 35,
+      "unfall_rad_pct": 38.9,
+      "unfall_fuss": 14,
+      "unfall_fuss_pct": 15.6
+    },
+    "Kleefeld": {
+      "einwohner": 13330,
+      "flaeche_ha": 464,
+      "unter18": 1968,
+      "unter18_pct": 14.8,
+      "migration_pct": 39.6,
+      "transfer_pct": 12.3,
+      "unfaelle": 38,
+      "grundschulalter": 382,
+      "unfall_rad": 19,
+      "unfall_rad_pct": 50.0,
+      "unfall_fuss": 7,
+      "unfall_fuss_pct": 18.4
+    },
+    "Heideviertel": {
+      "einwohner": 5271,
+      "flaeche_ha": 148,
+      "unter18": 875,
+      "unter18_pct": 16.6,
+      "migration_pct": 34.8,
+      "transfer_pct": 10.7,
+      "unfaelle": 8,
+      "grundschulalter": 175,
+      "unfall_rad": 4,
+      "unfall_rad_pct": 50.0,
+      "unfall_fuss": 1,
+      "unfall_fuss_pct": 12.5
+    }
   },
   "ordnungsamt_2025": {
     "_quelle": "sich25, S. 40: Stadtbezirk 4 Buchholz-Kleefeld, Ordnungsdienst",
-    "verkehrsordnungswidrigkeiten": {"2024": 763, "2025": 2173},
-    "abschleppmassnahmen": {"2024": 29, "2025": 102},
-    "kontrollen": {"2024": 112, "2025": 64},
-    "platzverweise": {"2024": 3, "2025": 1},
-    "spielplatzsatzung": {"2024": 2, "2025": 0},
+    "verkehrsordnungswidrigkeiten": {
+      "2024": 763,
+      "2025": 2173
+    },
+    "abschleppmassnahmen": {
+      "2024": 29,
+      "2025": 102
+    },
+    "kontrollen": {
+      "2024": 112,
+      "2025": 64
+    },
+    "platzverweise": {
+      "2024": 3,
+      "2025": 1
+    },
+    "spielplatzsatzung": {
+      "2024": 2,
+      "2025": 0
+    },
     "einordnung": "Der Bericht sieht keine Verschlechterung der Sicherheits- und Ordnungslage; der Anstieg betrifft Verkehr und Parken (Bautätigkeit, höhere Auslastung der Verkehrsflächen, auf einen bekannten Problembereich konzentrierte Kontrollen)."
   },
   "hannover_2025": {
     "verkehrsunfallpraevention_veranstaltungen": 3097,
     "radunfaelle": 1461,
-    "kinder_tatverdaechtig": {"2024": 961, "2025": 797},
+    "kinder_tatverdaechtig": {
+      "2024": 961,
+      "2025": 797
+    },
     "_quelle": "sich25, S. 11-12"
   }
 }
