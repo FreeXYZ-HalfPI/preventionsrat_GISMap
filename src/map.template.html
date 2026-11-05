@@ -437,6 +437,27 @@ body.wiz-pin .wiz { max-height: 44vh; }
 .demo-line { grid-column: 1 / -1; margin: 0; font-size: 13px; line-height: 1.35; font-weight: 700; color: var(--ink); background: var(--paper); border: 1px dashed var(--c-spielplatz); border-radius: 8px; padding: 5px 9px; }
 .demo-badge { position: absolute; z-index: 800; left: 56px; top: 12px; max-width: calc(100% - 130px); pointer-events: none; font: 700 12.5px/1.3 var(--font-body); background: var(--panel); color: var(--ink); border: 1px solid var(--c-spielplatz); border-radius: 8px; padding: 4px 9px; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .stigma { font-weight: 700; color: var(--ink); }
+/* Zahlen: Karten mit großen Werten und Balken statt breiter Tabelle (kein seitliches Scrollen) */
+.kz { display: grid; gap: 12px; }
+.kz h4 { margin: 6px 0 -4px; font: 700 13px var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.kz-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; background: var(--panel); }
+.kz-card h5 { margin: 0; font: 600 16px/1.3 var(--font-display); }
+.kz-card .hint { margin: 2px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.kz-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 3px 10px; padding-top: 9px; }
+.kz-row .nm { font-size: 15.5px; }
+.kz-row .v { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.kz-row .v small { font-size: 13px; font-weight: 400; color: var(--ink-2); }
+.kz-row .bar { grid-column: 1 / -1; height: 9px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.kz-row .bar i { display: block; height: 100%; border-radius: 5px; background: var(--accent); }
+.kz-row.bez { margin-top: 9px; border-top: 1px dashed var(--line); }
+.kz-row.bez .nm { color: var(--ink-2); }
+.kz-row .na { font-size: 14px; color: var(--ink-2); font-style: italic; }
+.od { display: grid; gap: 8px; }
+.od-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: baseline; border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; background: var(--panel); }
+.od-row .nm { font-size: 15.5px; }
+.od-row .v { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.od-row .ch { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-2); }
+
 @media (max-width: 760px) { .demo-badge { top: 62px; } }
 .about h3 { font-family: var(--font-display); font-size: 17px; margin: 14px 0 4px; }
 .about ul { margin: 4px 0; padding-left: 20px; display: grid; gap: 4px; font-size: 15px; }
@@ -527,7 +548,7 @@ body.wiz-pin .wiz { max-height: 44vh; }
       </section>
       <section>
         <div class="group-label">Stadtteile im Vergleich</div>
-        <table class="zt" id="zTable"></table>
+        <div class="kz" id="zTable"></div>
       </section>
       <section id="zOrd"></section>
       <section id="zMeaning"></section>
@@ -1769,21 +1790,34 @@ function renderZahlen() {
   $("choroSel").innerHTML = Object.entries(CHORO).map(([k, c]) => `<button type="button" data-k="${k}" aria-pressed="${choroKey === k}">${c[0]}</button>`).join("");
   $("choroNote").textContent = CHORO_NOTE[choroKey];
   const S = KZ.stadtteile, B = KZ.bezirk, f1 = v => v == null ? "–" : v.toFixed(1).replace(".", ","), n0 = v => v.toLocaleString("de-DE");
-  const names = Object.keys(S);
-  const row = (label, fn, bez) => `<tr><td>${label}</td>${names.map(n => `<td>${fn(S[n])}</td>`).join("")}<td>${bez}</td></tr>`;
-  $("zTable").innerHTML = `<thead><tr><th></th>${names.map(n => `<th>${esc(n)}</th>`).join("")}<th>Bezirk</th></tr></thead><tbody>
-    ${row("Einwohner*innen", s => n0(s.einwohner), n0(B.einwohner))}
-    ${row("Unter 18 Jahre", s => n0(s.unter18), n0(B.unter18))}
-    ${row("Unter 18, Anteil %", s => f1(s.unter18_pct), f1(B.unter18_pct))}
-    ${row("Grundschulalter (6–9)", s => n0(s.grundschulalter), "–")}
-    ${row("Migrationshintergrund %", s => f1(s.migration_pct), f1(B.migration_pct))}
-    ${row("Transferleistungen %", s => f1(s.transfer_pct), f1(B.transfer_pct))}
-    ${row("Unfälle m. Personenschaden", s => n0(s.unfaelle), n0(B.unfaelle_personenschaden_2020))}
-    ${row("davon Radfahrende, % der Beteiligten", s => f1(s.beteiligte_rad_pct), f1(B.beteiligte_rad / B.unfall_beteiligte * 100))}
-    ${row("davon Fußgänger*innen, %", s => f1(s.beteiligte_fuss_pct), f1(B.beteiligte_fuss / B.unfall_beteiligte * 100))}</tbody>`;
-  const O = KZ.ordnungsamt_2025, ch = k => { const d = O[k]; return `${n0(d["2024"])} → ${n0(d["2025"])}`; };
-  $("zOrd").innerHTML = `<div class="group-label">Ordnungsdienst 2025 (Vorjahr → 2025)</div>
-    <table class="zt"><tbody><tr><td>Verkehrsordnungswidrigkeiten</td><td>${ch("verkehrsordnungswidrigkeiten")}</td></tr><tr><td>Abschleppmaßnahmen</td><td>${ch("abschleppmassnahmen")}</td></tr><tr><td>Kontrollen</td><td>${ch("kontrollen")}</td></tr><tr><td>Platzverweise</td><td>${ch("platzverweise")}</td></tr><tr><td>Verstöße Spielplatzsatzung</td><td>${ch("spielplatzsatzung")}</td></tr></tbody></table>
+  const names = Object.keys(S), de1 = v => v.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  // Ein Block je Kennzahl: je Stadtteil ein großer Wert mit Balken, darunter der ganze Bezirk. Reihenfolge fest, kein Ranking.
+  const card = (title, hint, vals, fmt, bez, bezLabel = "Ganzer Bezirk") => {
+    const nums = [...vals.map(x => x[1]), bez == null ? null : bez[0]].filter(v => v != null), max = Math.max(...nums) || 1;
+    const rows = vals.map(([n, v, extra]) => v == null
+      ? `<div class="kz-row"><span class="nm">${esc(n)}</span><span class="v na">keine Angabe</span></div>`
+      : `<div class="kz-row"><span class="nm">${esc(n)}</span><span class="v">${fmt(v)}${extra ? ` <small>${esc(extra)}</small>` : ""}</span><span class="bar" aria-hidden="true"><i style="width:${Math.max(2, v / max * 100)}%"></i></span></div>`).join("");
+    const b = bez ? `<div class="kz-row bez"><span class="nm">${bezLabel}</span><span class="v">${fmt(bez[0])}${bez[1] ? ` <small>${esc(bez[1])}</small>` : ""}</span></div>` : "";
+    return `<div class="kz-card"><h5>${title}</h5><p class="hint">${hint}</p>${rows}${b}</div>`;
+  };
+  const pct = v => de1(v) + " %", cnt = v => n0(v);
+  const per = k => names.map(n => [n, S[n][k]]);
+  const perK = n => S[n].unfaelle / S[n].einwohner * 1000;
+  $("zTable").innerHTML = `<h4>Bevölkerung</h4>
+    ${card("Einwohner*innen", "Wie viele Menschen leben dort?", per("einwohner"), cnt, [B.einwohner])}
+    ${card("Kinder und Jugendliche unter 18", "Anteil an allen Einwohner*innen", names.map(n => [n, S[n].unter18_pct, n0(S[n].unter18) + " Pers."]), pct, [B.unter18_pct, n0(B.unter18) + " Pers."])}
+    ${card("Kinder im Grundschulalter (6–9)", "Anzahl, wichtig für Schulwege", per("grundschulalter"), cnt, null)}
+    ${card("Migrationshintergrund", "Anteil an allen Einwohner*innen", per("migration_pct"), pct, [B.migration_pct])}
+    <h4>Soziales</h4>
+    ${card("Transferleistungen", "Anteil der Menschen, die z. B. Bürgergeld oder Wohngeld beziehen", per("transfer_pct"), pct, [B.transfer_pct])}
+    <h4>Verkehrsunfälle mit Personenschaden (2020)</h4>
+    ${card("Unfälle je 1.000 Einwohner*innen", "So lassen sich unterschiedlich große Stadtteile vergleichen. Kleine Fallzahlen schwanken stark.", names.map(n => [n, perK(n), n0(S[n].unfaelle) + " Unfälle"]), de1, [B.unfaelle_personenschaden_2020 / B.einwohner * 1000, n0(B.unfaelle_personenschaden_2020) + " Unfälle"])}
+    ${card("Radfahrende unter den Unfallbeteiligten", "Anteil an allen Beteiligten", per("beteiligte_rad_pct"), pct, [B.beteiligte_rad / B.unfall_beteiligte * 100])}
+    ${card("Fußgänger*innen unter den Unfallbeteiligten", "Anteil an allen Beteiligten", per("beteiligte_fuss_pct"), pct, [B.beteiligte_fuss / B.unfall_beteiligte * 100])}`;
+  const O = KZ.ordnungsamt_2025;
+  const od = (label, k) => { const d = O[k], a = d["2024"], b = d["2025"], ch = a >= 50 ? ` (${b >= a ? "+" : "−"}${Math.round(Math.abs(b - a) / a * 100)} %)` : ""; return `<div class="od-row"><span class="nm">${label}</span><span class="v">${n0(a)} → ${n0(b)}</span><span class="ch">2024 → 2025${ch}</span></div>`; };
+  $("zOrd").innerHTML = `<div class="group-label">Ordnungsdienst: Einsätze 2024 und 2025</div>
+    <div class="od">${od("Verkehrsordnungswidrigkeiten", "verkehrsordnungswidrigkeiten")}${od("Abschleppmaßnahmen", "abschleppmassnahmen")}${od("Kontrollen", "kontrollen")}${od("Platzverweise", "platzverweise")}${od("Verstöße gegen die Spielplatzsatzung", "spielplatzsatzung")}</div>
     <p class="note" style="margin-top:6px">${esc(O.einordnung)}</p>`;
   $("zMeaning").innerHTML = `<div class="group-label">Was die Zahlen für die AGs bedeuten</div><div class="callout" style="display:grid;gap:6px">
     <div><b>AG Wohnen:</b> 8 von 10 Unfallbeteiligten sind Auto oder Fahrrad, in Kleefeld fast die Hälfte Radfahrende. Das spricht für sichere Radrouten und Tempo 30 am Schulumfeld. Parken und Verkehr sind laut Sicherheitsbericht der Schwerpunkt des Ordnungsdienstes.</div>
