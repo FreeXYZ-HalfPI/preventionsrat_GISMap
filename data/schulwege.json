@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01",
+ "updated": "2026-11-05",
  "has_street_context": true,
  "schools": [
   {
@@ -10,7 +10,7 @@
    ],
    "stadtteil": "Kleefeld",
    "art": "weiterführende Schule",
-   "unbeleuchtet_m": 1201,
+   "unbeleuchtet_m": 1967,
    "kitas": 1,
    "spielplaetze": 2,
    "haltestellen": 1,
@@ -24,7 +24,7 @@
    "pruefbedarf": "hoch",
    "gruende": [
     "Hauptverkehrsstraße im Umfeld: Berckhusenstraße",
-    "1201 m unbeleuchtete Wege im Umfeld"
+    "1967 m unbeleuchtete Wege im Umfeld"
    ],
    "massnahmen": [
     "tempo30",
@@ -43,7 +43,7 @@
    ],
    "stadtteil": "Kleefeld",
    "art": "Grundschule",
-   "unbeleuchtet_m": 973,
+   "unbeleuchtet_m": 1388,
    "kitas": 1,
    "spielplaetze": 2,
    "haltestellen": 1,
@@ -58,7 +58,7 @@
    "pruefbedarf": "hoch",
    "gruende": [
     "Hauptverkehrsstraße im Umfeld: Berckhusenstraße, Karl-Wiechert-Allee",
-    "973 m unbeleuchtete Wege im Umfeld"
+    "1388 m unbeleuchtete Wege im Umfeld"
    ],
    "massnahmen": [
     "schulwegplan",
@@ -69,7 +69,8 @@
     "elternhaltestelle",
     "licht_melden",
     "abendbegehung",
-    "schulwegueberwachung"
+    "schulwegueberwachung",
+    "schulstrasse"
    ]
   },
   {
@@ -139,7 +140,8 @@
     "elternhaltestelle",
     "licht_melden",
     "abendbegehung",
-    "schulwegueberwachung"
+    "schulwegueberwachung",
+    "schulstrasse"
    ]
   },
   {
@@ -240,7 +242,7 @@
    ],
    "stadtteil": "Kleefeld",
    "art": "weiterführende Schule",
-   "unbeleuchtet_m": 822,
+   "unbeleuchtet_m": 906,
    "kitas": 0,
    "spielplaetze": 6,
    "haltestellen": 0,
@@ -251,7 +253,7 @@
    "punkte": 2,
    "pruefbedarf": "mittel",
    "gruende": [
-    "822 m unbeleuchtete Wege im Umfeld"
+    "906 m unbeleuchtete Wege im Umfeld"
    ],
    "massnahmen": [
     "licht_melden",
@@ -574,6 +576,28 @@
   {
    "id": "L7",
    "coords": [
+    52.377394,
+    9.802228
+   ],
+   "stadtteil": "Kleefeld",
+   "unbeleuchtet_m": 449,
+   "radius_m": 200,
+   "punkte": 12.0,
+   "naehe": {
+    "Schule": 0,
+    "Kita": 1,
+    "Spielplatz": 3,
+    "Haltestelle": 3
+   },
+   "orte": [
+    "Berckhusenstraße",
+    "DRK Kindertagesstätte Kinder\"T\"raum",
+    "Spielplatz"
+   ]
+  },
+  {
+   "id": "L8",
+   "coords": [
     52.394844,
     9.815329
    ],
@@ -593,7 +617,7 @@
    ]
   },
   {
-   "id": "L8",
+   "id": "L9",
    "coords": [
     52.400369,
     9.820152
@@ -611,28 +635,6 @@
    "orte": [
     "Kindertagesstätte Fridtjof-Nansen-Haus",
     "Spielplatz"
-   ]
-  },
-  {
-   "id": "L9",
-   "coords": [
-    52.376076,
-    9.804267
-   ],
-   "stadtteil": "Kleefeld",
-   "unbeleuchtet_m": 177,
-   "radius_m": 200,
-   "punkte": 11.3,
-   "naehe": {
-    "Schule": 2,
-    "Kita": 1,
-    "Spielplatz": 0,
-    "Haltestelle": 2
-   },
-   "orte": [
-    "Grundschule Nackenberger Straße",
-    "Kleefelder Frischlinge",
-    "Leinetal Gymnasium & Realschule"
    ]
   },
   {
