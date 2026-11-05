@@ -1,6 +1,6 @@
 """Combine fetched data with the template into one self-contained index.html.
 Entwickelt von Mohammad B. Saryazdi für den Präventionsrat Buchholz-Kleefeld."""
-import json, os
+import json, os, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -45,9 +45,23 @@ def pack_basemap(base):
     return out
 
 
+EMAIL = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$")
+
+
+def load_json(d, name, slug):
+    """Read a data file; name the file and the fix when it is missing or broken."""
+    f = d / name
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        sys.exit(f"FEHLER: {f} fehlt (Bezirk {slug}). Abruf der Daten: siehe README, Abschnitt zu scripts/fetch_*.py")
+    except json.JSONDecodeError as e:
+        sys.exit(f"FEHLER: {f} ist kein gültiges JSON (Zeile {e.lineno}: {e.msg}). Datei neu abrufen.")
+
+
 def build(slug, cfg, all_cfg):
     d = ROOT / cfg["data_dir"]
-    load = lambda n: json.loads((d / n).read_text())
+    load = lambda n: load_json(d, n, slug)
     boundaries = load("boundaries.geojson")
     pois = load("pois.geojson")
     stadtteile = [f for f in boundaries["features"] if f["properties"]["level"] == "stadtteil"]
@@ -62,7 +76,7 @@ def build(slug, cfg, all_cfg):
     district = {k: cfg[k] for k in ("name", "nr", "home_view", "praeventionsrat", "polizeistation", "has_proposal", "has_kennzahlen")}
     district["report_api"] = cfg.get("report_api", "")
     legal = json.loads((ROOT / "config" / "legal.json").read_text())
-    district["kontakt"] = legal["email"] if "@" in legal["email"] and not legal["email"].startswith("[") else ""
+    district["kontakt"] = legal["email"].strip() if EMAIL.match(legal["email"].strip()) else ""
     district["report_mode"] = cfg.get("report_mode", "")
     district["slug"] = slug
     district["districts"] = [{"slug": k, "name": v["name"], "href": os.path.relpath(ROOT / v["out"], here).replace(os.sep, "/")}

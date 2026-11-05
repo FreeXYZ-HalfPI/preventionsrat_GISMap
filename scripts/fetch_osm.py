@@ -4,8 +4,8 @@ import json, sys, time, urllib.parse, urllib.request
 from pathlib import Path
 
 ENDPOINTS = [
-    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "https://overpass-api.de/api/interpreter",
+    "https://z.overpass-api.de/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
 ]
 UA = "PraeventionsratBuchholzKleefeld/1.0 (community map)"
@@ -21,11 +21,15 @@ def overpass(q):
             try:
                 req = urllib.request.Request(ep, body, {"User-Agent": UA})
                 with urllib.request.urlopen(req, timeout=180) as r:
-                    return json.load(r)
+                    data = json.load(r)
+                if "elements" not in data:   # z. B. Fehlerseite oder „remark“ bei Timeout des Servers
+                    raise ValueError(data.get("remark", "Antwort ohne 'elements'"))
+                return data
             except Exception as e:
                 print(f"  {ep}: {e}", file=sys.stderr, flush=True)
+        print(f"  alle Endpunkte fehlgeschlagen, Versuch {attempt + 1}/4", file=sys.stderr, flush=True)
         time.sleep(10 * (attempt + 1))
-    sys.exit("Overpass unreachable")
+    sys.exit("Overpass nicht erreichbar oder liefert keine gültige Antwort. Später erneut versuchen.")
 
 
 def ring_join(ways):
@@ -116,9 +120,10 @@ def pois():
         if key in seen:
             continue
         seen.add(key)
-        lat = e.get("lat") or e.get("center", {}).get("lat")
-        lon = e.get("lon") or e.get("center", {}).get("lon")
-        if lat is None:
+        c = e.get("center", {})
+        lat = e["lat"] if e.get("lat") is not None else c.get("lat")
+        lon = e["lon"] if e.get("lon") is not None else c.get("lon")
+        if lat is None or lon is None:
             continue
         props = {k: v for k, v in e.get("tags", {}).items() if k in KEEP_TAGS}
         props.update(category=cat, osm=key)

@@ -5,6 +5,15 @@
 const THEMEN = ["Beleuchtung / dunkle Wege", "Müll / Verschmutzung", "Verkehr / Schulweg", "Treffpunkt / Aufenthalt / Grünfläche", "Barrierefreiheit", "Sonstiges"];
 const SEIT = ["", "Seit heute", "Seit einigen Tagen", "Seit einigen Wochen", "Seit einigen Monaten", "Schon sehr lange", "Weiß ich nicht"];
 const clip = (v, n) => String(v ?? "").replace(/\r/g, "").trim().slice(0, n);
+// Freitext darf im Issue weder Links/Bilder noch Überschriften einschleusen (die Karte liest die Felder anhand der
+// „### …“-Überschriften) noch Personen per @ anpingen. Backslash-Escapes vermeiden wir, weil die Karte den Rohtext zeigt.
+const safe = s => s
+  .replace(/!?\[([^\]]*)\]\(([^)]*)\)/g, "$1 ($2)")      // [Text](url) -> Text (url), kein anklickbarer Verweis
+  .replace(/^[ \t]*#+/gm, "")                               // keine Überschriften
+  .replace(/@/g, "@\u200b");                                // keine @-Erwähnungen
+const oneLine = s => safe(s.replace(/\s+/g, " ")).trim();
+// Gültiger Bereich (Süd,West,Nord,Ost). Standard: Buchholz-Kleefeld; für weitere Bezirke env.BBOX setzen, z. B. "52.3,9.6,52.5,9.95".
+const bbox = env => { const b = String(env.BBOX || "52.3,9.6,52.5,9.95").split(",").map(Number); return b.length === 4 && b.every(Number.isFinite) ? b : [52.3, 9.6, 52.5, 9.95]; };
 
 export default {
   async fetch(req, env) {
@@ -14,11 +23,11 @@ export default {
     if (req.method !== "POST" || req.headers.get("Origin") !== env.ORIGIN) return out({ error: "forbidden" }, 403);
     let m; try { m = await req.json(); } catch { return out({ error: "bad json" }, 400); }
     if (m.website) return out({ number: 0 });                       // Honeypot: Bots füllen das Feld aus
-    const lat = Number(m.lat), lon = Number(m.lon), text = clip(m.beschreibung, 1500);
-    if (!THEMEN.includes(m.thema) || !SEIT.includes(m.seit_wann || "") || text.length < 10 || !(lat > 52.3 && lat < 52.5 && lon > 9.6 && lon < 9.95)) return out({ error: "invalid" }, 422);
-    const ort = clip(m.ort, 120);
+    const [s, w, n, e] = bbox(env), lat = Number(m.lat), lon = Number(m.lon), text = safe(clip(m.beschreibung, 1500));
+    if (!THEMEN.includes(m.thema) || !SEIT.includes(m.seit_wann || "") || text.length < 10 || !(lat > s && lat < n && lon > w && lon < e)) return out({ error: "invalid" }, 422);
+    const ort = oneLine(clip(m.ort, 120));
     // Gleiche Überschriften wie in .github/ISSUE_TEMPLATE/meldung.yml, damit die Karte die Meldung lesen kann
-    const body = `### Thema\n\n${m.thema}\n\n### Ort\n\n${ort}\n\n### Koordinaten\n\n${lat.toFixed(5)}, ${lon.toFixed(5)}\n\n### Was ist das Problem?\n\n${text}\n\n### Seit wann gibt es das Problem?\n\n${m.seit_wann || "_No response_"}\n\n### Was schlagen Sie vor?\n\n${clip(m.vorschlag, 1000) || "_No response_"}\n\n_Eingegangen über das Formular der Karte._`;
+    const body = `### Thema\n\n${m.thema}\n\n### Ort\n\n${ort}\n\n### Koordinaten\n\n${lat.toFixed(5)}, ${lon.toFixed(5)}\n\n### Was ist das Problem?\n\n${text}\n\n### Seit wann gibt es das Problem?\n\n${m.seit_wann || "_No response_"}\n\n### Was schlagen Sie vor?\n\n${safe(clip(m.vorschlag, 1000)) || "_No response_"}\n\n_Eingegangen über das Formular der Karte._`;
     const r = await fetch(`https://api.github.com/repos/${env.REPO}/issues`, {
       method: "POST",
       headers: { Authorization: `Bearer ${env.GH_TOKEN}`, Accept: "application/vnd.github+json", "User-Agent": "praeventionsatlas-report", "Content-Type": "application/json" },
